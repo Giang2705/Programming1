@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class UserLoginPage implements ActionListener {
     private JPanel Main;
@@ -46,7 +47,13 @@ public class UserLoginPage implements ActionListener {
         }
         if (e.getSource() == btnLogin){
             frame.dispose();
-            MemberHomePage memberHomePage = new MemberHomePage();
+            String username = usernameField1.getText();
+            String password = String.valueOf(passwordField1.getPassword());
+            try {
+                new readDatabase().readFile(username, password, "", "");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }
