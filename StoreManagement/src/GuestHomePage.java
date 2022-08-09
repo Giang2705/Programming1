@@ -7,11 +7,13 @@ public class GuestHomePage implements ActionListener {
     private JButton btnLogin;
     private JButton btnRegister;
     private JButton btnGoBack;
+    private JButton btnAdminLogin;
     private JLabel goBack;
 
     JFrame frame = new JFrame();
     GuestHomePage(){
         btnLogin.addActionListener(this);
+        btnAdminLogin.addActionListener(this);
         btnRegister.addActionListener(this);
         btnGoBack.addActionListener(this);
 
@@ -28,7 +30,10 @@ public class GuestHomePage implements ActionListener {
             frame.dispose();
             UserLoginPage userLoginPage = new UserLoginPage();
         }
-
+        if (e.getSource() == btnAdminLogin){
+            frame.dispose();
+            AdminLoginPage adminLoginPage = new AdminLoginPage();
+        }
         if (e.getSource() == btnRegister){
             frame.dispose();
             UserRegisterForm userRegisterForm = new UserRegisterForm();
