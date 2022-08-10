@@ -1,3 +1,4 @@
+import ClassAttribute.Admin;
 import ClassAttribute.Member;
 
 import java.io.*;
@@ -38,4 +39,40 @@ public class readDatabase {
                 e.printStackTrace();
         }
     }
+
+    public void readAdminFile(String id, String username, String password) throws IOException {
+        BufferedReader b = null;
+        String line = "";
+        String delimiter = ", ";
+
+        try {
+            List<Admin> admins = new ArrayList<Admin>();
+            FileReader fr = new FileReader("/C:/StoreManagement/UsersDB/admins.csv");
+            b = new BufferedReader(fr);
+            while ((line = b.readLine()) != null) {
+                String[] file = line.split(delimiter);
+
+                if (file.length > 0){
+                    Admin ad = new Admin();
+                    //   set value for member's attribute
+                    ad.setAdminId(id);
+                    ad.setAdminUsername(username);
+                    ad.setAdminPassword(password);
+
+                    admins.add(ad);
+
+                    if (file[0].equals(username) && file[1].equals(password)) {
+                        MemberHomePage memberHomePage = new MemberHomePage();
+                        memberHomePage.getBtnAccount().setText(ad.getAdminUsername());
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
