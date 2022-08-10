@@ -1,14 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="AdminHomePage">
-  <grid id="cbd77" binding="Admin" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="Main" layout-manager="GridLayoutManager" row-count="3" column-count="15" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="143" y="182" width="869" height="550"/>
+      <xy x="20" y="20" width="1006" height="400"/>
     </constraints>
-    <properties/>
+    <properties>
+      <background color="-1"/>
+    </properties>
     <border type="none"/>
     <children>
-      <component id="1b46b" class="javax.swing.JLabel">
+      <grid id="9dc4c" binding="product2" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="10" left="10" bottom="10" right="10"/>
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="6" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="8bf4d" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Product 2"/>
+            </properties>
+          </component>
+          <component id="bef5a" class="javax.swing.JButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Edit Product"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="72b75" binding="product3" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="10" left="10" bottom="10" right="10"/>
+        <constraints>
+          <grid row="2" column="9" row-span="1" col-span="6" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="e199a" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Product 3"/>
+            </properties>
+          </component>
+          <component id="1ef2f" class="javax.swing.JButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Edit Product"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="b139b" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="18"/>
+          <text value="Filter by"/>
+        </properties>
+      </component>
+      <component id="24b59" class="javax.swing.JLabel" binding="categorySort">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="16" style="1"/>
+          <text value="Category"/>
+        </properties>
+      </component>
+      <component id="86c38" class="javax.swing.JComboBox" binding="category">
+        <constraints>
+          <grid row="1" column="4" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <model/>
+        </properties>
+      </component>
+      <component id="7f467" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -19,20 +99,80 @@
           <text value="Store System"/>
         </properties>
       </component>
-      <hspacer id="50654">
+      <component id="dbbb1" class="javax.swing.JButton" binding="btnLogout">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="10" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="22"/>
+          <text value="Log Out"/>
+        </properties>
+      </component>
+      <component id="7efcc" class="javax.swing.JButton" binding="btnCart">
+        <constraints>
+          <grid row="0" column="14" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="22"/>
+          <icon value="icons/shop-cart-icon.png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <hspacer id="32290">
+        <constraints>
+          <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <grid id="90c0f" binding="product1" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <component id="a4026" class="javax.swing.JLabel" binding="priceSort">
+        <constraints>
+          <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="16" style="1"/>
+          <text value="Price"/>
+        </properties>
+      </component>
+      <component id="dfcc1" class="javax.swing.JComboBox" binding="price">
+        <constraints>
+          <grid row="1" column="9" row-span="1" col-span="4" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="ea4f9" class="javax.swing.JButton" binding="btnAccount">
+        <constraints>
+          <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <borderPainted value="false"/>
+          <font size="22"/>
+          <foreground color="-64768"/>
+          <icon value="icons/avatar-default-icon.png"/>
+          <label value=""/>
+          <text value=""/>
+        </properties>
+      </component>
+      <hspacer id="1679f">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="49" height="11"/>
+          </grid>
+        </constraints>
+      </hspacer>
+      <hspacer id="beb45">
+        <constraints>
+          <grid row="2" column="8" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <grid id="ea6" binding="product1" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="10" left="10" bottom="10" right="10"/>
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
-          <component id="10917" class="javax.swing.JLabel">
+          <component id="ddd74" class="javax.swing.JLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -40,12 +180,12 @@
               <text value="Product 1"/>
             </properties>
           </component>
-          <component id="d6b69" class="javax.swing.JButton" binding="addToCartButton" default-binding="true">
+          <component id="95f0f" class="javax.swing.JButton" default-binding="true">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Add to Cart"/>
+              <text value="Edit Product"/>
             </properties>
           </component>
         </children>

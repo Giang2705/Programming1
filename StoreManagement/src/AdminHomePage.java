@@ -4,10 +4,16 @@ import java.awt.event.ActionListener;
 
 public class AdminHomePage implements ActionListener {
     private JButton btnLogout;
-    private JPanel Admin;
-    private JPanel product1;
-    private JButton addToCartButton;
+    private JButton btnCart;
+    private JPanel Main;
+    private JComboBox category;
+    private JComboBox price;
+    private JLabel priceSort;
+    private JPanel product3;
+    private JLabel categorySort;
+    private JPanel product2;
     private JButton btnAccount;
+    private JPanel product1;
 
 
     public JButton getBtnAccount(){
@@ -20,7 +26,7 @@ public class AdminHomePage implements ActionListener {
         btnLogout.addActionListener(this);
         btnAccount.addActionListener(this);
 
-        frame.add(Admin);
+        frame.add(Main);
         frame.setTitle("Home");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

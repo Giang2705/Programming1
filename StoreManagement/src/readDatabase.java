@@ -43,11 +43,11 @@ public class readDatabase {
     public void readAdminFile(String id, String username, String password) throws IOException {
         BufferedReader b = null;
         String line = "";
-        String delimiter = ", ";
+        String delimiter = ",";
 
         try {
             List<Admin> admins = new ArrayList<Admin>();
-            FileReader fr = new FileReader("/C:/StoreManagement/UsersDB/admins.csv");
+            FileReader fr = new FileReader("admins.csv");
             b = new BufferedReader(fr);
             while ((line = b.readLine()) != null) {
                 String[] file = line.split(delimiter);
@@ -62,8 +62,8 @@ public class readDatabase {
                     admins.add(ad);
 
                     if (file[0].equals(username) && file[1].equals(password)) {
-                        MemberHomePage memberHomePage = new MemberHomePage();
-                        memberHomePage.getBtnAccount().setText(ad.getAdminUsername());
+                        AdminHomePage adminHomePage = new AdminHomePage();
+                        adminHomePage.getBtnAccount().setText(ad.getAdminUsername());
                     }
                 }
             }

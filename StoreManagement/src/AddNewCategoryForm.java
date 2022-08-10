@@ -7,34 +7,29 @@ public class AddNewCategoryForm implements ActionListener{
 
     JFrame frame = new JFrame();
     private JPanel Main;
-    private JPanel addNewCategoryForm;
-    //    private JLabel loginTitle;
-    private JLabel categoryIDLabel;
-    private JTextField categoryIDField1;
-
-    private JLabel categoryNameLabel;
-    private JTextField categoryNameField1;
-
-//    private JLabel productCategoryLabel;
-//    private JOptionPane productCategoryField1;
-//
-//    private JLabel productPriceLabel;
-//    private JTextField productPriceField1;
-    private JButton btnAdd;
+    private JPanel registerForm;
+    private JLabel loginTitle;
+    private JLabel usernameLabel;
+    private JTextField usernameField1;
+    private JLabel passwordLabel;
+    private JTextField passwordField1;
+    private JButton btnRegister;
     private JButton btnClear;
     private JLabel dha;
     private JButton btnCancel;
-
+    private JButton btnLogin;
     private JButton btnHome;
+    private JTextField fullnameField;
+    private JTextField phoneField;
 
     AddNewCategoryForm(){
-//        btnLogin.addActionListener(this);
+        btnLogin.addActionListener(this);
         btnHome.addActionListener(this);
         btnClear.addActionListener(this);
         btnCancel.addActionListener(this);
-        btnAdd.addActionListener(this);
+        btnRegister.addActionListener(this);
 
-        frame.setTitle("Add New Category");
+        frame.setTitle("Register");
         frame.add(Main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -43,29 +38,31 @@ public class AddNewCategoryForm implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        if (e.getSource() == btnLogin){
-//            frame.dispose();
-//            UserLoginPage userLoginPage = new UserLoginPage();
-//        }
+        if (e.getSource() == btnLogin){
+            frame.dispose();
+            UserLoginPage userLoginPage = new UserLoginPage();
+        }
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
             GuestHomePage guestHomePage = new GuestHomePage();
         }
         if (e.getSource() == btnClear){
-            categoryIDField1.setText("");
-
-            categoryNameField1.setText("");
+            usernameField1.setText("");
+            passwordField1.setText("");
+            fullnameField.setText("");
+            phoneField.setText("");
         }
-        if (e.getSource() == btnAdd){
-            String id = categoryIDField1.getText();
-            String name = categoryNameField1.getText();
-
+        if (e.getSource() == btnRegister){
+            String username = usernameField1.getText();
+            String password = passwordField1.getText();
+            String fullname = fullnameField.getText();
+            String phone = phoneField.getText();
 
             storeDatabase database = new storeDatabase();
             database.createFolder();
             database.createFile();
-            database.categoryCountLine();
-            database.addNewCategory(id, name);
+            database.count();
+            database.register(username, password, fullname, phone);
         }
     }
 }
