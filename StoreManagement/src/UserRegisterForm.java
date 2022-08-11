@@ -1,14 +1,13 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class UserRegisterForm implements ActionListener{
 
     JFrame frame = new JFrame();
     private JPanel Main;
     private JPanel registerForm;
-    private JLabel loginTitle;
+    private JLabel registerTitle;
     private JLabel usernameLabel;
     private JTextField usernameField1;
     private JLabel passwordLabel;

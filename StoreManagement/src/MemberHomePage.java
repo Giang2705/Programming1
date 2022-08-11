@@ -1,10 +1,11 @@
 import ClassAttribute.Member;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MemberHomePage implements ActionListener {
+public class MemberHomePage extends Component implements ActionListener {
     private JButton btnLogout;
     private JButton btnCart;
     private JPanel Main;

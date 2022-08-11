@@ -42,3 +42,5 @@ public class Member {
         this.phone = phone;
     }
 }
+
+
