@@ -7,23 +7,26 @@ public class UserRegisterForm implements ActionListener{
     JFrame frame = new JFrame();
     private JPanel Main;
     private JPanel registerForm;
-    private JLabel loginTitle;
+    private JLabel registerTitle;
     private JLabel usernameLabel;
     private JTextField usernameField1;
     private JLabel passwordLabel;
-    private JPasswordField passwordField1;
+    private JTextField passwordField1;
     private JButton btnRegister;
     private JButton btnClear;
     private JLabel dha;
     private JButton btnCancel;
     private JButton btnLogin;
     private JButton btnHome;
+    private JTextField fullnameField;
+    private JTextField phoneField;
 
     UserRegisterForm(){
         btnLogin.addActionListener(this);
         btnHome.addActionListener(this);
         btnClear.addActionListener(this);
         btnCancel.addActionListener(this);
+        btnRegister.addActionListener(this);
 
         frame.setTitle("Register");
         frame.add(Main);
@@ -45,6 +48,20 @@ public class UserRegisterForm implements ActionListener{
         if (e.getSource() == btnClear){
             usernameField1.setText("");
             passwordField1.setText("");
+            fullnameField.setText("");
+            phoneField.setText("");
+        }
+        if (e.getSource() == btnRegister){
+            String username = usernameField1.getText();
+            String password = passwordField1.getText();
+            String fullname = fullnameField.getText();
+            String phone = phoneField.getText();
+
+            storeDatabase database = new storeDatabase();
+            database.createFolder();
+            database.createFile();
+            database.count();
+            database.register(username, password, fullname, phone);
         }
     }
 }
