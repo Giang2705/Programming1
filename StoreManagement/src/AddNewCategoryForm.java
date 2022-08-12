@@ -1,3 +1,5 @@
+import ClassAttribute.Category;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,29 +9,24 @@ public class AddNewCategoryForm implements ActionListener{
 
     JFrame frame = new JFrame();
     private JPanel Main;
-    private JPanel registerForm;
-    private JLabel loginTitle;
-    private JLabel usernameLabel;
-    private JTextField usernameField1;
-    private JLabel passwordLabel;
-    private JTextField passwordField1;
-    private JButton btnRegister;
-    private JButton btnClear;
-    private JLabel dha;
-    private JButton btnCancel;
-    private JButton btnLogin;
+    private JPanel addNewCategoryForm;
+    private JLabel addNewCategoryTitle;
+    private JLabel categoryIdLabel;
+    private JTextField categoryIdField1;
+    private JLabel categoryNameLabel;
+    private JTextField categoryNameField1;
+    private JButton btnAdd;
     private JButton btnHome;
-    private JTextField fullnameField;
-    private JTextField phoneField;
+    private JButton btnClear;
+
 
     AddNewCategoryForm(){
-        btnLogin.addActionListener(this);
-        btnHome.addActionListener(this);
-        btnClear.addActionListener(this);
-        btnCancel.addActionListener(this);
-        btnRegister.addActionListener(this);
 
-        frame.setTitle("Register");
+        btnHome.addActionListener(this);
+
+        btnAdd.addActionListener(this);
+
+        frame.setTitle("Add");
         frame.add(Main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -38,31 +35,34 @@ public class AddNewCategoryForm implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnLogin){
-            frame.dispose();
-            UserLoginPage userLoginPage = new UserLoginPage();
-        }
-        if (e.getSource() == btnHome || e.getSource() == btnCancel){
+//        if (e.getSource() == btnLogin){
+//            frame.dispose();
+//            UserLoginPage userLoginPage = new UserLoginPage();
+//        }
+        if (e.getSource() == btnHome ){
             frame.dispose();
             GuestHomePage guestHomePage = new GuestHomePage();
         }
         if (e.getSource() == btnClear){
-            usernameField1.setText("");
-            passwordField1.setText("");
-            fullnameField.setText("");
-            phoneField.setText("");
+            categoryIdField1.setText("");
+            categoryNameField1.setText("");
         }
-        if (e.getSource() == btnRegister){
-            String username = usernameField1.getText();
-            String password = passwordField1.getText();
-            String fullname = fullnameField.getText();
-            String phone = phoneField.getText();
-
+        if (e.getSource() == btnAdd){
+            String id = categoryIdField1.getText();
+            String name = categoryNameField1.getText();
+            Category category = new Category(id, name);
             storeDatabase database = new storeDatabase();
-            database.createFolder();
-            database.createFile();
-            database.count();
-            database.register(username, password, fullname, phone);
+
+//            database.createFolder();
+            database.createCategoryFile();
+            database.categoryCountLine();
+            database.addNewCategory(category);
+            readDatabase readDatabase = new readDatabase();
+            try {
+                readDatabase.readCategoryFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }

@@ -1,9 +1,11 @@
 import ClassAttribute.Admin;
+import ClassAttribute.Category;
 import ClassAttribute.Member;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class readDatabase {
     public void readFile(String username, String password, String fullname, String phone) throws IOException {
@@ -74,5 +76,12 @@ public class readDatabase {
         }
     }
 
+    public void readCategoryFile() throws IOException {
+        try {
+            FileReader reader = new FileReader("categories.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

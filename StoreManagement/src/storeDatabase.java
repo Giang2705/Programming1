@@ -1,3 +1,5 @@
+import ClassAttribute.Category;
+
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,9 +18,7 @@ public class storeDatabase {
     public void createFile() {
         File file = new File("/C:/StoreManagement/UsersDB/users.csv");
 //        File adminFile = new File("/C:/StoreManagement/UsersDB/admin.csv");
-        File productFile = new File("/C:/StoreManagement/UsersDB/products.csv");
-        File categoryFile = new File("/C:/StoreManagement/UsersDB/categories.csv");
-
+        File productFile = new File("products.csv");
         if (!file.exists()){
             try {
                 FileWriter fw = new FileWriter("/C:/StoreManagement/UsersDB/users.csv");
@@ -42,7 +42,7 @@ public class storeDatabase {
 //        }
         if (!productFile.exists()){
             try {
-                FileWriter fw = new FileWriter("/C:/StoreManagement/UsersDB/products.csv");
+                FileWriter fw = new FileWriter("products.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
                 pw.println("id,name,category,price");
@@ -54,22 +54,32 @@ public class storeDatabase {
                 throw new RuntimeException(e);
             }
         }
+
+
+    }
+
+    public void createCategoryFile() {
+        File categoryFile = new File("categories.csv");
         if (!categoryFile.exists()) {
             try {
-                FileWriter fw = new FileWriter("/C:/StoreManagement/UsersDB/categories.csv");
+                FileWriter fw = new FileWriter("categories.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
                 pw.println("id,name");
                 pw.flush();
                 pw.close();
+//                PrintWriter print = new PrintWriter(categoryFile);
+//                print.println("id,name");
+//                print.close();
                 System.out.println("File created!");
             }
             catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-
     }
+
+
 
 //    count line
     void count(){
@@ -105,7 +115,7 @@ public class storeDatabase {
     void categoryCountLine() {
         try {
             line = 1;
-            RandomAccessFile raf = new RandomAccessFile(f + "/categories.csv", "rw");
+            RandomAccessFile raf = new RandomAccessFile( "categories.csv", "rw");
             for (int i = 0; raf.readLine() != null; i++){
                 line++;
             }
@@ -144,48 +154,55 @@ public class storeDatabase {
     }
 
 
-    public void addNewProduct(String id,
-                              String name,
-//                              Category category,
-                              double price) {
-        // add new Product in db
-        try {
-            RandomAccessFile raf = new RandomAccessFile(f + "/products.csv", "rw");
-
-            for(int i = 0; i<line; i++){
-                raf.readLine();
-            }
-
-            raf.writeBytes("\r\n");
-            raf.writeBytes(id);
-            raf.writeBytes(", ");
-            raf.writeBytes(name);
-            raf.writeBytes(", ");
-//            raf.writeBytes(category.getCategoryName());
+//    public void addNewProduct(String id,
+//                              String name,
+////                              Category category,
+//                              double price) {
+//        // add new Product in db
+//        try {
+//            RandomAccessFile raf = new RandomAccessFile(f + "/products.csv", "rw");
+//
+//            for(int i = 0; i<line; i++){
+//                raf.readLine();
+//            }
+//
+//            raf.writeBytes("\r\n");
+//            raf.writeBytes(id);
 //            raf.writeBytes(", ");
-            raf.writeBytes(String.valueOf(price));
-            System.out.println("Product created!");
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
-        } catch (IOException e) {
-            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
-
-    public void addNewCategory(String id, String name) {
+//            raf.writeBytes(name);
+//            raf.writeBytes(", ");
+////            raf.writeBytes(category.getCategoryName());
+////            raf.writeBytes(", ");
+//            raf.writeBytes(String.valueOf(price));
+//            System.out.println("Product created!");
+//        } catch (FileNotFoundException e) {
+//            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+//        } catch (IOException e) {
+//            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+//        }
+//    }
+    public void addNewCategory(Category category) {
         // add new Product in db
         try {
-            RandomAccessFile raf = new RandomAccessFile(f + "/categories.csv", "rw");
-
-            for(int i = 0; i<line; i++){
-                raf.readLine();
-            }
-
-            raf.writeBytes("\r\n");
-            raf.writeBytes(id);
-            raf.writeBytes(", ");
-            raf.writeBytes(name);
+//            RandomAccessFile raf = new RandomAccessFile(f + "/categories.csv", "rw");
+//
+//            for(int i = 0; i<line; i++){
+//                raf.readLine();
+//            }
+//
+//            raf.writeBytes("\r\n");
+//            raf.writeBytes(id);
+//            raf.writeBytes(", ");
+//            raf.writeBytes(name);
+            FileWriter fw = new FileWriter("categories.csv", true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+            pw.printf("%s,%s\n", category.getCategoryId(), category.getCategoryName());
+            pw.flush();
+            pw.close();
+//            PrintWriter print = new PrintWriter("categories.csv");
+//            print.printf("%s,%s\n", category.getCategoryId(), category.getCategoryName());
+//            print.close();
             System.out.println("Category created!");
         } catch (FileNotFoundException e) {
             Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);

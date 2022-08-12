@@ -1,35 +1,36 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class AddNewProductForm implements ActionListener{
 
     JFrame frame = new JFrame();
     private JPanel Main;
     private JPanel registerForm;
-    private JLabel loginTitle;
-    private JLabel usernameLabel;
-    private JTextField usernameField1;
-    private JLabel passwordLabel;
-    private JTextField passwordField1;
-    private JButton btnRegister;
+    private JLabel addNewProductTitle;
+    private JLabel productIdLabel;
+    private JTextField productIdField1;
+    private JLabel productNameLabel;
+    private JTextField productNameField1;
+    private JButton btnAdd;
     private JButton btnClear;
-    private JLabel dha;
     private JButton btnCancel;
-    private JButton btnLogin;
+
     private JButton btnHome;
-    private JTextField fullnameField;
-    private JTextField phoneField;
+
+    private JTextField productPriceField;
+    private JLabel productCategoryLabel;
+    private JLabel productPriceLabel;
+    private JComboBox categoryList1;
 
     AddNewProductForm(){
-        btnLogin.addActionListener(this);
+
         btnHome.addActionListener(this);
         btnClear.addActionListener(this);
         btnCancel.addActionListener(this);
-        btnRegister.addActionListener(this);
+        btnAdd.addActionListener(this);
 
-        frame.setTitle("Register");
+        frame.setTitle("Add");
         frame.add(Main);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -38,31 +39,31 @@ public class AddNewProductForm implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnLogin){
-            frame.dispose();
-            UserLoginPage userLoginPage = new UserLoginPage();
-        }
+//        if (e.getSource() == btnLogin){
+//            frame.dispose();
+//            UserLoginPage userLoginPage = new UserLoginPage();
+//        }
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
             GuestHomePage guestHomePage = new GuestHomePage();
         }
         if (e.getSource() == btnClear){
-            usernameField1.setText("");
-            passwordField1.setText("");
-            fullnameField.setText("");
-            phoneField.setText("");
+            productIdField1.setText("");
+            productNameField1.setText("");
+
+            productPriceField.setText("");
         }
-        if (e.getSource() == btnRegister){
-            String username = usernameField1.getText();
-            String password = passwordField1.getText();
-            String fullname = fullnameField.getText();
-            String phone = phoneField.getText();
+        if (e.getSource() == btnAdd){
+            String username = productIdField1.getText();
+            String password = productNameField1.getText();
+//            String fullname = fullnameField.getText();
+            String phone = productPriceField.getText();
 
             storeDatabase database = new storeDatabase();
             database.createFolder();
             database.createFile();
             database.count();
-            database.register(username, password, fullname, phone);
+//            database.register(username, password, fullname, phone);
         }
     }
 }
