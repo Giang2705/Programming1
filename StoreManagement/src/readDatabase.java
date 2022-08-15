@@ -3,11 +3,10 @@ import ClassAttribute.Category;
 import ClassAttribute.Member;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class readDatabase {
+    LinkedHashMap<String, String> categoryNames = new LinkedHashMap<>();
     public void readFile(String username, String password, String fullname, String phone) throws IOException {
         BufferedReader b = null;
         String line = "";
@@ -79,9 +78,36 @@ public class readDatabase {
     public void readCategoryFile() throws IOException {
         try {
             FileReader reader = new FileReader("categories.csv");
+            BufferedReader reader1 = new BufferedReader(reader);
+            reader1.readLine();
+            String line;
+            line = reader1.readLine();
+
+//            boolean firstLine = true;
+            while (line != null) {
+                String[] array = line.split(",");
+//                if (array[0] != "id" && array[1] != "name") {
+////                    System.out.printf("CatId: " + array[0] + ",CatName: " + array[1]);
+                    categoryNames.put(array[0],array[1]);
+//                    // read next line
+//                    System.out.println(array[1]);
+//                    line = reader1.readLine();
+//                } else {
+//                    line = reader1.readLine();
+//                }
+
+                System.out.println(array[1]);
+                line = reader1.readLine();;
+            }
+            reader.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+// day dung k
     }
 
+    public LinkedHashMap<String, String> getCategoryNames() {
+        return categoryNames;
+    }
 }
