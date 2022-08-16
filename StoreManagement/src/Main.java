@@ -17,11 +17,11 @@ public class Main {
 //        product1.addNewProduct();
         readDatabase readData = new readDatabase();
         try {
-            readData.readCategoryFile();
+            readData.readProductFile();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(readData.getCategoryNames());
+//        System.out.println(readData.getCategoryNames());
 
     }
 }

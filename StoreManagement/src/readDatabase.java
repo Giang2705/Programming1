@@ -1,12 +1,14 @@
 import ClassAttribute.Admin;
 import ClassAttribute.Category;
 import ClassAttribute.Member;
+import ClassAttribute.Product;
 
 import java.io.*;
 import java.util.*;
 
 public class readDatabase {
-    LinkedHashMap<String, String> categoryNames = new LinkedHashMap<>();
+    List<String> categoryNames = new ArrayList<>();
+    List<Product> products = new ArrayList<>();
     public void readFile(String username, String password, String fullname, String phone) throws IOException {
         BufferedReader b = null;
         String line = "";
@@ -85,18 +87,8 @@ public class readDatabase {
 
 //            boolean firstLine = true;
             while (line != null) {
-                String[] array = line.split(",");
-//                if (array[0] != "id" && array[1] != "name") {
-////                    System.out.printf("CatId: " + array[0] + ",CatName: " + array[1]);
-                    categoryNames.put(array[0],array[1]);
-//                    // read next line
-//                    System.out.println(array[1]);
-//                    line = reader1.readLine();
-//                } else {
-//                    line = reader1.readLine();
-//                }
-
-                System.out.println(array[1]);
+//                String[] array = line.split(",");
+                categoryNames.add(line);
                 line = reader1.readLine();;
             }
             reader.close();
@@ -107,7 +99,38 @@ public class readDatabase {
 // day dung k
     }
 
-    public LinkedHashMap<String, String> getCategoryNames() {
+    public List<String> getCategoryNames() {
         return categoryNames;
     }
+
+// read product File
+    public void readProductFile() throws IOException {
+        try {
+            FileReader reader = new FileReader("products.csv");
+            BufferedReader reader1 = new BufferedReader(reader);
+            reader1.readLine();
+            String line;
+            line = reader1.readLine();
+
+//            boolean firstLine = true;
+            while (line != null) {
+                String[] array = line.split(",");
+                Product temp = new Product(array[0],array[1],new Category(array[2]),Double.parseDouble(array[3]));
+//                if (array[0] != "id" && array[1] != "name") {
+                    System.out.printf("ProId: " + temp.getProductId() + ", ProName: " + temp.getProductName() + ", ProCat: " + temp.getProductCategory().getCategoryName() + ", ProPrice: " + temp.getProductPrice() + "\n");
+                products.add(temp);
+                line = reader1.readLine();;
+            }
+            reader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+// day dung k
+    }
+
+    public List<Product> getProductsList() {
+        return products;
+    }
+
 }

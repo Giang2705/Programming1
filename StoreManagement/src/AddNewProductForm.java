@@ -9,6 +9,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class AddNewProductForm implements ActionListener, ItemListener {
 
@@ -31,7 +32,7 @@ public class AddNewProductForm implements ActionListener, ItemListener {
     private JLabel productPriceLabel;
     private JComboBox categoryList1;
 
-    private LinkedHashMap<String, String> categories;
+    private List<String> categories;
     private String selectedItem = "";
 
     AddNewProductForm(){
@@ -52,17 +53,18 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         }
         categories = readData.getCategoryNames();
 
-        String[] categoryArray = categories.values().toArray(new String[0]);
+        String[] categoryArray = categories.toArray(new String[0]);
 
-//registerForm.
-//        categoryList1.setModel(new DefaultComboBoxModel<>(categoryArray));
+
         categoryList1 = new JComboBox(categoryArray);
-//        categoryList1.setEditable(true);
+//        categoryList1.setSelectedItem(categoryArray[0]);
+        String catDefault = categoryArray[0];
+
         categoryList1.addItemListener(this::itemStateChanged);
 
         registerForm.add(btnHome);
         registerForm.add(addNewProductTitle);
-        registerForm.setLayout(new GridLayout(0, 2));
+        registerForm.setLayout(new GridLayout(0, 2,10,10));
         registerForm.add(productIdLabel);
         registerForm.add(productIdField1);
         registerForm.add(productNameLabel);
@@ -74,18 +76,8 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         registerForm.add(btnAdd);
         registerForm.add(btnClear);
         registerForm.add(btnCancel);
-
-
-
-
-
-
-
-
-//        frame.add(categoryList1);
-//        frame.add(Main);
         frame.add(registerForm);
-//        frame.add(categoryList1);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setSize(960,720);
@@ -95,6 +87,7 @@ public class AddNewProductForm implements ActionListener, ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e)
     {
+
         // if the state combobox is changed
         if (e.getSource() == categoryList1) {
             selectedItem = String.valueOf(categoryList1.getSelectedItem());
@@ -103,10 +96,7 @@ public class AddNewProductForm implements ActionListener, ItemListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        if (e.getSource() == btnLogin){
-//            frame.dispose();
-//            UserLoginPage userLoginPage = new UserLoginPage();
-//        }
+        boolean error = false;
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
             GuestHomePage guestHomePage = new GuestHomePage();
@@ -117,28 +107,35 @@ public class AddNewProductForm implements ActionListener, ItemListener {
             productPriceField.setText("");
         }
 
-//        if (e.getSource() == categoryList1){
-//            selectedItem = String.valueOf(categoryList1.getSelectedItem());
-//        }
+
         if (e.getSource() == btnAdd){
             String productId = productIdField1.getText();
             String productName = productNameField1.getText();
-//            String fullname = fullnameField.getText();
-//            String productCategory = String.valueOf(categoryList1.getSelectedItem());
-            Category productCat = null;
-            for (Map.Entry<String, String> entry: categories.entrySet()) {
-                if (entry.getValue().equals(selectedItem)) {
-                    productCat = new Category(entry.getKey(), entry.getValue());
+
+            Category productCat = new Category(selectedItem);
+//            System.out.println(productCat);
+            double productPrice = 0;
+            try {
+                productPrice = Double.parseDouble(productPriceField.getText());
+            } catch (NumberFormatException exception) {
+                JOptionPane.showMessageDialog(frame, "Invalid Input");
+                error = true;
+            }
+            Product product = new Product(productId, productName, productCat, productPrice);
+            if (!error) {
+                System.out.println("Add Prod");
+                storeDatabase database = new storeDatabase();
+                database.createProductFile();
+                database.productCountLine();
+                database.addNewProduct(product);
+                readDatabase readDatabase = new readDatabase();
+                try {
+                    readDatabase.readProductFile();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
-            double productPrice = Double.parseDouble(productPriceField.getText());
-            Product product = new Product(productId, productName, productCat, productPrice);
 
-            storeDatabase database = new storeDatabase();
-            database.createProductFile();
-            database.productCountLine();
-//            database.addNewProduct();
-//            database.register(username, password, fullname, phone);
         }
     }
 

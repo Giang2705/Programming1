@@ -36,7 +36,7 @@ public class storeDatabase {
                 FileWriter fw = new FileWriter("categories.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
-                pw.println("id,name");
+                pw.println("name");
                 pw.flush();
                 pw.close();
 //                PrintWriter print = new PrintWriter(categoryFile);
@@ -173,7 +173,7 @@ public class storeDatabase {
             FileWriter fw = new FileWriter("categories.csv", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-            pw.printf("%s,%s\n", category.getCategoryId(), category.getCategoryName());
+            pw.printf("%s\n", category.getCategoryName());
             pw.flush();
             pw.close();
 //            PrintWriter print = new PrintWriter("categories.csv");

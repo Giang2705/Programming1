@@ -11,8 +11,6 @@ public class AddNewCategoryForm implements ActionListener{
     private JPanel Main;
     private JPanel addNewCategoryForm;
     private JLabel addNewCategoryTitle;
-    private JLabel categoryIdLabel;
-    private JTextField categoryIdField1;
     private JLabel categoryNameLabel;
     private JTextField categoryNameField1;
     private JButton btnAdd;
@@ -44,13 +42,12 @@ public class AddNewCategoryForm implements ActionListener{
             GuestHomePage guestHomePage = new GuestHomePage();
         }
         if (e.getSource() == btnClear){
-            categoryIdField1.setText("");
+
             categoryNameField1.setText("");
         }
         if (e.getSource() == btnAdd){
-            String id = categoryIdField1.getText();
             String name = categoryNameField1.getText();
-            Category category = new Category(id, name);
+            Category category = new Category(name);
             storeDatabase database = new storeDatabase();
 
 //            database.createFolder();

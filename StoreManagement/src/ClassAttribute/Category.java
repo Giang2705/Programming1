@@ -3,45 +3,24 @@ package ClassAttribute;
 import java.util.Arrays;
 
 public class Category {
-    private String id;
+
     private String name;
 //    private Product[] products;
 
-    public Category(String id,
-                    String name
-//                    int amt_of_product
-                    ) {
-        this.id = id;
+    public Category(String name) {
+
         this.name = name;
-//        products = new Product[amt_of_product];
-
     }
-
-//    @Override
-//    public String displayProductListWithinCategory() {
-//        return "Category{" +
-//                "products=" + Arrays.toString(products) +
-//                '}';
-//    }
 
     @Override
     public String toString() {
-        return "Category{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-//                ", products=" + Arrays.toString(products) +
+        return "{" +
+                "name='" + name + '\'' +
                 '}';
     }
 
     public String displayCategoryInfo() { return this.toString();}
 
-    public String getCategoryId() {
-        return id;
-    }
-
-    public void setCategoryId(String id) {
-        this.id = id;
-    }
 
     public String getCategoryName() {
         return name;
