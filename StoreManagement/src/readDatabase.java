@@ -65,7 +65,7 @@ public class readDatabase {
             List<Admin> admins = new ArrayList<Admin>();
             FileReader fr = new FileReader("admins.csv");
             BufferedReader b = new BufferedReader(fr);
-            b.readLine();
+//            b.readLine();
             String line;
             line = b.readLine();
 
@@ -73,17 +73,17 @@ public class readDatabase {
                 String[] file = line.split(",");
 
 //                if (file.length > 0){
-                    Admin ad = new Admin();
+                Admin ad = new Admin();
                     //   set value for member's attribute
-                    ad.setAdminId(id);
-                    ad.setAdminUsername(username);
-                    ad.setAdminPassword(password);
-                    admins.add(ad);
-                    if (file[0].equals(username) && file[1].equals(password)) {
-                        AdminHomePage adminHomePage = new AdminHomePage();
-                        adminHomePage.getBtnAccount().setText(ad.getAdminUsername());
-                    }
-//                }
+                ad.setAdminId(id);
+                ad.setAdminUsername(username);
+                ad.setAdminPassword(password);
+                admins.add(ad);
+                line = b.readLine();
+                if (file[0].equals(username) && file[1].equals(password)) {
+                    AdminHomePage adminHomePage = new AdminHomePage();
+                    adminHomePage.getBtnAccount().setText(ad.getAdminUsername());
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -134,7 +134,7 @@ public class readDatabase {
 //                if (array[0] != "id" && array[1] != "name") {
                     System.out.printf("ProId: " + temp.getProductId() + ", ProName: " + temp.getProductName() + ", ProCat: " + temp.getProductCategory().getCategoryName() + ", ProPrice: " + temp.getProductPrice() + "\n");
                 products.add(temp);
-                line = reader1.readLine();;
+                line = reader1.readLine();
             }
             reader.close();
 

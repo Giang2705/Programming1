@@ -35,6 +35,8 @@ public class AddNewProductForm implements ActionListener, ItemListener {
     private List<String> categories;
     private String selectedItem = "";
 
+    private String[] catList;
+
     AddNewProductForm(){
 
 
@@ -54,11 +56,10 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         categories = readData.getCategoryNames();
 
         String[] categoryArray = categories.toArray(new String[0]);
-
+        catList = categoryArray;
 
         categoryList1 = new JComboBox(categoryArray);
-//        categoryList1.setSelectedItem(categoryArray[0]);
-        String catDefault = categoryArray[0];
+//        String catDefault = categoryArray[0];
 
         categoryList1.addItemListener(this::itemStateChanged);
 
@@ -77,6 +78,7 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         registerForm.add(btnClear);
         registerForm.add(btnCancel);
         frame.add(registerForm);
+//                categoryList1.setSelectedIndex(0);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -87,10 +89,11 @@ public class AddNewProductForm implements ActionListener, ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e)
     {
-
         // if the state combobox is changed
         if (e.getSource() == categoryList1) {
             selectedItem = String.valueOf(categoryList1.getSelectedItem());
+        } else {
+            selectedItem = catList[0];
         }
     }
 
@@ -111,7 +114,9 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         if (e.getSource() == btnAdd){
             String productId = productIdField1.getText();
             String productName = productNameField1.getText();
-
+            if (selectedItem == "") {
+                selectedItem = catList[0];
+            }
             Category productCat = new Category(selectedItem);
 //            System.out.println(productCat);
             double productPrice = 0;
