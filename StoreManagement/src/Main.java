@@ -1,3 +1,4 @@
+import ClassAttribute.Admin;
 import ClassAttribute.Category;
 import ClassAttribute.Member;
 import ClassAttribute.Product;
@@ -15,13 +16,20 @@ public class Main {
 //        Category new_cat = new Category("1234", "Category");
 //        Product product1 = new Product("s3879069", "Phong", new_cat, 50);
 //        product1.addNewProduct();
-        readDatabase readData = new readDatabase();
-        try {
-            readData.readProductFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        readDatabase readData = new readDatabase();
+//        try {
+//            readData.readProductFile();j
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 //        System.out.println(readData.getCategoryNames());
+//        deleteDatabase deleteDatabase = new deleteDatabase();
+//        deleteDatabase.removeRecord("products.csv", "3");
+        Admin admin = new Admin("1234", "admin", "admin");
+        storeDatabase storeDatabase = new storeDatabase();
+        storeDatabase.createAdminFile();
+        storeDatabase.adminCountLine();
+        storeDatabase.addNewAdmin(admin);
 
     }
 }

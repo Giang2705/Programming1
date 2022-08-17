@@ -40,10 +40,8 @@ public class AdminLoginPage implements ActionListener {
             usernameField1.setText("");
             passwordField1.setText("");
         }
-
-
         if (e.getSource() == btnLogin){
-            frame.dispose();
+
             String username = usernameField1.getText();
             String password = String.valueOf(passwordField1.getPassword());
             try {
@@ -51,6 +49,8 @@ public class AdminLoginPage implements ActionListener {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+            frame.dispose();
+            AdminHomePage adminHomePage = new AdminHomePage();
         }
     }
 }
