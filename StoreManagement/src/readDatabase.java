@@ -29,7 +29,6 @@ public class readDatabase {
                         mem.setFullname(fullname);
                         mem.setPhone(phone);
                         members.add(mem);
-
                     if (file[0].equals(username) && file[1].equals(password)) {
                         MemberHomePage memberHomePage = new MemberHomePage();
                         memberHomePage.getBtnAccount().setText(mem.getUsername());
@@ -44,31 +43,32 @@ public class readDatabase {
     }
 
     public void readAdminFile(String id, String username, String password) throws IOException {
-        BufferedReader b = null;
-        String line = "";
-        String delimiter = ",";
-
+//        BufferedReader b = null;
+//        String line = "";
+//        String delimiter = ",";
         try {
             List<Admin> admins = new ArrayList<Admin>();
             FileReader fr = new FileReader("admins.csv");
-            b = new BufferedReader(fr);
-            while ((line = b.readLine()) != null) {
-                String[] file = line.split(delimiter);
+            BufferedReader b = new BufferedReader(fr);
+            b.readLine();
+            String line;
+            line = b.readLine();
 
-                if (file.length > 0){
+            while (line != null) {
+                String[] file = line.split(",");
+
+//                if (file.length > 0){
                     Admin ad = new Admin();
                     //   set value for member's attribute
                     ad.setAdminId(id);
                     ad.setAdminUsername(username);
                     ad.setAdminPassword(password);
-
                     admins.add(ad);
-
                     if (file[0].equals(username) && file[1].equals(password)) {
                         AdminHomePage adminHomePage = new AdminHomePage();
                         adminHomePage.getBtnAccount().setText(ad.getAdminUsername());
                     }
-                }
+//                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
