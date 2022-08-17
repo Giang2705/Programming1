@@ -25,11 +25,11 @@ public class Main {
 //        System.out.println(readData.getCategoryNames());
 //        deleteDatabase deleteDatabase = new deleteDatabase();
 //        deleteDatabase.removeRecord("products.csv", "3");
-        Admin admin = new Admin("1234", "admin", "admin");
-        storeDatabase storeDatabase = new storeDatabase();
-        storeDatabase.createAdminFile();
-        storeDatabase.adminCountLine();
-        storeDatabase.addNewAdmin(admin);
+//        Admin admin = new Admin("1234", "admin", "admin");
+//        storeDatabase storeDatabase = new storeDatabase();
+//        storeDatabase.createAdminFile();
+//        storeDatabase.adminCountLine();
+//        storeDatabase.addNewAdmin(admin);
 
     }
 }
