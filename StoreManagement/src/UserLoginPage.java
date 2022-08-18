@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class UserLoginPage implements ActionListener {
     private JPanel Main;
@@ -45,8 +46,21 @@ public class UserLoginPage implements ActionListener {
             passwordField1.setText("");
         }
         if (e.getSource() == btnLogin){
-            frame.dispose();
-            MemberHomePage memberHomePage = new MemberHomePage();
+            if((usernameField1.getText().length() == 0) || String.valueOf(passwordField1.getPassword()).length() == 0){
+                JFrame modal = new JFrame("Unvalidated");
+                modal.setVisible(true);
+                JOptionPane.showConfirmDialog(null, "Please fill in all fields of the form!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
+                modal.dispose();
+            } else {
+                frame.dispose();
+                String username = usernameField1.getText();
+                String password = String.valueOf(passwordField1.getPassword());
+                try {
+                    new readDatabase().readFile(username, password, "", "", "", "");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
     }
 }

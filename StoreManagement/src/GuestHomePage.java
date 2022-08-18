@@ -7,13 +7,20 @@ public class GuestHomePage implements ActionListener {
     private JButton btnLogin;
     private JButton btnRegister;
     private JButton btnGoBack;
+    private JButton btnAdminLogin;
+    private JButton addNewCategoryButton;
+    private JButton addNewProductButton;
     private JLabel goBack;
 
     JFrame frame = new JFrame();
     GuestHomePage(){
         btnLogin.addActionListener(this);
+        btnAdminLogin.addActionListener(this);
         btnRegister.addActionListener(this);
         btnGoBack.addActionListener(this);
+        addNewCategoryButton.addActionListener(this);
+        addNewProductButton.addActionListener(this);
+
 
         frame.add(Main);
         frame.setTitle("Guest Homepage");
@@ -28,7 +35,10 @@ public class GuestHomePage implements ActionListener {
             frame.dispose();
             UserLoginPage userLoginPage = new UserLoginPage();
         }
-
+        if (e.getSource() == btnAdminLogin){
+            frame.dispose();
+            AdminLoginPage adminLoginPage = new AdminLoginPage();
+        }
         if (e.getSource() == btnRegister){
             frame.dispose();
             UserRegisterForm userRegisterForm = new UserRegisterForm();
@@ -37,5 +47,15 @@ public class GuestHomePage implements ActionListener {
             frame.dispose();
             WelcomeScreen welcomeScreen = new WelcomeScreen();
         }
+        if (e.getSource() == addNewCategoryButton) {
+            frame.dispose();
+            AddNewCategoryForm addNewCategoryForm = new AddNewCategoryForm();
+        }
+        if (e.getSource() == addNewProductButton) {
+            frame.dispose();
+            AddNewProductForm addNewProductForm = new AddNewProductForm();
+        }
+
+
     }
 }
