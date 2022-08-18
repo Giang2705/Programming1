@@ -1,15 +1,18 @@
 import ClassAttribute.Admin;
 import ClassAttribute.Category;
+import ClassAttribute.Member;
 import ClassAttribute.Product;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class storeDatabase {
     int line;
     //    Create new file csv
-    File f = new File("/C:/StoreManagement/UsersDB");
+    File f = new File("StoreManagement/Database");
 //    File adminF = new File()
     public void createFolder() {
         if (!f.exists()) {
@@ -18,10 +21,15 @@ public class storeDatabase {
     }
 
     public void createFile() {
-        File file = new File("/C:/StoreManagement/UsersDB/users.csv");
+        File file = new File("StoreManagement/Database/users.csv");
         if (!file.exists()){
             try {
-                FileWriter fw = new FileWriter("/C:/StoreManagement/UsersDB/users.csv");
+                FileWriter fw = new FileWriter("StoreManagement/Database/users.csv");
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.println("username, password, fullname, phone, id, membership");
+                pw.flush();
+                pw.close();
                 System.out.println("File created!");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -31,10 +39,10 @@ public class storeDatabase {
     }
 
     public void createAdminFile() {
-        File adminFile = new File("admins.csv");
+        File adminFile = new File("StoreManagement/Database/admins.csv");
         if (!adminFile.exists()) {
             try {
-                FileWriter fw = new FileWriter("admins.csv");
+                FileWriter fw = new FileWriter("StoreManagement/Database/admins.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
                 pw.println("id,username,password");
@@ -50,10 +58,10 @@ public class storeDatabase {
     }
 
     public void createCategoryFile() {
-        File categoryFile = new File("categories.csv");
+        File categoryFile = new File("StoreManagement/Database/categories.csv");
         if (!categoryFile.exists()) {
             try {
-                FileWriter fw = new FileWriter("categories.csv");
+                FileWriter fw = new FileWriter("StoreManagement/Database/categories.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
                 pw.println("name");
@@ -69,10 +77,10 @@ public class storeDatabase {
     }
 
     public void createProductFile() {
-        File categoryFile = new File("products.csv");
+        File categoryFile = new File("StoreManagement/Database/products.csv");
         if (!categoryFile.exists()) {
             try {
-                FileWriter fw = new FileWriter("products.csv");
+                FileWriter fw = new FileWriter("StoreManagement/Database/products.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
                 pw.println("id,name,category,price");
@@ -111,7 +119,7 @@ public class storeDatabase {
     void adminCountLine() {
         try {
             line = 1;
-            RandomAccessFile raf = new RandomAccessFile("admins.csv", "rw");
+            RandomAccessFile raf = new RandomAccessFile("StoreManagement/Database/admins.csv", "rw");
             for (int i = 0; raf.readLine() != null; i++){
                 line++;
             }
@@ -125,7 +133,7 @@ public class storeDatabase {
     public void addNewAdmin(Admin admin) {
         // add new Product in db
         try {
-            FileWriter fw = new FileWriter("admins.csv", true);
+            FileWriter fw = new FileWriter("StoreManagement/Database/admins.csv", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.printf("%s,%s,%s\n", admin.getAdminId(),admin.getAdminUsername(),admin.getAdminPassword());
@@ -145,7 +153,7 @@ public class storeDatabase {
     void productCountLine() {
         try {
             line = 1;
-            RandomAccessFile raf = new RandomAccessFile("products.csv", "rw");
+            RandomAccessFile raf = new RandomAccessFile("StoreManagement/Database/products.csv", "rw");
             for (int i = 0; raf.readLine() != null; i++){
                 line++;
             }
@@ -159,7 +167,7 @@ public class storeDatabase {
     void categoryCountLine() {
         try {
             line = 1;
-            RandomAccessFile raf = new RandomAccessFile( "categories.csv", "rw");
+            RandomAccessFile raf = new RandomAccessFile( "StoreManagement/Database/categories.csv", "rw");
             for (int i = 0; raf.readLine() != null; i++){
                 line++;
             }
@@ -172,24 +180,56 @@ public class storeDatabase {
 
 
 
-    public void register(String username, String password, String fullname, String phone) {
+    public void register(String username, String password, String fullname, String phone, String id, String membership) {
+        BufferedReader b = null;
+        String rl = "";
+        String delimiter = ", ";
+
 //        add new data in db
         try {
-            RandomAccessFile raf = new RandomAccessFile(f + "/users.csv", "rw");
+//            condition
+            List<Member> members = new ArrayList<Member>();
+            FileReader fr = new FileReader("StoreManagement/Database/users.csv");
+            b = new BufferedReader(fr);
+            boolean checked = true;
 
-            for(int i = 0; i<line; i++){
-                raf.readLine();
+            while ((rl = b.readLine()) != null) {
+                String[] file = rl.split(delimiter);
+
+                if (file.length > 0) {
+                    if(file[0].equals(username)){
+                        System.out.println("False");
+                        checked = false;
+                        AccountExists accountExists = new AccountExists();
+                        break;
+                    }
+                }
             }
 
-            raf.writeBytes("\r\n");
-            raf.writeBytes(username);
-            raf.writeBytes(", ");
-            raf.writeBytes(password);
-            raf.writeBytes(", ");
-            raf.writeBytes(fullname);
-            raf.writeBytes(", ");
-            raf.writeBytes(phone);
-            System.out.println("User created!");
+//            available
+            if(checked){
+                RandomAccessFile raf = new RandomAccessFile(f + "/users.csv", "rw");
+
+                for(int i = 0; i<line; i++){
+                    raf.readLine();
+                }
+
+                raf.writeBytes("\r\n");
+                raf.writeBytes(username);
+                raf.writeBytes(", ");
+                raf.writeBytes(password);
+                raf.writeBytes(", ");
+                raf.writeBytes(fullname);
+                raf.writeBytes(", ");
+                raf.writeBytes(phone);
+                raf.writeBytes(", ");
+                raf.writeBytes(id);
+                raf.writeBytes(", ");
+                raf.writeBytes(membership);
+
+                System.out.println("User created!");
+            }
+
         } catch (FileNotFoundException e) {
             Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
         } catch (IOException e) {
@@ -201,7 +241,7 @@ public class storeDatabase {
     public void addNewProduct(Product product) {
         // add new Product in db
         try {
-            FileWriter fw = new FileWriter("products.csv", true);
+            FileWriter fw = new FileWriter("StoreManagement/Database/products.csv", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.printf("%s,%s,%s,%.2f\n", product.getProductId(), product.getProductName(), product.getProductCategory().getCategoryName(),product.getProductPrice());
@@ -222,7 +262,7 @@ public class storeDatabase {
     public void addNewCategory(Category category) {
         // add new Product in db
         try {
-            FileWriter fw = new FileWriter("categories.csv", true);
+            FileWriter fw = new FileWriter("StoreManagement/Database/categories.csv", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             pw.printf("%s\n", category.getCategoryName());
