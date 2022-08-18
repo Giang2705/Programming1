@@ -28,6 +28,7 @@ public class GuestHomePage implements ActionListener {
     JFrame frame = new JFrame();
     GuestHomePage(){
         ListProducts listProducts = new ListProducts();
+
         productList.setLayout(new GridLayout(1,1));
         productList.add(listProducts.productList);
 

@@ -48,7 +48,7 @@ public class ListProducts {
                 for (int i = 0; i < products.size(); i++){
                     ProductItem productItem = new ProductItem();
                     productItem.productName.setText(products.get(i).getProductName());
-                    productItem.productPrice.setText(String.valueOf(products.get(i).getProductPrice()) + "VND");
+                    productItem.productPrice.setText(String.valueOf(products.get(i).getProductPrice()));
                     productList.add(productItem.productCard);
                 }
             }
