@@ -1,10 +1,5 @@
 package ClassAttribute;
 
-import javax.swing.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-
 public class Admin {
     private String id;
     private String username;
@@ -12,11 +7,11 @@ public class Admin {
 
     public Admin() {}
 
-    public Admin (String id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
+//    public Admin (String id, String username, String password) {
+//        this.id = id;
+//        this.username = username;
+//        this.password = password;
+//    }
 
     @Override
     public String toString() {
@@ -24,23 +19,6 @@ public class Admin {
                 "id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 '}';
-    }
-
-    public void addNewAdminAccount() {
-        try {
-            FileWriter fw = new FileWriter("admins.csv", true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-
-            pw.println(id + "," + username + "," + password);
-            pw.flush();
-            pw.close();
-
-            JOptionPane.showMessageDialog(null, "Record saved");
-        }
-        catch (Exception E) {
-            JOptionPane.showMessageDialog(null, "Record not saved");
-        }
     }
 
     public String displayAdminInfo() { return this.toString();}

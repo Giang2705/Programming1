@@ -1,12 +1,9 @@
 import ClassAttribute.Member;
-import ClassAttribute.Product;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MemberHomePage extends Component implements ActionListener {
     private JButton btnLogout;
@@ -15,7 +12,11 @@ public class MemberHomePage extends Component implements ActionListener {
     private JComboBox category;
     private JComboBox price;
     private JLabel priceSort;
+    private JPanel product1;
+    private JPanel product3;
     private JLabel categorySort;
+    private JPanel product2;
+    private JButton addToCartButton;
     private JButton btnAccount;
 
 
@@ -24,12 +25,10 @@ public class MemberHomePage extends Component implements ActionListener {
     }
 
     JFrame frame = new JFrame();
-
     MemberHomePage(){
+
         btnLogout.addActionListener(this);
         btnAccount.addActionListener(this);
-
-        frame.setLayout(new GridLayout());
 
         frame.add(Main);
         frame.setTitle("Home");
@@ -53,10 +52,5 @@ public class MemberHomePage extends Component implements ActionListener {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        List<Product> products = new ArrayList<Product>();
-        frame.setLayout(new GridLayout(products.size()/3, 3));
-        for(int i = 1; i<=products.size(); i++){
-            frame.add(new JTextField(products.get(i).getProductName()));
-        }
     }
 }
