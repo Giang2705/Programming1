@@ -52,7 +52,6 @@ public class UserLoginPage implements ActionListener {
                 JOptionPane.showConfirmDialog(null, "Please fill in all fields of the form!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
                 modal.dispose();
             } else {
-                frame.dispose();
                 String username = usernameField1.getText();
                 String password = String.valueOf(passwordField1.getPassword());
                 try {

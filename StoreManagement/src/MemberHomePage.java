@@ -17,6 +17,7 @@ public class MemberHomePage extends Component implements ActionListener {
     private JLabel priceSort;
     private JLabel categorySort;
     private JButton btnAccount;
+    private JPanel productList;
 
 
     public JButton getBtnAccount(){
@@ -26,6 +27,10 @@ public class MemberHomePage extends Component implements ActionListener {
     JFrame frame = new JFrame();
 
     MemberHomePage(){
+        ListProducts listProducts = new ListProducts();
+        productList.setLayout(new GridLayout(1,1));
+        productList.add(listProducts.productList);
+
         btnLogout.addActionListener(this);
         btnAccount.addActionListener(this);
 
@@ -53,10 +58,6 @@ public class MemberHomePage extends Component implements ActionListener {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-        List<Product> products = new ArrayList<Product>();
-        frame.setLayout(new GridLayout(products.size()/3, 3));
-        for(int i = 1; i<=products.size(); i++){
-            frame.add(new JTextField(products.get(i).getProductName()));
-        }
+
     }
 }

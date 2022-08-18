@@ -64,33 +64,47 @@ public class readDatabase {
     }
 
     public void readAdminFile(String id, String username, String password) throws IOException {
-//        BufferedReader b = null;
-//        String line = "";
-//        String delimiter = ",";
+        BufferedReader b = null;
+        String line = "";
+        String delimiter = ",";
+
         try {
             List<Admin> admins = new ArrayList<Admin>();
-            FileReader fr = new FileReader("admins.csv");
-            BufferedReader b = new BufferedReader(fr);
-//            b.readLine();
-            String line;
-            line = b.readLine();
+            FileReader fr = new FileReader("StoreManagement/Database/admins.csv");
+            b = new BufferedReader(fr);
+            boolean checked = false;
 
-            while (line != null) {
-                String[] file = line.split(",");
+            while ((line = b.readLine()) != null) {
+                String[] file = line.split(delimiter);
 
-//                if (file.length > 0){
-                Admin ad = new Admin();
-                    //   set value for member's attribute
-                ad.setAdminId(id);
-                ad.setAdminUsername(username);
-                ad.setAdminPassword(password);
-                admins.add(ad);
-                line = b.readLine();
-                if (file[0].equals(username) && file[1].equals(password)) {
-                    AdminHomePage adminHomePage = new AdminHomePage();
-                    adminHomePage.getBtnAccount().setText(ad.getAdminUsername());
+                if (file.length > 0) {
+                    Admin ad = new Admin();
+                    //   set value for admin's attribute
+                    ad.setAdminUsername(username);
+                    ad.setAdminPassword(password);
+                    ad.setAdminId(id);
+
+                    admins.add(ad);
+
+                    if (file[0].equals(username) && file[1].equals(password)) {
+                        AdminHomePage adminHomePage = new AdminHomePage();
+
+                        for (int i = 0; i < admins.size() - 1; i++) {
+                            if (admins.get(i).getAdminUsername() == username) {
+                                adminHomePage.getBtnAccount().setText(admins.get(i).getAdminUsername());
+                            }
+                        }
+                        checked = true;
+                        break;
+                    }
                 }
             }
+            if (checked == false) {
+                LoginFailed loginFailed = new LoginFailed();
+                AdminLoginPage adminLoginPage = new AdminLoginPage();
+            }
+
+//            System.out.println(members.size());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -100,7 +114,7 @@ public class readDatabase {
 
     public void readCategoryFile() throws IOException {
         try {
-            FileReader reader = new FileReader("categories.csv");
+            FileReader reader = new FileReader("StoreManagement/Database/categories.csv");
             BufferedReader reader1 = new BufferedReader(reader);
             reader1.readLine();
             String line;
@@ -127,7 +141,7 @@ public class readDatabase {
 // read product File
     public void readProductFile() throws IOException {
         try {
-            FileReader reader = new FileReader("products.csv");
+            FileReader reader = new FileReader("StoreManagement/Database/products.csv");
             BufferedReader reader1 = new BufferedReader(reader);
             reader1.readLine();
             String line;
@@ -136,7 +150,7 @@ public class readDatabase {
 //            boolean firstLine = true;
             while (line != null) {
                 String[] array = line.split(",");
-                Product temp = new Product(array[0],array[1],new Category(array[2]),Double.parseDouble(array[3]));
+                Product temp = new Product(array[0],array[1],new Category(array[2]), Integer.parseInt(array[3]));
 //                if (array[0] != "id" && array[1] != "name") {
                     System.out.printf("ProId: " + temp.getProductId() + ", ProName: " + temp.getProductName() + ", ProCat: " + temp.getProductCategory().getCategoryName() + ", ProPrice: " + temp.getProductPrice() + "\n");
                 products.add(temp);

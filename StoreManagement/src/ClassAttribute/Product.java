@@ -11,12 +11,12 @@ public class Product {
     private String id;
     private String name;
     private Category category;
-    private double price;
+    private int price;
 
     public static List<Product> List_product = new ArrayList<>();
 
 
-    public Product(String id, String name, Category category, double price) {
+    public Product(String id, String name, Category category, int price) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -64,11 +64,11 @@ public class Product {
         this.category = category;
     }
 
-    public double getProductPrice() {
+    public int getProductPrice() {
         return price;
     }
 
-    public void setProductPrice(double price) {
+    public void setProductPrice(int price) {
         this.price = price;
     }
 }
