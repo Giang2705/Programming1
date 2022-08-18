@@ -7,6 +7,11 @@ public class Member {
     private String fullname;
     private String phone;
 
+    private String membership;
+
+    public Member(String s) {
+    }
+
     public String getId(){
         return id;
     }
@@ -40,6 +45,13 @@ public class Member {
     }
     public void setPhone(String phone){
         this.phone = phone;
+    }
+
+    public String getMembership(){
+        return membership;
+    }
+    public void setMembership(String membership){
+        this.membership = membership;
     }
 }
 

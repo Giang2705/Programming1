@@ -39,23 +39,6 @@ public class Product {
         return List_product;
     }
 
-    public void addNewProduct() {
-        try {
-            FileWriter fw = new FileWriter("products.csv", true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-
-            pw.println(id + "," + name + "," + category.getCategoryName() + "," + price);
-            pw.flush();
-            pw.close();
-
-            JOptionPane.showMessageDialog(null, "Record saved");
-        }
-        catch (Exception E) {
-            JOptionPane.showMessageDialog(null, "Record not saved");
-        }
-    }
-
     // getter and setter
     public String getProductId() {
         return id;
