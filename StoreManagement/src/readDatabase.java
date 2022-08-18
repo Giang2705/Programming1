@@ -10,45 +10,51 @@ import java.util.*;
 public class readDatabase {
     List<String> categoryNames = new ArrayList<>();
     List<Product> products = new ArrayList<>();
-    public void readFile(String username, String password, String fullname, String phone) throws IOException {
+    public void readFile(String username, String password, String fullname, String phone, String id, String membership) throws IOException {
         BufferedReader b = null;
         String line = "";
         String delimiter = ", ";
 
         try {
             List<Member> members = new ArrayList<Member>();
-            FileReader fr = new FileReader("/C:/StoreManagement/UsersDB/users.csv");
+            FileReader fr = new FileReader("StoreManagement/Database/users.csv");
             b = new BufferedReader(fr);
+            boolean checked = false;
+
             while ((line = b.readLine()) != null) {
                 String[] file = line.split(delimiter);
 
-                if (file.length > 0){
-                    Member mem = new Member();
-                    //   set value for member's attribute
+                    if (file.length > 0) {
+                        Member mem = new Member();
+                        //   set value for member's attribute
                         mem.setUsername(username);
                         mem.setPassword(password);
                         mem.setFullname(fullname);
                         mem.setPhone(phone);
+                        mem.setId(id);
+                        mem.setMembership(membership);
 
                         members.add(mem);
-                    if (file[0].equals(username) && file[1].equals(password)) {
-                        MemberHomePage memberHomePage = new MemberHomePage();
 
-                        for (int i = 0; i < members.size()-1; i++){
-                            if (members.get(i).getUsername() == username){
-                                memberHomePage.getBtnAccount().setText(members.get(i).getUsername());
+                        if (file[0].equals(username) && file[1].equals(password)) {
+                            MemberHomePage memberHomePage = new MemberHomePage();
+
+                            for (int i = 0; i < members.size() - 1; i++) {
+                                if (members.get(i).getUsername() == username) {
+                                    memberHomePage.getBtnAccount().setText(members.get(i).getUsername());
+                                }
                             }
+                            checked = true;
+                            break;
                         }
                     }
-
-//                    else {
-//                        MemberHomePage modal = new MemberHomePage();
-//                        if(JOptionPane.showConfirmDialog(modal, "Wrong username or password! Please try again", "Failed", JOptionPane.YES_NO_OPTION)== JOptionPane.YES_NO_OPTION){
-//                            System.exit(0);
-//                        }
-//                    }
                 }
+            if (checked == false) {
+                System.out.println(false);
+                LoginFailed loginFailed = new LoginFailed();
+                UserLoginPage userLoginPage = new UserLoginPage();
             }
+
 //            System.out.println(members.size());
         } catch (FileNotFoundException e) {
                 e.printStackTrace();

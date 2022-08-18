@@ -1,6 +1,11 @@
+import ClassAttribute.Product;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminHomePage implements ActionListener {
     private JButton btnLogout;
@@ -9,11 +14,9 @@ public class AdminHomePage implements ActionListener {
     private JComboBox category;
     private JComboBox price;
     private JLabel priceSort;
-    private JPanel product3;
     private JLabel categorySort;
-    private JPanel product2;
     private JButton btnAccount;
-    private JPanel product1;
+    private JPanel productsList;
 
 
     public JButton getBtnAccount(){
@@ -26,7 +29,13 @@ public class AdminHomePage implements ActionListener {
         btnLogout.addActionListener(this);
         btnAccount.addActionListener(this);
 
+        productsList.setLayout(new GridLayout(3, 3));
+        for(int i = 1; i<=9; i++){
+            productsList.add(new JButton(""+ i));
+        }
+
         frame.add(Main);
+
         frame.setTitle("Home");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -48,5 +57,7 @@ public class AdminHomePage implements ActionListener {
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+        List<Product> products = new ArrayList<Product>();
+
     }
 }

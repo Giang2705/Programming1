@@ -1,7 +1,11 @@
+import ClassAttribute.Product;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminLoginPage implements ActionListener {
     private JPanel Main;
@@ -41,6 +45,8 @@ public class AdminLoginPage implements ActionListener {
             passwordField1.setText("");
         }
         if (e.getSource() == btnLogin){
+            List<Product> products = new ArrayList<Product>();
+            System.out.println(products.size());
 
             String username = usernameField1.getText();
             String password = String.valueOf(passwordField1.getPassword());
