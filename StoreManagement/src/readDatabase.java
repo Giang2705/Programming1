@@ -3,116 +3,86 @@ import ClassAttribute.Category;
 import ClassAttribute.Member;
 import ClassAttribute.Product;
 
-import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
 public class readDatabase {
+//    Create Object array
+    List<Admin> admins = new ArrayList<Admin>();
+    List<Member> members = new ArrayList<Member>();
     List<String> categoryNames = new ArrayList<>();
     List<Product> products = new ArrayList<>();
-    public void readFile(String username, String password, String fullname, String phone, String id, String membership) throws IOException {
+
+//    read database (add elements into object array)
+
+//    array members
+    public List<Member> readUserFile() throws IOException {
         BufferedReader b = null;
         String line = "";
         String delimiter = ", ";
 
         try {
-            List<Member> members = new ArrayList<Member>();
             FileReader fr = new FileReader("StoreManagement/Database/users.csv");
             b = new BufferedReader(fr);
-            boolean checked = false;
 
             while ((line = b.readLine()) != null) {
                 String[] file = line.split(delimiter);
 
-                    if (file.length > 0) {
-                        Member mem = new Member();
-                        //   set value for member's attribute
-                        mem.setUsername(username);
-                        mem.setPassword(password);
-                        mem.setFullname(fullname);
-                        mem.setPhone(phone);
-                        mem.setId(id);
-                        mem.setMembership(membership);
-
-                        members.add(mem);
-
-                        if (file[0].equals(username) && file[1].equals(password)) {
-                            MemberHomePage memberHomePage = new MemberHomePage();
-
-                            for (int i = 0; i < members.size() - 1; i++) {
-                                if (members.get(i).getUsername() == username) {
-                                    memberHomePage.getBtnAccount().setText(members.get(i).getUsername());
-                                }
-                            }
-                            checked = true;
-                            break;
-                        }
-                    }
+                if (file.length > 1) {
+                    Member mem = new Member();
+                    //   set value for member's attribute
+                    mem.setUsername(file[0]);
+                    mem.setPassword(file[1]);
+                    mem.setFullname(file[2]);
+                    mem.setPhone(file[3]);
+                    mem.setId(file[4]);
+                    mem.setMembership(file[5]);
+                    members.add(mem);
                 }
-            if (checked == false) {
-                System.out.println(false);
-                LoginFailed loginFailed = new LoginFailed();
-                UserLoginPage userLoginPage = new UserLoginPage();
             }
 
-//            System.out.println(members.size());
         } catch (FileNotFoundException e) {
                 e.printStackTrace();
         } catch (IOException e) {
                 e.printStackTrace();
         }
+
+        return members;
     }
 
-    public void readAdminFile(String id, String username, String password) throws IOException {
+//    array admins
+    public List<Admin> readAdminFile() throws IOException {
         BufferedReader b = null;
         String line = "";
         String delimiter = ",";
 
         try {
-            List<Admin> admins = new ArrayList<Admin>();
             FileReader fr = new FileReader("StoreManagement/Database/admins.csv");
             b = new BufferedReader(fr);
-            boolean checked = false;
 
             while ((line = b.readLine()) != null) {
                 String[] file = line.split(delimiter);
 
-                if (file.length > 0) {
+                if (file.length > 1) {
                     Admin ad = new Admin();
                     //   set value for admin's attribute
-                    ad.setAdminUsername(username);
-                    ad.setAdminPassword(password);
-                    ad.setAdminId(id);
+                    ad.setAdminUsername(file[0]);
+                    ad.setAdminPassword(file[1]);
+                    ad.setAdminId(file[2]);
 
                     admins.add(ad);
-
-                    if (file[0].equals(username) && file[1].equals(password)) {
-                        AdminHomePage adminHomePage = new AdminHomePage();
-
-                        for (int i = 0; i < admins.size() - 1; i++) {
-                            if (admins.get(i).getAdminUsername() == username) {
-                                adminHomePage.getBtnAccount().setText(admins.get(i).getAdminUsername());
-                            }
-                        }
-                        checked = true;
-                        break;
-                    }
                 }
             }
-            if (checked == false) {
-                LoginFailed loginFailed = new LoginFailed();
-                AdminLoginPage adminLoginPage = new AdminLoginPage();
-            }
-
-//            System.out.println(members.size());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return admins;
     }
 
-    public void readCategoryFile() throws IOException {
+//    array Categories
+    public List<String> readCategoryFile() throws IOException {
         try {
             FileReader reader = new FileReader("StoreManagement/Database/categories.csv");
             BufferedReader reader1 = new BufferedReader(reader);
@@ -131,15 +101,15 @@ public class readDatabase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-// day dung k
+        return categoryNames;
     }
 
     public List<String> getCategoryNames() {
         return categoryNames;
     }
 
-// read product File
-    public void readProductFile() throws IOException {
+//  array products
+    public List<Product> readProductFile() throws IOException {
         try {
             FileReader reader = new FileReader("StoreManagement/Database/products.csv");
             BufferedReader reader1 = new BufferedReader(reader);
@@ -161,11 +131,7 @@ public class readDatabase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-// day dung k
-    }
 
-    public List<Product> getProductsList() {
         return products;
     }
-
 }

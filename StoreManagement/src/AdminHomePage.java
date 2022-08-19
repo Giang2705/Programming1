@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,11 @@ public class AdminHomePage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnLogout){
             frame.dispose();
-            GuestHomePage guestHomePage = new GuestHomePage();
+            try {
+                GuestHomePage guestHomePage = new GuestHomePage();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == btnAccount){
             frame.dispose();

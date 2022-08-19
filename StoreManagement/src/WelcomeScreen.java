@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
 public class WelcomeScreen implements ActionListener {
     private JTextArea GroupInfo;
     private JButton btnExit;
@@ -32,7 +34,11 @@ public class WelcomeScreen implements ActionListener {
 
         if(e.getSource()==btnContinue){
             frame.dispose();
-            GuestHomePage guestHomePage = new GuestHomePage();
+            try {
+                GuestHomePage guestHomePage = new GuestHomePage();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }

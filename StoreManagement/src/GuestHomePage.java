@@ -26,7 +26,7 @@ public class GuestHomePage implements ActionListener {
     private JComboBox price;
 
     JFrame frame = new JFrame();
-    GuestHomePage(){
+    GuestHomePage() throws IOException {
         ListProducts listProducts = new ListProducts();
 
         productList.setLayout(new GridLayout(1,1));

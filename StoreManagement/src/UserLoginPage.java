@@ -5,14 +5,14 @@ import java.io.IOException;
 
 public class UserLoginPage implements ActionListener {
     private JPanel Main;
-    private JTextField usernameField1;
+    public JTextField usernameField1;
     private JButton btnLogin;
     private JButton btnClear;
     private JButton btnRegister;
     private JLabel loginTitle;
     private JLabel usernameLabel;
     private JLabel passwordLabel;
-    private JPasswordField passwordField1;
+    public JPasswordField passwordField1;
     private JLabel dha;
     private JPanel loginForm;
     private JButton btnHome;
@@ -39,7 +39,11 @@ public class UserLoginPage implements ActionListener {
         }
         if (e.getSource() == btnHome){
             frame.dispose();
-            GuestHomePage guestHomePage = new GuestHomePage();
+            try {
+                GuestHomePage guestHomePage = new GuestHomePage();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == btnClear){
             usernameField1.setText("");
@@ -54,8 +58,10 @@ public class UserLoginPage implements ActionListener {
             } else {
                 String username = usernameField1.getText();
                 String password = String.valueOf(passwordField1.getPassword());
+                Login login = new Login();
                 try {
-                    new readDatabase().readFile(username, password, "", "", "", "");
+                    login.UserLogin(username, password);
+                    frame.dispose();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }

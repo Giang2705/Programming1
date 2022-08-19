@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class MemberHomePage extends Component implements ActionListener {
 
     JFrame frame = new JFrame();
 
-    MemberHomePage(){
+    MemberHomePage() throws IOException {
         ListProducts listProducts = new ListProducts();
         productList.setLayout(new GridLayout(1,1));
         productList.add(listProducts.productList);
@@ -48,7 +49,11 @@ public class MemberHomePage extends Component implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnLogout){
             frame.dispose();
-            GuestHomePage guestHomePage = new GuestHomePage();
+            try {
+                GuestHomePage guestHomePage = new GuestHomePage();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == btnAccount){
             frame.dispose();

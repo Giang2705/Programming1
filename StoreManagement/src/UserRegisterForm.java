@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class UserRegisterForm implements ActionListener{
 
@@ -47,7 +48,11 @@ public class UserRegisterForm implements ActionListener{
         }
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
-            GuestHomePage guestHomePage = new GuestHomePage();
+            try {
+                GuestHomePage guestHomePage = new GuestHomePage();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == btnClear){
             usernameField1.setText("");
