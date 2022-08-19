@@ -1,6 +1,15 @@
+import ClassAttribute.Category;
+import ClassAttribute.Product;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuestHomePage implements ActionListener {
     private JPanel Main;
@@ -8,19 +17,26 @@ public class GuestHomePage implements ActionListener {
     private JButton btnRegister;
     private JButton btnGoBack;
     private JButton btnAdminLogin;
-    private JButton addNewCategoryButton;
-    private JButton addNewProductButton;
-    private JLabel goBack;
+
+    private JScrollPane scroll;
+    private JPanel productList;
+    private JLabel categorySort;
+    private JComboBox category;
+    private JLabel priceSort;
+    private JComboBox price;
 
     JFrame frame = new JFrame();
     GuestHomePage(){
+        ListProducts listProducts = new ListProducts();
+
+        productList.setLayout(new GridLayout(1,1));
+        productList.add(listProducts.productList);
+
+//        Main
         btnLogin.addActionListener(this);
         btnAdminLogin.addActionListener(this);
         btnRegister.addActionListener(this);
         btnGoBack.addActionListener(this);
-        addNewCategoryButton.addActionListener(this);
-        addNewProductButton.addActionListener(this);
-
 
         frame.add(Main);
         frame.setTitle("Guest Homepage");
@@ -47,15 +63,5 @@ public class GuestHomePage implements ActionListener {
             frame.dispose();
             WelcomeScreen welcomeScreen = new WelcomeScreen();
         }
-        if (e.getSource() == addNewCategoryButton) {
-            frame.dispose();
-            AddNewCategoryForm addNewCategoryForm = new AddNewCategoryForm();
-        }
-        if (e.getSource() == addNewProductButton) {
-            frame.dispose();
-            AddNewProductForm addNewProductForm = new AddNewProductForm();
-        }
-
-
     }
 }

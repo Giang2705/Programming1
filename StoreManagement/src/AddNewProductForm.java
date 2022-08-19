@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
-import java.util.*;
+import java.text.NumberFormat;
 import java.util.List;
 
 public class AddNewProductForm implements ActionListener, ItemListener {
@@ -39,6 +39,9 @@ public class AddNewProductForm implements ActionListener, ItemListener {
 
     AddNewProductForm(){
 
+
+        String productId = GenerateID.getID(10);
+        productIdField1.setText(productId);
 
         btnHome.addActionListener(this);
         btnClear.addActionListener(this);
@@ -102,7 +105,7 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         boolean error = false;
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
-            GuestHomePage guestHomePage = new GuestHomePage();
+            AdminHomePage adminHomePage = new AdminHomePage();
         }
         if (e.getSource() == btnClear){
             productIdField1.setText("");
@@ -112,21 +115,20 @@ public class AddNewProductForm implements ActionListener, ItemListener {
 
 
         if (e.getSource() == btnAdd){
-            String productId = productIdField1.getText();
             String productName = productNameField1.getText();
             if (selectedItem == "") {
                 selectedItem = catList[0];
             }
             Category productCat = new Category(selectedItem);
 //            System.out.println(productCat);
-            double productPrice = 0;
+            int productPrice = 0;
             try {
-                productPrice = Double.parseDouble(productPriceField.getText());
+                productPrice = Integer.parseInt((productPriceField.getText()));
             } catch (NumberFormatException exception) {
                 JOptionPane.showMessageDialog(frame, "Invalid Input");
                 error = true;
             }
-            Product product = new Product(productId, productName, productCat, productPrice);
+            Product product = new Product(productIdField1.getText(), productName, productCat, productPrice);
             if (!error) {
                 System.out.println("Add Prod");
                 storeDatabase database = new storeDatabase();
@@ -140,7 +142,8 @@ public class AddNewProductForm implements ActionListener, ItemListener {
                     throw new RuntimeException(ex);
                 }
             }
-
+            frame.dispose();
+            AddNewProductForm addNewProductForm = new AddNewProductForm();
         }
     }
 

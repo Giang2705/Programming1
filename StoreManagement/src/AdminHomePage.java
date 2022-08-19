@@ -9,14 +9,14 @@ import java.util.List;
 
 public class AdminHomePage implements ActionListener {
     private JButton btnLogout;
-    private JButton btnCart;
     private JPanel Main;
     private JComboBox category;
     private JComboBox price;
     private JLabel priceSort;
     private JLabel categorySort;
     private JButton btnAccount;
-    private JPanel productsList;
+    private JButton addNewProductButton;
+    private JButton addNewCategoryButton;
 
 
     public JButton getBtnAccount(){
@@ -28,11 +28,8 @@ public class AdminHomePage implements ActionListener {
 
         btnLogout.addActionListener(this);
         btnAccount.addActionListener(this);
-
-        productsList.setLayout(new GridLayout(3, 3));
-        for(int i = 1; i<=9; i++){
-            productsList.add(new JButton(""+ i));
-        }
+        addNewCategoryButton.addActionListener(this);
+        addNewProductButton.addActionListener(this);
 
         frame.add(Main);
 
@@ -52,6 +49,14 @@ public class AdminHomePage implements ActionListener {
         if (e.getSource() == btnAccount){
             frame.dispose();
             AccountPage accountPage = new AccountPage();
+        }
+        if (e.getSource() == addNewCategoryButton) {
+            frame.dispose();
+            AddNewCategoryForm addNewCategoryForm = new AddNewCategoryForm();
+        }
+        if (e.getSource() == addNewProductButton) {
+            frame.dispose();
+            AddNewProductForm addNewProductForm = new AddNewProductForm();
         }
     }
 

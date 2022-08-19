@@ -16,13 +16,15 @@ public class AddNewCategoryForm implements ActionListener{
     private JButton btnAdd;
     private JButton btnHome;
     private JButton btnClear;
+    private JButton btnCancel;
 
 
     AddNewCategoryForm(){
 
         btnHome.addActionListener(this);
-
         btnAdd.addActionListener(this);
+        btnClear.addActionListener(this);
+        btnCancel.addActionListener(this);
 
         frame.setTitle("Add");
         frame.add(Main);
@@ -37,10 +39,11 @@ public class AddNewCategoryForm implements ActionListener{
 //            frame.dispose();
 //            UserLoginPage userLoginPage = new UserLoginPage();
 //        }
-        if (e.getSource() == btnHome ){
+        if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
-            GuestHomePage guestHomePage = new GuestHomePage();
+            AdminHomePage adminHomePage = new AdminHomePage();
         }
+
         if (e.getSource() == btnClear){
 
             categoryNameField1.setText("");

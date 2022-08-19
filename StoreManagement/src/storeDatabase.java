@@ -244,7 +244,7 @@ public class storeDatabase {
             FileWriter fw = new FileWriter("StoreManagement/Database/products.csv", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-            pw.printf("%s,%s,%s,%.2f\n", product.getProductId(), product.getProductName(), product.getProductCategory().getCategoryName(),product.getProductPrice());
+            pw.printf("%s,%s,%s,%s\n", product.getProductId(), product.getProductName(), product.getProductCategory().getCategoryName(),product.getProductPrice());
             pw.flush();
             pw.close();
 //            PrintWriter print = new PrintWriter("categories.csv");
