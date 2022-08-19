@@ -50,18 +50,26 @@ public class AddNewCategoryForm implements ActionListener{
         }
         if (e.getSource() == btnAdd){
             String name = categoryNameField1.getText();
-            Category category = new Category(name);
-            storeDatabase database = new storeDatabase();
+            if ((name.length() == 0)) {
+                JFrame modal = new JFrame("Unvalidated");
+                modal.setVisible(true);
+                JOptionPane.showConfirmDialog(null, "Please fill in all fields of the form!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
+                modal.dispose();
+                System.out.println("False");
+            } else {
+                Category category = new Category(name);
+                storeDatabase database = new storeDatabase();
 
 //            database.createFolder();
-            database.createCategoryFile();
-            database.categoryCountLine();
-            database.addNewCategory(category);
-            readDatabase readDatabase = new readDatabase();
-            try {
-                readDatabase.readCategoryFile();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                database.createCategoryFile();
+                database.categoryCountLine();
+                database.addNewCategory(category);
+                readDatabase readDatabase = new readDatabase();
+                try {
+                    readDatabase.readCategoryFile();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         }
     }

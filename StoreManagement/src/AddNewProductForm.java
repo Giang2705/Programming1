@@ -116,9 +116,6 @@ public class AddNewProductForm implements ActionListener, ItemListener {
 
         if (e.getSource() == btnAdd){
             String productName = productNameField1.getText();
-            if (selectedItem == "") {
-                selectedItem = catList[0];
-            }
             Category productCat = new Category(selectedItem);
 //            System.out.println(productCat);
             int productPrice = 0;
@@ -128,22 +125,34 @@ public class AddNewProductForm implements ActionListener, ItemListener {
                 JOptionPane.showMessageDialog(frame, "Invalid Input");
                 error = true;
             }
-            Product product = new Product(productIdField1.getText(), productName, productCat, productPrice);
-            if (!error) {
-                System.out.println("Add Prod");
-                storeDatabase database = new storeDatabase();
-                database.createProductFile();
-                database.productCountLine();
-                database.addNewProduct(product);
-                readDatabase readDatabase = new readDatabase();
-                try {
-                    readDatabase.readProductFile();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
+
+
+            if ((productName.length() == 0) || (productCat.getCategoryName().length() == 0)) {
+                JFrame modal = new JFrame("Unvalidated");
+                modal.setVisible(true);
+                JOptionPane.showConfirmDialog(null, "Please fill in all fields of the form!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
+                modal.dispose();
+                System.out.println("False");
+            } else {
+                Product product = new Product(productIdField1.getText(), productName, productCat, productPrice);
+                if (!error) {
+                    System.out.println("Add Prod");
+                    storeDatabase database = new storeDatabase();
+                    database.createProductFile();
+                    database.productCountLine();
+                    database.addNewProduct(product);
+                    readDatabase readDatabase = new readDatabase();
+                    try {
+                        readDatabase.readProductFile();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
+                JOptionPane.showMessageDialog(frame, "Successfully add new product");
+                frame.dispose();
+                AddNewProductForm addNewProductForm = new AddNewProductForm();
             }
-            frame.dispose();
-            AddNewProductForm addNewProductForm = new AddNewProductForm();
+
         }
     }
 
