@@ -7,6 +7,14 @@ public class Member {
     private String fullname;
     private String phone;
 
+    private String membership;
+    //default Member setMembership("Member")
+
+    private int totalSpending = 0;
+    // +total
+    // set += total
+
+
     public String getId(){
         return id;
     }
@@ -40,6 +48,13 @@ public class Member {
     }
     public void setPhone(String phone){
         this.phone = phone;
+    }
+
+    public String getMembership(){
+        return membership;
+    }
+    public void setMembership(String membership){
+        this.membership = membership;
     }
 }
 
