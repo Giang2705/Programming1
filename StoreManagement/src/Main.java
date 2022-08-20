@@ -2,11 +2,11 @@ import GUI.Screen.WelcomeScreen;
 
 public class Main {
     public static void main(String[] args) {
-
         WelcomeScreen welcomeScreen = new WelcomeScreen();
 //        Category new_cat = new Category("1234", "Category");
 //        Product product1 = new Product("s3879069", "Phong", new_cat, 50);
 //        product1.addNewProduct();
+
 //        Functions.readDatabase readData = new Functions.readDatabase();
 //        try {
 //            readData.readProductFile();j
