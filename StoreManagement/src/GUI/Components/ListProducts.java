@@ -11,7 +11,7 @@ import java.util.List;
 public class ListProducts {
     public JPanel productList;
 
-    public ListProducts(boolean btnActive) throws IOException {
+    public ListProducts(boolean btnActive, String username) throws IOException {
         readDatabase readDatabase = new readDatabase();
         List<Product> products = readDatabase.readProductFile();
 
@@ -29,6 +29,7 @@ public class ListProducts {
             productItem.productName.setText(products.get(i).getProductName());
             productItem.productPrice.setText(String.valueOf(products.get(i).getProductPrice()));
             productItem.addToCartButton.setEnabled(btnActive);
+            productItem.getUsername().setText(username);
             productList.add(productItem.productCard);
         }
     }

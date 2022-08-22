@@ -1,9 +1,6 @@
 package Functions;
 
-import ClassAttribute.Admin;
-import ClassAttribute.Category;
-import ClassAttribute.Member;
-import ClassAttribute.Product;
+import ClassAttribute.*;
 
 import java.io.*;
 import java.util.*;
@@ -14,6 +11,7 @@ public class readDatabase {
     List<Member> members = new ArrayList<Member>();
     List<String> categoryNames = new ArrayList<>();
     List<Product> products = new ArrayList<>();
+    List<Cart> carts = new ArrayList<>();
 
 //    read database (add elements into object array)
 
@@ -135,5 +133,52 @@ public class readDatabase {
         }
 
         return products;
+    }
+
+//    array product in cart
+    public List<Cart> readCartFile() throws IOException {
+        BufferedReader b = null;
+        String line = "";
+        String delimiter = ",";
+
+        try {
+            FileReader fr = new FileReader("StoreManagement/Database/cart.csv");
+            b = new BufferedReader(fr);
+
+            while ((line = b.readLine()) != null) {
+                String[] file = line.split(delimiter);
+
+                if (file.length > 1) {
+                    Member member = new Member();
+                    Product product = null;
+
+                    List<Member> members = readUserFile();
+                    List<Product> products = readProductFile();
+
+                    for (int i = 0; i < members.size(); i++){
+                        if (file[1].equals(members.get(i).getUsername())){
+                            member = members.get(i);
+                        }
+                    }
+
+                    for (int i = 0; i < products.size(); i++){
+                        if (file[2].equals(products.get(i).getProductName())){
+                            product = products.get(i);
+                        }
+                    }
+
+                    Cart cart = new Cart(member, product, Integer.parseInt(file[2]), Integer.parseInt(file[3]));
+                    //   set value for member's attribute
+                    carts.add(cart);
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return carts;
     }
 }

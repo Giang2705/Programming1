@@ -1,11 +1,21 @@
 package GUI.Components;
 
+import ClassAttribute.Cart;
+import ClassAttribute.Member;
+import ClassAttribute.Product;
+import Functions.readDatabase;
+import Functions.storeDatabase;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
 
-public class modalAddToCart implements ChangeListener {
+public class modalAddToCart implements ChangeListener, ActionListener {
     private JLabel productNameTitle;
     private JLabel productPriceTitle;
     public JLabel productName;
@@ -15,10 +25,15 @@ public class modalAddToCart implements ChangeListener {
     private JButton submitButton;
     private JButton cancelButton;
     public JPanel ModalAddToCart;
+    public JLabel username;
+    private JLabel usernameTitle;
 
     JFrame frame = new JFrame();
-    modalAddToCart(){
+    public modalAddToCart(){
         amountChange.addChangeListener(this);
+        submitButton.addActionListener(this);
+        cancelButton.addActionListener(this);
+
         frame.setLayout(new GridLayout());
 
         frame.add(ModalAddToCart);
@@ -31,5 +46,55 @@ public class modalAddToCart implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e) {
         textField1.setText(""+(Integer)(amountChange.getValue())*Integer.parseInt(productPrice.getText()));
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submitButton){
+            Member member = new Member();
+            Product product = null;
+            readDatabase readDatabase = new readDatabase();
+            try {
+                List<Member> members = readDatabase.readUserFile();
+                for(int i = 0; i < members.size(); i++){
+                    if (members.get(i).getUsername().equals(username.getText())){
+                        member = members.get(i);
+                        break;
+                    }
+                }
+
+                List<Product> products = readDatabase.readProductFile();
+                for(int i = 0; i< products.size(); i++){
+                    if (products.get(i).getProductName().equals(productName.getText())){
+                        product = products.get(i);
+                        break;
+                    }
+                }
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            Cart cart = new Cart(member, product, (Integer)(amountChange.getValue()), Integer.parseInt(textField1.getText()));
+//            validation
+            if(cart.getAmount() < 0){
+                JFrame modal = new JFrame("Unvalidated");
+                modal.setVisible(true);
+                JOptionPane.showConfirmDialog(null, "Please choose amount more than 0!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
+                modal.dispose();
+            } else {
+                storeDatabase database = new storeDatabase();
+                database.createFolder();
+                database.createCartsFile();
+                database.cartCountLine();
+                database.addProductToCart(cart);
+                JFrame modal = new JFrame("Successful!");
+                modal.setVisible(true);
+                JOptionPane.showConfirmDialog(null, "Product added to cart!", "Successful", JOptionPane.DEFAULT_OPTION);
+                modal.dispose();
+                frame.dispose();
+            }
+
+        }
+        if (e.getSource() == cancelButton){
+            frame.dispose();
+        }
     }
 }

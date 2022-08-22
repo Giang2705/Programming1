@@ -1,6 +1,7 @@
 package GUI.Screen;
 
 import GUI.Components.ListProducts;
+import GUI.Components.Orders;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,30 +11,29 @@ import java.io.IOException;
 
 public class MemberHomePage extends Component implements ActionListener {
     private JButton btnLogout;
-    private JButton btnCart;
     private JPanel Main;
     private JComboBox category;
     private JComboBox price;
     private JLabel priceSort;
     private JLabel categorySort;
-    private JButton btnAccount;
     private JPanel productList;
-
-
-    public JButton getBtnAccount(){
-        return btnAccount;
-    }
+    private JPanel cartArea;
+    public JButton username;
 
     JFrame frame = new JFrame();
 
-    public MemberHomePage() throws IOException {
-        ListProducts listProducts = new ListProducts(true);
+    public MemberHomePage(String name) throws IOException {
+        username.setText(name);
+        ListProducts listProducts = new ListProducts(true, name);
         productList.setLayout(new GridLayout(1,1));
         productList.add(listProducts.productList);
 
         btnLogout.addActionListener(this);
-        btnAccount.addActionListener(this);
-        btnCart.setToolTipText("You have 0 products in your cart!");
+//        btnAccount.addActionListener(this);
+
+        Orders orders = new Orders();
+        cartArea.setLayout(new GridLayout());
+        cartArea.add(orders.Main);
 
         frame.setLayout(new GridLayout());
 
@@ -55,10 +55,10 @@ public class MemberHomePage extends Component implements ActionListener {
                 throw new RuntimeException(ex);
             }
         }
-        if (e.getSource() == btnAccount){
-            frame.dispose();
-            AccountPage accountPage = new AccountPage();
-        }
+//        if (e.getSource() == btnAccount){
+//            frame.dispose();
+//            AccountPage accountPage = new AccountPage();
+//        }
     }
 
     private void createUIComponents() {

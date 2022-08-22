@@ -1,9 +1,6 @@
 package Functions;
 
-import ClassAttribute.Admin;
-import ClassAttribute.Category;
-import ClassAttribute.Member;
-import ClassAttribute.Product;
+import ClassAttribute.*;
 import GUI.Components.AccountExists;
 import GUI.Components.CategoryExistsMessage;
 import GUI.Components.ProductExists;
@@ -82,8 +79,8 @@ public class storeDatabase {
     }
 
     public void createProductFile() {
-        File categoryFile = new File("StoreManagement/Database/products.csv");
-        if (!categoryFile.exists()) {
+        File productFile = new File("StoreManagement/Database/products.csv");
+        if (!productFile.exists()) {
             try {
                 FileWriter fw = new FileWriter("StoreManagement/Database/products.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
@@ -101,11 +98,31 @@ public class storeDatabase {
             }
         }
     }
+    public void createCartsFile(){
+        File ordersFile = new File("StoreManagement/Database/cart.csv");
+        if (!ordersFile.exists()) {
+            try {
+                FileWriter fw = new FileWriter("StoreManagement/Database/cart.csv");
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.println("id,member's name,product's name,amount,total,created date");
+                pw.flush();
+                pw.close();
+//                PrintWriter print = new PrintWriter(categoryFile);
+//                print.println("id,name");
+//                print.close();
+                System.out.println("Orders file created!");
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
 
 
-//    count line
-public void count(){
+    //    count line
+    public void count(){
         try {
             line = 1;
             RandomAccessFile raf = new RandomAccessFile(f + "/users.csv", "rw");
@@ -182,6 +199,19 @@ public void count(){
             ex.printStackTrace();
         }
     }
+    public void cartCountLine(){
+        try {
+            line = 1;
+            RandomAccessFile raf = new RandomAccessFile("StoreManagement/Database/cart.csv", "rw");
+            for (int i = 0; raf.readLine() != null; i++){
+                line++;
+            }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
 
 
 
@@ -248,7 +278,6 @@ public void count(){
         String rl = "";
         String delimiter = ",";
         try {
-
             FileReader fr = new FileReader("StoreManagement/Database/products.csv");
             BufferedReader b = new BufferedReader(fr);
             boolean proChecked = true;
@@ -311,6 +340,49 @@ public void count(){
                 pw.close();
                 System.out.println("Successfully creating a new category!");
             }
+
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+        } catch (IOException e) {
+            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    public void addProductToCart(Cart cart) {
+        BufferedReader b = null;
+        String rl = "";
+        String delimiter = ",";
+
+//        add new data in db
+        try {
+//            condition
+            List<Cart> carts = new ArrayList<Cart>();
+            FileReader fr = new FileReader("StoreManagement/Database/cart.csv");
+            b = new BufferedReader(fr);
+
+            while ((rl = b.readLine()) != null) {
+                String[] file = rl.split(delimiter);
+            }
+            RandomAccessFile raf = new RandomAccessFile(f + "/cart.csv", "rw");
+
+            for(int i = 0; i<line; i++){
+                raf.readLine();
+            }
+
+            raf.writeBytes("\r\n");
+            raf.writeBytes(GenerateID.getID(10));
+            raf.writeBytes(",");
+            raf.writeBytes(cart.getMember().getUsername());
+            raf.writeBytes(",");
+            raf.writeBytes(cart.getProduct().getProductName());
+            raf.writeBytes(",");
+            raf.writeBytes(String.valueOf(cart.getAmount()));
+            raf.writeBytes(",");
+            raf.writeBytes(String.valueOf(cart.getTotal()));
+            raf.writeBytes(",");
+            raf.writeBytes(GetDate.GetDate());
+
+            System.out.println("Product added successfully!");
+
 
         } catch (FileNotFoundException e) {
             Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);

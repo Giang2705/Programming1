@@ -12,6 +12,15 @@ public class Product {
     private String name;
     private Category category;
     private int price;
+    private int amount;
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     public static List<Product> List_product = new ArrayList<>();
 
