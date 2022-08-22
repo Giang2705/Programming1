@@ -8,6 +8,12 @@ public class Member {
     private String phone;
 
     private String membership;
+    //default Member setMembership("Member")
+
+    private int totalSpending = 0;
+    // +total
+    // set += total
+
 
     public String getId(){
         return id;
