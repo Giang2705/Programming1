@@ -13,6 +13,8 @@ public class readDatabase {
     List<Product> products = new ArrayList<>();
     List<Cart> carts = new ArrayList<>();
 
+//    Product tempProduct  = null;
+
 //    read database (add elements into object array)
 
 //    array members
@@ -181,4 +183,41 @@ public class readDatabase {
 
         return carts;
     }
+
+    public Product readProductById(String ID) {
+        String line = "";
+        String proID = "";
+        String proName = "";
+        Category proCat;
+        int proPrice = 0;
+        Product tempProduct = null;
+        try {
+            FileReader fr = new FileReader("StoreManagement/Database/products.csv");
+            BufferedReader bufferedReader = new BufferedReader(fr);
+            bufferedReader.readLine();
+            line = bufferedReader.readLine();
+
+            while (line != null) {
+                String[] array = line.split(",");
+                if(array[0].equals(ID)) {
+                    proID = ID;
+                    proName = array[1];
+                    proCat = new Category(array[2]);
+                    proPrice = Integer.parseInt(array[3]);
+                    tempProduct = new Product(proID,proName,proCat,proPrice);
+
+                    bufferedReader.close();
+                    break;
+                } else {
+                    line = bufferedReader.readLine();
+                }
+            }
+            bufferedReader.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return tempProduct;
+    }
 }
+
+
