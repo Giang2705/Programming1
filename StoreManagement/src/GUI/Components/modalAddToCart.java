@@ -3,6 +3,8 @@ package GUI.Components;
 import ClassAttribute.Cart;
 import ClassAttribute.Member;
 import ClassAttribute.Product;
+import Functions.GenerateID;
+import Functions.GetDate;
 import Functions.readDatabase;
 import Functions.storeDatabase;
 
@@ -50,6 +52,8 @@ public class modalAddToCart implements ChangeListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton){
+            String id = GenerateID.getID(10);
+            String status = "unpaid";
             Member member = new Member();
             Product product = null;
             readDatabase readDatabase = new readDatabase();
@@ -72,7 +76,7 @@ public class modalAddToCart implements ChangeListener, ActionListener {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            Cart cart = new Cart(member, product, (Integer)(amountChange.getValue()), Integer.parseInt(textField1.getText()));
+            Cart cart = new Cart(id, member, product, (Integer)(amountChange.getValue()), Integer.parseInt(textField1.getText()), GetDate.GetDate(), status);
 //            validation
             if(cart.getAmount() < 0){
                 JFrame modal = new JFrame("Unvalidated");

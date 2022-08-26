@@ -22,7 +22,7 @@ public class readDatabase {
         String delimiter = ", ";
 
         try {
-            FileReader fr = new FileReader("StoreManagement/Database/users.csv");
+            FileReader fr = new FileReader("Database/users.csv");
             b = new BufferedReader(fr);
 
             while ((line = b.readLine()) != null) {
@@ -57,7 +57,7 @@ public class readDatabase {
         String delimiter = ",";
 
         try {
-            FileReader fr = new FileReader("StoreManagement/Database/admins.csv");
+            FileReader fr = new FileReader("Database/admins.csv");
             b = new BufferedReader(fr);
 
             while ((line = b.readLine()) != null) {
@@ -84,7 +84,7 @@ public class readDatabase {
 //    array Categories
     public List<String> readCategoryFile() throws IOException {
         try {
-            FileReader reader = new FileReader("StoreManagement/Database/categories.csv");
+            FileReader reader = new FileReader("Database/categories.csv");
             BufferedReader reader1 = new BufferedReader(reader);
             reader1.readLine();
             String line;
@@ -111,7 +111,7 @@ public class readDatabase {
 //  array products
     public List<Product> readProductFile() throws IOException {
         try {
-            FileReader reader = new FileReader("StoreManagement/Database/products.csv");
+            FileReader reader = new FileReader("Database/products.csv");
             BufferedReader reader1 = new BufferedReader(reader);
             reader1.readLine();
             String line;
@@ -136,48 +136,49 @@ public class readDatabase {
     }
 
 //    array product in cart
-    public List<Cart> readCartFile() throws IOException {
-        BufferedReader b = null;
-        String line = "";
-        String delimiter = ",";
+    public List<Cart> readCartFile(String name) throws IOException {
+        List<Member> members = readUserFile();
+        List<Product> products = readProductFile();
 
         try {
-            FileReader fr = new FileReader("StoreManagement/Database/cart.csv");
-            b = new BufferedReader(fr);
+            FileReader reader = new FileReader("Database/cart.csv");
+            BufferedReader reader1 = new BufferedReader(reader);
+            reader1.readLine();
+            String line;
+            line = reader1.readLine();
 
-            while ((line = b.readLine()) != null) {
-                String[] file = line.split(delimiter);
+//            boolean firstLine = true;
+            while (line != null) {
+                Member member = new Member();
+                Product product = null;
 
-                if (file.length > 1) {
-                    Member member = new Member();
-                    Product product = null;
-
-                    List<Member> members = readUserFile();
-                    List<Product> products = readProductFile();
-
+                String[] file = line.split(",");
+                if (file.length > 1){
                     for (int i = 0; i < members.size(); i++){
-                        if (file[1].equals(members.get(i).getUsername())){
+                        if (members.get(i).getUsername().equals(name) && members.get(i).getUsername().equals(file[1])){
                             member = members.get(i);
                         }
                     }
-
                     for (int i = 0; i < products.size(); i++){
-                        if (file[2].equals(products.get(i).getProductName())){
+                        if (products.get(i).getProductName().equals(file[2])){
                             product = products.get(i);
                         }
                     }
 
-                    Cart cart = new Cart(member, product, Integer.parseInt(file[2]), Integer.parseInt(file[3]));
-                    //   set value for member's attribute
+                    Cart cart = new Cart(file[0], member, product, Integer.parseInt(file[3]), Integer.parseInt(file[4]), file[5], file[6]);
                     carts.add(cart);
                 }
+                line = reader1.readLine();
             }
+            reader.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            return carts = null;
         }
+
+//        for (int i = 0; i < carts.size(); i++){
+//            System.out.println(carts.get(i).getProduct());
+//        }
 
         return carts;
     }
