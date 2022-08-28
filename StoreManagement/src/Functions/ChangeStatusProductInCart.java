@@ -44,7 +44,6 @@ public class ChangeStatusProductInCart {
                 PrintWriter pr = new PrintWriter("Database/cart.csv");
 
                 for (int i = 0; i<tempArray.size(); i++) {
-                    System.out.println(tempArray.get(i));
                     pr.println(tempArray.get(i));
                 }
                 pr.close();

@@ -3,6 +3,7 @@ package GUI.Screen;
 import ClassAttribute.Cart;
 import ClassAttribute.Order;
 import Functions.*;
+import GUI.Components.ConfirmedOrderModal;
 import GUI.Components.ProductInCart;
 
 import javax.swing.*;
@@ -104,9 +105,11 @@ public class CartScreen implements ActionListener {
                 storeDatabase.ordersCountLine();
                 storeDatabase.addOrder(order, productsOrder);
 
-
                 frame.dispose();
                 CartScreen cartScreen = new CartScreen(username.getText());
+
+                ConfirmedOrderModal confirmedOrderModal = new ConfirmedOrderModal(id, order.getCart().get(0).getMember().getUsername(), order.getTotal(), order.getCreatedDate(), order.getStatus());
+
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
