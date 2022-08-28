@@ -1,8 +1,10 @@
 package ClassAttribute;
 
+import java.util.List;
+
 public class Order {
     String id;
-    Cart cart;
+    List<Cart> cart;
     Integer total;
     String createdDate;
     String status;
@@ -15,11 +17,11 @@ public class Order {
         this.id = id;
     }
 
-    public Cart getCart() {
+    public List<Cart> getCart() {
         return cart;
     }
 
-    public void setCart(Cart cart) {
+    public void setCart(List<Cart> cart) {
         this.cart = cart;
     }
 
@@ -45,5 +47,13 @@ public class Order {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Order(String id, List<Cart> cart, Integer total, String createdDate, String status){
+        this.id = id;
+        this.cart = cart;
+        this.total = total;
+        this.createdDate = createdDate;
+        this.status = status;
     }
 }

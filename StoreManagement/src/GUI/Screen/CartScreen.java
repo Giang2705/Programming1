@@ -1,8 +1,8 @@
 package GUI.Screen;
 
 import ClassAttribute.Cart;
-import Functions.RemoveProductsFromCart;
-import Functions.readDatabase;
+import ClassAttribute.Order;
+import Functions.*;
 import GUI.Components.ProductInCart;
 
 import javax.swing.*;
@@ -24,7 +24,7 @@ public class CartScreen implements ActionListener {
     JFrame frame = new JFrame();
 
     public List<Cart> getMemberCart() throws IOException {
-        Functions.readDatabase readDatabase = new readDatabase();
+        readDatabase readDatabase = new readDatabase();
         List<Cart> carts = readDatabase.readCartFile(username.getText());
 
         List<Cart> memberCart = new ArrayList<>();
@@ -49,13 +49,15 @@ public class CartScreen implements ActionListener {
 
         ListOfAddedProducts.setLayout(new GridLayout(getMemberCart().size(), 1));
         for (int i = 0; i < getMemberCart().size(); i++) {
-            ProductInCart productInCart = new ProductInCart(username.getText());
-            productInCart.getProductName().setText(getMemberCart().get(i).getProduct().getProductName());
-            productInCart.getPrice().setText(String.valueOf(getMemberCart().get(i).getProduct().getProductPrice()));
-            productInCart.getAmount().setText(String.valueOf(getMemberCart().get(i).getAmount()));
-            productInCart.getTotal().setText(String.valueOf(getMemberCart().get(i).getTotal()));
-            productInCart.getID().setText(getMemberCart().get(i).getId());
-            ListOfAddedProducts.add(productInCart.Main);
+            if(getMemberCart().get(i).getStatus().equals("unpaid")){
+                ProductInCart productInCart = new ProductInCart(username.getText());
+                productInCart.getProductName().setText(getMemberCart().get(i).getProduct().getProductName());
+                productInCart.getPrice().setText(String.valueOf(getMemberCart().get(i).getProduct().getProductPrice()));
+                productInCart.getAmount().setText(String.valueOf(getMemberCart().get(i).getAmount()));
+                productInCart.getTotal().setText(String.valueOf(getMemberCart().get(i).getTotal()));
+                productInCart.getID().setText(getMemberCart().get(i).getId());
+                ListOfAddedProducts.add(productInCart.Main);
+            }
         }
 
         frame.add(Main);
@@ -76,13 +78,33 @@ public class CartScreen implements ActionListener {
             }
         }
         if (e.getSource() == btnConfirm) {
+            List<Cart> productsOrder = new ArrayList<>();
+            int total = 0;
             try {
                 for(int i = 0; i<getMemberCart().size(); i++){
                     if(getMemberCart().get(i).getStatus().equals("paid")){
-                        RemoveProductsFromCart removeProductsFromCart = new RemoveProductsFromCart();
-                        removeProductsFromCart.removeProductsFromCart(getMemberCart().get(i).getId());
+                        productsOrder.add(getMemberCart().get(i));
+                        ChangeStatusProductInCart changeStatusProductInCart = new ChangeStatusProductInCart();
+                        changeStatusProductInCart.changeStatus(getMemberCart().get(i).getId(), "confirm");
                     }
                 }
+                String id = GenerateID.getID(10);
+                for (int i = 0; i < productsOrder.size(); i++) {
+                    total += productsOrder.get(i).getTotal();
+                }
+
+                String createdDate = GetDate.GetDate();
+                String status = "Confirmed";
+
+                Order order = new Order(id, productsOrder, total, createdDate, status);
+
+                storeDatabase storeDatabase = new storeDatabase();
+                storeDatabase.createFolder();
+                storeDatabase.createOrdersFile();
+                storeDatabase.ordersCountLine();
+                storeDatabase.addOrder(order, productsOrder);
+
+
                 frame.dispose();
                 CartScreen cartScreen = new CartScreen(username.getText());
             } catch (IOException ex) {

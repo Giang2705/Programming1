@@ -119,6 +119,25 @@ public class storeDatabase {
         }
     }
 
+//    paid file
+    public void paidFile(){
+        File cartFile = new File("Database/paid.csv");
+        if (!cartFile.exists()) {
+            try {
+                FileWriter fw = new FileWriter("Database/paid.csv");
+                BufferedWriter bw = new BufferedWriter(fw);
+                PrintWriter pw = new PrintWriter(bw);
+                pw.println("id,member's name,product's name,amount,total,created date,status");
+                pw.flush();
+                pw.close();
+                System.out.println("Paid file created!");
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public void createOrdersFile(){
         File ordersFile = new File("Database/orders.csv");
         if (!ordersFile.exists()) {
@@ -223,6 +242,20 @@ public class storeDatabase {
         try {
             line = 1;
             RandomAccessFile raf = new RandomAccessFile("Database/cart.csv", "rw");
+            for (int i = 0; raf.readLine() != null; i++){
+                line++;
+            }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    public void paidCountLine(){
+        try {
+            line = 1;
+            RandomAccessFile raf = new RandomAccessFile("Database/paid.csv", "rw");
             for (int i = 0; raf.readLine() != null; i++){
                 line++;
             }
@@ -427,49 +460,58 @@ public class storeDatabase {
         }
     }
 
-//    public void addOrder(Order order) {
-//        BufferedReader b = null;
-//        String rl = "";
-//        String delimiter = ",";
-//
-////        add new data in db
-//        try {
-////            condition
-//            List<Cart> carts = new ArrayList<Cart>();
-//            FileReader fr = new FileReader("Database/orders.csv");
-//            b = new BufferedReader(fr);
-//
-//            while ((rl = b.readLine()) != null) {
-//                String[] file = rl.split(delimiter);
-//            }
-//            RandomAccessFile raf = new RandomAccessFile(f + "/orders.csv", "rw");
-//
-//            for(int i = 0; i<line; i++){
-//                raf.readLine();
-//            }
-//
-//            raf.writeBytes("\r\n");
-//            raf.writeBytes(order.getId());
-//            raf.writeBytes(",");
-//            raf.writeBytes(order.getCart().getMember().getUsername());
-//            raf.writeBytes(",");
-//            raf.writeBytes(String.valueOf(order.getCart().getProduct()));
-//            raf.writeBytes(",");
-//            raf.writeBytes(String.valueOf(cart.getAmount()));
-//            raf.writeBytes(",");
-//            raf.writeBytes(String.valueOf(cart.getTotal()));
-//            raf.writeBytes(",");
-//            raf.writeBytes(GetDate.GetDate());
-//            raf.writeBytes(",");
-//            raf.writeBytes(cart.getStatus());
-//
-//            System.out.println("Product added successfully!");
-//
-//
-//        } catch (FileNotFoundException e) {
-//            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
-//        } catch (IOException e) {
-//            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
-//        }
-//    }
+    public void addOrder(Order order, List<Cart> cart) throws IOException {
+        readDatabase readDatabase = new readDatabase();
+
+        BufferedReader b = null;
+        String rl = "";
+        String delimiter = ",";
+
+//        add new data in db
+        try {
+//            condition
+            List<Order> orders = new ArrayList<Order>();
+            FileReader fr = new FileReader("Database/orders.csv");
+            b = new BufferedReader(fr);
+
+            while ((rl = b.readLine()) != null) {
+                String[] file = rl.split(delimiter);
+            }
+            RandomAccessFile raf = new RandomAccessFile(f + "/orders.csv", "rw");
+
+            for(int i = 0; i<line; i++){
+                raf.readLine();
+            }
+
+            raf.writeBytes("\r\n");
+            raf.writeBytes(order.getId());
+            raf.writeBytes(",");
+            raf.writeBytes(order.getCart().get(0).getMember().getUsername());
+            raf.writeBytes(",");
+            for (int i = 0; i < cart.size(); i++){
+                raf.writeBytes(cart.get(i).getId());
+                raf.writeBytes("-");
+                raf.writeBytes(cart.get(i).getProduct().getProductName());
+                raf.writeBytes("-");
+                raf.writeBytes(String.valueOf(cart.get(i).getAmount()));
+                if (i != cart.size()-1){
+                    raf.writeBytes("+");
+                }
+            }
+            raf.writeBytes(",");
+            raf.writeBytes(String.valueOf(order.getTotal()));
+            raf.writeBytes(",");
+            raf.writeBytes(GetDate.GetDate());
+            raf.writeBytes(",");
+            raf.writeBytes(order.getStatus());
+
+            System.out.println("Order confirmed successfully!");
+
+
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+        } catch (IOException e) {
+            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
 }

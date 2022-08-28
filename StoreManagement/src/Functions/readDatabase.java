@@ -12,6 +12,7 @@ public class readDatabase {
     List<String> categoryNames = new ArrayList<>();
     List<Product> products = new ArrayList<>();
     List<Cart> carts = new ArrayList<>();
+    List<Order> orders = new ArrayList<>();
 
 //    read database (add elements into object array)
 
@@ -176,10 +177,63 @@ public class readDatabase {
             return carts = null;
         }
 
-//        for (int i = 0; i < carts.size(); i++){
-//            System.out.println(carts.get(i).getProduct());
-//        }
-
         return carts;
     }
+
+    //    array orders
+
+//    public List<Order> readOrderFile(String name) throws IOException {
+//        List<Cart> carts = readCartFile(name);
+//        List<Member> members = readUserFile();
+//        List<Member> membersArr = new ArrayList<>();
+//        List<Cart> cartInOrder = new ArrayList<>();
+//        List<Order> orders = new ArrayList<>();
+//
+//        try {
+//            FileReader reader = new FileReader("Database/orders.csv");
+//            BufferedReader reader1 = new BufferedReader(reader);
+//            reader1.readLine();
+//            String line;
+//            line = reader1.readLine();
+//
+////            boolean firstLine = true;
+//            while (line != null) {
+//                String[] file = line.split(",");
+//
+//                if (file.length > 1){
+//                    Member member = new Member();
+//
+//                    for (int i = 0; i < members.size(); i++){
+//                        if (members.get(i).getUsername().equals(name) && members.get(i).getUsername().equals(file[1])){
+//                            member = members.get(i);
+//                        }
+//                        membersArr.add(member);
+//                    }
+//
+//                    String[] productsArr = file[2].replace("+", "-").split("-");
+//
+//                    for (int i = 0; i < carts.size(); i++){
+//                        int j = 0;
+//                        while (j < productsArr.length){
+//                            if(carts.get(i).getId().equals(productsArr[j])){
+//                                cartInOrder.add(carts.get(i));
+//                            }
+//                            j += 3;
+//                        }
+//                    }
+//
+//                    Order order = new Order(file[0], cartInOrder, Integer.parseInt(file[3]), file[4], file[5]);
+//                    orders.add(order);
+//                }
+//                line = reader1.readLine();
+//            }
+//            reader.close();
+//
+//        } catch (IOException e) {
+//            return orders = null;
+//        }
+//
+//        return orders;
+//    }
+
 }
