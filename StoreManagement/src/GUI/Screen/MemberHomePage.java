@@ -1,13 +1,16 @@
 package GUI.Screen;
 
+import ClassAttribute.Member;
+import Functions.readDatabase;
 import GUI.Components.ListProducts;
-import GUI.Components.Orders;
+import GUI.Components.modalAddToCart;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.List;
 
 public class MemberHomePage extends Component implements ActionListener {
     private JButton btnLogout;
@@ -17,23 +20,28 @@ public class MemberHomePage extends Component implements ActionListener {
     private JLabel priceSort;
     private JLabel categorySort;
     private JPanel productList;
-    private JPanel cartArea;
     public JButton username;
+    private JButton Cart;
+
+    readDatabase readDatabase = new readDatabase();
+    List<Member> members = readDatabase.readUserFile();
+    Member member;
 
     JFrame frame = new JFrame();
 
     public MemberHomePage(String name) throws IOException {
+        Cart.addActionListener(this);
+        btnLogout.addActionListener(this);
+
         username.setText(name);
+        for (int i = 0; i<members.size(); i++){
+            if (members.get(i).getUsername().equals(name)){
+                member = members.get(i);
+            }
+        }
         ListProducts listProducts = new ListProducts(true, name);
         productList.setLayout(new GridLayout(1,1));
         productList.add(listProducts.productList);
-
-        btnLogout.addActionListener(this);
-//        btnAccount.addActionListener(this);
-
-        Orders orders = new Orders();
-        cartArea.setLayout(new GridLayout());
-        cartArea.add(orders.Main);
 
         frame.setLayout(new GridLayout());
 
@@ -47,6 +55,14 @@ public class MemberHomePage extends Component implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == Cart){
+            frame.dispose();
+            try {
+                CartScreen cartScreen = new CartScreen(username.getText());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
         if (e.getSource() == btnLogout){
             frame.dispose();
             try {

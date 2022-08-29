@@ -3,8 +3,8 @@ package GUI.Components;
 import ClassAttribute.Cart;
 import ClassAttribute.Member;
 import ClassAttribute.Product;
-import Functions.readDatabase;
-import Functions.storeDatabase;
+import Functions.*;
+import GUI.Screen.MemberHomePage;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -26,6 +26,7 @@ public class modalAddToCart implements ChangeListener, ActionListener {
     private JButton cancelButton;
     public JPanel ModalAddToCart;
     public JLabel username;
+
     private JLabel usernameTitle;
 
     JFrame frame = new JFrame();
@@ -50,6 +51,8 @@ public class modalAddToCart implements ChangeListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton){
+            String id = GenerateID.getID(10);
+            String status = "unpaid";
             Member member = new Member();
             Product product = null;
             readDatabase readDatabase = new readDatabase();
@@ -72,24 +75,31 @@ public class modalAddToCart implements ChangeListener, ActionListener {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            Cart cart = new Cart(member, product, (Integer)(amountChange.getValue()), Integer.parseInt(textField1.getText()));
-//            validation
-            if(cart.getAmount() < 0){
+            if (textField1.getText().equals("")) {
                 JFrame modal = new JFrame("Unvalidated");
                 modal.setVisible(true);
                 JOptionPane.showConfirmDialog(null, "Please choose amount more than 0!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
                 modal.dispose();
             } else {
-                storeDatabase database = new storeDatabase();
-                database.createFolder();
-                database.createCartsFile();
-                database.cartCountLine();
-                database.addProductToCart(cart);
-                JFrame modal = new JFrame("Successful!");
-                modal.setVisible(true);
-                JOptionPane.showConfirmDialog(null, "Product added to cart!", "Successful", JOptionPane.DEFAULT_OPTION);
-                modal.dispose();
-                frame.dispose();
+                Cart cart = new Cart(id, member, product, (Integer)(amountChange.getValue()), Integer.parseInt(textField1.getText()), GetDate.GetDate(), status);
+//                validation
+                if(cart.getAmount() < 0){
+                    JFrame modal = new JFrame("Unvalidated");
+                    modal.setVisible(true);
+                    JOptionPane.showConfirmDialog(null, "Please choose amount more than 0!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
+                    modal.dispose();
+                } else {
+                    storeDatabase database = new storeDatabase();
+                    database.createFolder();
+                    database.createCartsFile();
+                    database.cartCountLine();
+                    database.addProductToCart(cart);
+                    JFrame modal = new JFrame("Successful!");
+                    modal.setVisible(true);
+                    JOptionPane.showConfirmDialog(null, "Product added to cart!", "Successful", JOptionPane.DEFAULT_OPTION);
+                    modal.dispose();
+                    frame.dispose();
+                }
             }
 
         }

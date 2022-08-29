@@ -14,6 +14,8 @@ public class ProductItem implements ActionListener {
     public JButton addToCartButton;
 
     public JLabel username;
+
+    JFrame frame = new JFrame();
     public JLabel getUsername() {
         return username;
     }
