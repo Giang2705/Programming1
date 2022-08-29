@@ -25,6 +25,10 @@ public class Main {
 //        Functions.storeDatabase.createAdminFile();
 //        Functions.storeDatabase.adminCountLine();
 //        Functions.storeDatabase.addNewAdmin(admin);
+//        System.out.println("hello");
+//        Functions.readDatabase readDatabase = new Functions.readDatabase();
+//        System.out.println(readDatabase.readProductById("sW7LPHpUeL"));
+//        readDatabase.display();
 
     }
 }
