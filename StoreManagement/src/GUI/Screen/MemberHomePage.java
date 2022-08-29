@@ -3,6 +3,7 @@ package GUI.Screen;
 import ClassAttribute.Member;
 import Functions.readDatabase;
 import GUI.Components.ListProducts;
+import GUI.Components.modalAddToCart;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,6 @@ public class MemberHomePage extends Component implements ActionListener {
     private JLabel priceSort;
     private JLabel categorySort;
     private JPanel productList;
-    private JPanel cartArea;
     public JButton username;
     private JButton Cart;
 

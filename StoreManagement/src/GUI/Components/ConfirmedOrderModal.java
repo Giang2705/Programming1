@@ -1,15 +1,12 @@
 package GUI.Components;
 
 import ClassAttribute.Order;
-import ClassAttribute.Product;
 import Functions.readDatabase;
-import GUI.Screen.CartScreen;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 public class ConfirmedOrderModal {
