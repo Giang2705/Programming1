@@ -14,6 +14,8 @@ public class readDatabase {
     List<Cart> carts = new ArrayList<>();
     List<Order> orders = new ArrayList<>();
 
+//    Product tempProduct  = null;
+
 //    read database (add elements into object array)
 
 //    array members
@@ -180,6 +182,7 @@ public class readDatabase {
         return carts;
     }
 
+
     //    array orders
 
     public List<Order> readOrderFile(String name) throws IOException {
@@ -235,5 +238,4 @@ public class readDatabase {
 
         return orders;
     }
-
 }

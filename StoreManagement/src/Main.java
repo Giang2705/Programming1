@@ -1,6 +1,8 @@
 import Functions.GetDate;
 import GUI.Screen.WelcomeScreen;
 
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) {
         WelcomeScreen welcomeScreen = new WelcomeScreen();
@@ -22,6 +24,10 @@ public class Main {
 //        Functions.storeDatabase.createAdminFile();
 //        Functions.storeDatabase.adminCountLine();
 //        Functions.storeDatabase.addNewAdmin(admin);
+//        System.out.println("hello");
+//        Functions.readDatabase readDatabase = new Functions.readDatabase();
+//        System.out.println(readDatabase.readProductById("sW7LPHpUeL"));
+//        readDatabase.display();
 
     }
 }
