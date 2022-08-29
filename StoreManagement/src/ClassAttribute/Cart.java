@@ -15,9 +15,9 @@ public class Cart {
     private Member member;
     private Product product;
 
-    private Integer amount;
+    private double amount;
 
-    private Integer total;
+    private double total;
 
     public String getStatus() {
         return status;
@@ -39,7 +39,7 @@ public class Cart {
 
     private String createdDate;
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -63,7 +63,7 @@ public class Cart {
         this.product = product;
     }
 
-    public Integer getTotal() {
+    public double getTotal() {
         return total;
     }
 
@@ -71,7 +71,7 @@ public class Cart {
         this.total = total;
     }
 
-    public Cart(String id, Member member, Product product, Integer amount, Integer total, String createdDate, String status){
+    public Cart(String id, Member member, Product product, double amount, double total, String createdDate, String status){
         this.id = id;
         this.member = member;
         this.product = product;

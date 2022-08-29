@@ -80,7 +80,7 @@ public class CartScreen implements ActionListener {
         }
         if (e.getSource() == btnConfirm) {
             List<Cart> productsOrder = new ArrayList<>();
-            int total = 0;
+            double total = 0;
             try {
                 for(int i = 0; i<getMemberCart().size(); i++){
                     if(getMemberCart().get(i).getStatus().equals("paid")){

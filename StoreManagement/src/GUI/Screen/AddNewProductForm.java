@@ -126,9 +126,9 @@ public class AddNewProductForm implements ActionListener, ItemListener {
             String productName = productNameField1.getText();
             Category productCat = new Category(selectedItem);
 //            System.out.println(productCat);
-            int productPrice = 0;
+            double productPrice = 0;
             try {
-                productPrice = Integer.parseInt((productPriceField.getText()));
+                productPrice = Double.parseDouble((productPriceField.getText()));
             } catch (NumberFormatException exception) {
                 JOptionPane.showMessageDialog(frame, "Invalid Input");
                 error = true;

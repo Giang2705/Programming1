@@ -110,75 +110,75 @@ public class readDatabase {
     }
 
 //  array products
-    public List<Product> readProductFile() throws IOException {
-        try {
-            FileReader reader = new FileReader("Database/products.csv");
-            BufferedReader reader1 = new BufferedReader(reader);
-            reader1.readLine();
-            String line;
-            line = reader1.readLine();
+public List<Product> readProductFile() throws IOException {
+    try {
+        FileReader reader = new FileReader("Database/products.csv");
+        BufferedReader reader1 = new BufferedReader(reader);
+        reader1.readLine();
+        String line;
+        line = reader1.readLine();
 
 //            boolean firstLine = true;
-            while (line != null) {
-                String[] array = line.split(",");
-                Product temp = new Product(array[0],array[1],new Category(array[2]), Integer.parseInt(array[3]));
+        while (line != null) {
+            String[] array = line.split(",");
+            Product temp = new Product(array[0],array[1],new Category(array[2]), Double.parseDouble(array[3]));
 //                if (array[0] != "id" && array[1] != "name") {
 //                    System.out.printf("ProId: " + temp.getProductId() + ", ProName: " + temp.getProductName() + ", ProCat: " + temp.getProductCategory().getCategoryName() + ", ProPrice: " + temp.getProductPrice() + "\n");
-                products.add(temp);
-                line = reader1.readLine();
-            }
-            reader.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            products.add(temp);
+            line = reader1.readLine();
         }
+        reader.close();
 
-        return products;
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+
+    return products;
+}
 
 //    array product in cart
-    public List<Cart> readCartFile(String name) throws IOException {
-        List<Member> members = readUserFile();
-        List<Product> products = readProductFile();
+public List<Cart> readCartFile(String name) throws IOException {
+    List<Member> members = readUserFile();
+    List<Product> products = readProductFile();
 
-        try {
-            FileReader reader = new FileReader("Database/cart.csv");
-            BufferedReader reader1 = new BufferedReader(reader);
-            reader1.readLine();
-            String line;
-            line = reader1.readLine();
+    try {
+        FileReader reader = new FileReader("Database/cart.csv");
+        BufferedReader reader1 = new BufferedReader(reader);
+        reader1.readLine();
+        String line;
+        line = reader1.readLine();
 
 //            boolean firstLine = true;
-            while (line != null) {
-                Member member = new Member();
-                Product product = null;
+        while (line != null) {
+            Member member = new Member();
+            Product product = null;
 
-                String[] file = line.split(",");
-                if (file.length > 1){
-                    for (int i = 0; i < members.size(); i++){
-                        if (members.get(i).getUsername().equals(name) && members.get(i).getUsername().equals(file[1])){
-                            member = members.get(i);
-                        }
+            String[] file = line.split(",");
+            if (file.length > 1){
+                for (int i = 0; i < members.size(); i++){
+                    if (members.get(i).getUsername().equals(name) && members.get(i).getUsername().equals(file[1])){
+                        member = members.get(i);
                     }
-                    for (int i = 0; i < products.size(); i++){
-                        if (products.get(i).getProductName().equals(file[2])){
-                            product = products.get(i);
-                        }
-                    }
-
-                    Cart cart = new Cart(file[0], member, product, Integer.parseInt(file[3]), Integer.parseInt(file[4]), file[5], file[6]);
-                    carts.add(cart);
                 }
-                line = reader1.readLine();
+                for (int i = 0; i < products.size(); i++){
+                    if (products.get(i).getProductName().equals(file[2])){
+                        product = products.get(i);
+                    }
+                }
+
+                Cart cart = new Cart(file[0], member, product, Double.parseDouble(file[3]), Double.parseDouble(file[4]), file[5], file[6]);
+                carts.add(cart);
             }
-            reader.close();
-
-        } catch (IOException e) {
-            return carts = null;
+            line = reader1.readLine();
         }
+        reader.close();
 
-        return carts;
+    } catch (IOException e) {
+        return carts = null;
     }
+
+    return carts;
+}
 
     //    array orders
 
@@ -222,7 +222,7 @@ public class readDatabase {
                         }
                     }
 
-                    Order order = new Order(file[0], cartInOrder, Integer.parseInt(file[3]), file[4], file[5]);
+                    Order order = new Order(file[0], cartInOrder, Double.parseDouble(file[3]), file[4], file[5]);
                     orders.add(order);
                 }
                 line = reader1.readLine();

@@ -79,7 +79,7 @@ public class ConfirmedOrderModal {
     JFrame frame = new JFrame();
 
 
-    public ConfirmedOrderModal(String id, String name, Integer Total, String date, String stt) throws IOException {
+    public ConfirmedOrderModal(String id, String name, Double Total, String date, String stt) throws IOException {
         Table table = new ConfirmedOrderModal.Table(getOrder(id));
         tableOfConfirmedProducts.setModel(table);
         tableOfConfirmedProducts.setAutoCreateRowSorter(true);
