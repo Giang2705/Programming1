@@ -46,7 +46,7 @@ public class modalAddToCart implements ChangeListener, ActionListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        textField1.setText(""+(Integer)(amountChange.getValue())*Integer.parseInt(productPrice.getText()));
+        textField1.setText(""+(Integer)(amountChange.getValue())*Double.parseDouble(productPrice.getText()));
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -81,7 +81,7 @@ public class modalAddToCart implements ChangeListener, ActionListener {
                 JOptionPane.showConfirmDialog(null, "Please choose amount more than 0!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
                 modal.dispose();
             } else {
-                Cart cart = new Cart(id, member, product, (Integer)(amountChange.getValue()), Integer.parseInt(textField1.getText()), GetDate.GetDate(), status);
+                Cart cart = new Cart(id, member, product, (Integer)(amountChange.getValue()), Double.parseDouble(textField1.getText()), GetDate.GetDate(), status);
 //                validation
                 if(cart.getAmount() < 0){
                     JFrame modal = new JFrame("Unvalidated");

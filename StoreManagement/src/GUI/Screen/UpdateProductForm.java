@@ -2,7 +2,6 @@ package GUI.Screen;
 
 import ClassAttribute.Category;
 import ClassAttribute.Product;
-import Functions.GenerateID;
 import Functions.readDatabase;
 import Functions.storeDatabase;
 
@@ -15,12 +14,12 @@ import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.List;
 
-public class AddNewProductForm implements ActionListener, ItemListener {
+public class UpdateProductForm implements ActionListener, ItemListener {
 
     JFrame frame = new JFrame();
     private JPanel Main;
     private JPanel registerForm = new JPanel();
-    private JLabel addNewProductTitle;
+    private JLabel editProductDetailTitle;
     private JLabel productIdLabel;
     private JTextField productIdField1;
     private JLabel productNameLabel;
@@ -41,11 +40,11 @@ public class AddNewProductForm implements ActionListener, ItemListener {
 
     private String[] catList;
 
-    AddNewProductForm(){
+    UpdateProductForm(){
 
 
-        String productId = GenerateID.getID(10);
-        productIdField1.setText(productId);
+//        String productId = GenerateID.getID(10);
+//        productIdField1.setText(productId);
 
         btnHome.addActionListener(this);
         btnClear.addActionListener(this);
@@ -66,12 +65,13 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         catList = categoryArray;
 
         categoryList1 = new JComboBox(categoryArray);
+
 //        String catDefault = categoryArray[0];
 
         categoryList1.addItemListener(this::itemStateChanged);
 
         registerForm.add(btnHome);
-        registerForm.add(addNewProductTitle);
+        registerForm.add(editProductDetailTitle);
         registerForm.setLayout(new GridLayout(0, 2,10,10));
         registerForm.add(productIdLabel);
         registerForm.add(productIdField1);
@@ -126,9 +126,9 @@ public class AddNewProductForm implements ActionListener, ItemListener {
             String productName = productNameField1.getText();
             Category productCat = new Category(selectedItem);
 //            System.out.println(productCat);
-            double productPrice = 0;
+            int productPrice = 0;
             try {
-                productPrice = Double.parseDouble((productPriceField.getText()));
+                productPrice = Integer.parseInt((productPriceField.getText()));
             } catch (NumberFormatException exception) {
                 JOptionPane.showMessageDialog(frame, "Invalid Input");
                 error = true;

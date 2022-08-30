@@ -1,8 +1,11 @@
 import Functions.GetDate;
+import Functions.SortByPrice;
 import GUI.Screen.WelcomeScreen;
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         WelcomeScreen welcomeScreen = new WelcomeScreen();
 //        Category new_cat = new Category("1234", "Category");
 //        Product product1 = new Product("s3879069", "Phong", new_cat, 50);
@@ -22,6 +25,10 @@ public class Main {
 //        Functions.storeDatabase.createAdminFile();
 //        Functions.storeDatabase.adminCountLine();
 //        Functions.storeDatabase.addNewAdmin(admin);
+//        System.out.println("hello");
+//        Functions.readDatabase readDatabase = new Functions.readDatabase();
+//        System.out.println(readDatabase.readProductById("sW7LPHpUeL"));
+//        readDatabase.display();
 
     }
 }

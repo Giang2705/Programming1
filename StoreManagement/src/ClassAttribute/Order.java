@@ -5,7 +5,7 @@ import java.util.List;
 public class Order {
     String id;
     List<Cart> cart;
-    Integer total;
+    Double total;
     String createdDate;
     String status;
 
@@ -25,11 +25,11 @@ public class Order {
         this.cart = cart;
     }
 
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
@@ -49,7 +49,7 @@ public class Order {
         this.createdDate = createdDate;
     }
 
-    public Order(String id, List<Cart> cart, Integer total, String createdDate, String status){
+    public Order(String id, List<Cart> cart, Double total, String createdDate, String status){
         this.id = id;
         this.cart = cart;
         this.total = total;
