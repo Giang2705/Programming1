@@ -13,19 +13,35 @@ import java.util.List;
 
 public class ListProducts {
     public JPanel productList;
-    List<Product> products = null;
     readDatabase readDatabase = new readDatabase();
+    List<Product> products = readDatabase.readProductFile();
+    List<String> categories = readDatabase.readCategoryFile();
     SortByPrice sortByPrice = new SortByPrice();
 
     SortByCategory sortByCategory = new SortByCategory();
 
-    public ListProducts(boolean btnActive, String username, String sort) throws IOException {
-        if (sort.equals("default")){
-            products = readDatabase.readProductFile();
-        } else if (sort.equals("ascending")){
-            products = sortByPrice.Ascending();
-        } else if (sort.equals("descending")){
-            products = sortByPrice.Descending();
+    public List<Product> sortByPrice (String sortPrice, List<Product> productsArr) throws IOException {
+        if (sortPrice.equals("default")){
+            return productsArr;
+        } else if (sortPrice.equals("ascending")){
+            productsArr = sortByPrice.Ascending(productsArr);
+        } else if (sortPrice.equals("descending")){
+            productsArr = sortByPrice.Descending(productsArr);
+        }
+        return productsArr;
+    }
+
+    public ListProducts(boolean btnActive, String username, String sortPrice, String sortCategory) throws IOException {
+        if (sortCategory.equals("default")){
+            sortByPrice(sortPrice, products);
+        }
+        for (int i = 1; i < categories.size(); i++){
+            if (sortCategory.equals(categories.get(i))){
+                products = sortByCategory.sortByCategory(categories.get(i));
+                sortByPrice(sortPrice, products);
+            } else {
+                sortByPrice(sortPrice, products);
+            }
         }
 
         //        Products List

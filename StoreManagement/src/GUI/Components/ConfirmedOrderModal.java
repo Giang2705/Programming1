@@ -27,7 +27,7 @@ public class ConfirmedOrderModal {
     private JLabel ID;
 
     readDatabase readDatabase = new readDatabase();
-    List<Order> orders = readDatabase.readOrderFile(username.getText());
+    List<Order> orders = readDatabase.readOrderFile();
 
     Order order;
     public Order getOrder(String id) {

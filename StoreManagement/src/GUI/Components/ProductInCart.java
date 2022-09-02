@@ -77,9 +77,9 @@ public class ProductInCart implements ActionListener {
     private JCheckBox delete;
 
     List<Cart> carts = new ArrayList<>();
-    public ProductInCart(String username) throws IOException {
+    public ProductInCart() throws IOException {
         readDatabase readDatabase = new readDatabase();
-        carts = readDatabase.readCartFile(username);
+        carts = readDatabase.readCartFile();
 
         select.addActionListener(this);
         delete.addActionListener(this);
