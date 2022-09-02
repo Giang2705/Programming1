@@ -1,6 +1,7 @@
 package GUI.Components;
 
 import ClassAttribute.Product;
+import Functions.SortByCategory;
 import Functions.SortByPrice;
 import Functions.readDatabase;
 
@@ -15,6 +16,8 @@ public class ListProducts {
     List<Product> products = null;
     readDatabase readDatabase = new readDatabase();
     SortByPrice sortByPrice = new SortByPrice();
+
+    SortByCategory sortByCategory = new SortByCategory();
 
     public ListProducts(boolean btnActive, String username, String sort) throws IOException {
         if (sort.equals("default")){
