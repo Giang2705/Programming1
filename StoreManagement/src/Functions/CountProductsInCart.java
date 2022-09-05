@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CountProductsInCart {
-    public Integer getMemberCart(String name) throws IOException {
+    public Integer getMemberCart() throws IOException {
         Integer countProductInCart = 0;
         readDatabase readDatabase = new readDatabase();
-        List<Cart> carts = readDatabase.readCartFile(name);
+        List<Cart> carts = readDatabase.readCartFile();
 
         List<Cart> memberCart = new ArrayList<>();
         if (carts != null){

@@ -26,12 +26,12 @@ public class CartScreen implements ActionListener {
 
     public List<Cart> getMemberCart() throws IOException {
         readDatabase readDatabase = new readDatabase();
-        List<Cart> carts = readDatabase.readCartFile(username.getText());
+        List<Cart> carts = readDatabase.readCartFile(); //list cart
 
         List<Cart> memberCart = new ArrayList<>();
         if (carts != null){
             for (int i = 0; i < carts.size(); i++) {
-                if (carts.get(i).getMember().getUsername() != null) {
+                if (carts.get(i).getMember().getUsername().equals(username.getText())) {
                     memberCart.add(carts.get(i));
                 }
             }
@@ -39,6 +39,24 @@ public class CartScreen implements ActionListener {
 
         return memberCart;
     }
+
+//    public List<Order> getMemberOrder() throws IOException {
+//        readDatabase readDatabase = new readDatabase();
+//        List<Order> orders = readDatabase.readOrderFile(); //list cart
+//
+//        List<Order> memberOrder = new ArrayList<>();
+//        if (orders != null){
+//            for (int i = 0; i < orders.size(); i++) {
+//                for (int j = 0; j < orders.get(i).getCart().size(); j++){
+//                    if (orders.get(i).getCart().get(j).getMember().getUsername().equals(username.getText())) {
+//                        memberOrder.add(orders.get(i));
+//                    }
+//                }
+//            }
+//        }
+//
+//        return memberOrder;
+//    }
 
     public CartScreen(String name) throws IOException {
         btnHome.addActionListener(this);
@@ -51,7 +69,7 @@ public class CartScreen implements ActionListener {
         ListOfAddedProducts.setLayout(new GridLayout(getMemberCart().size(), 1));
         for (int i = 0; i < getMemberCart().size(); i++) {
             if(getMemberCart().get(i).getStatus().equals("unpaid")){
-                ProductInCart productInCart = new ProductInCart(username.getText());
+                ProductInCart productInCart = new ProductInCart();
                 productInCart.getProductName().setText(getMemberCart().get(i).getProduct().getProductName());
                 productInCart.getPrice().setText(String.valueOf(getMemberCart().get(i).getProduct().getProductPrice()));
                 productInCart.getAmount().setText(String.valueOf(getMemberCart().get(i).getAmount()));

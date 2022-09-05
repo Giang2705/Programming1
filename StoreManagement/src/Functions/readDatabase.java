@@ -139,7 +139,7 @@ public List<Product> readProductFile() throws IOException {
 }
 
 //    array product in cart
-public List<Cart> readCartFile(String name) throws IOException {
+public List<Cart> readCartFile() throws IOException {
     List<Member> members = readUserFile();
     List<Product> products = readProductFile();
 
@@ -158,7 +158,7 @@ public List<Cart> readCartFile(String name) throws IOException {
             String[] file = line.split(",");
             if (file.length > 1){
                 for (int i = 0; i < members.size(); i++){
-                    if (members.get(i).getUsername().equals(name) && members.get(i).getUsername().equals(file[1])){
+                    if (members.get(i).getUsername().equals(file[1])){
                         member = members.get(i);
                     }
                 }
@@ -183,8 +183,8 @@ public List<Cart> readCartFile(String name) throws IOException {
 
     //    array orders
 
-    public List<Order> readOrderFile(String name) throws IOException {
-        List<Cart> carts = readCartFile(name);
+    public List<Order> readOrderFile() throws IOException {
+        List<Cart> carts = readCartFile();
         List<Member> members = readUserFile();
         List<Member> membersArr = new ArrayList<>();
         List<Order> orders = new ArrayList<>();
@@ -205,7 +205,7 @@ public List<Cart> readCartFile(String name) throws IOException {
                     Member member = new Member();
 
                     for (int i = 0; i < members.size(); i++){
-                        if (members.get(i).getUsername().equals(name) && members.get(i).getUsername().equals(file[1])){
+                        if (members.get(i).getUsername().equals(file[1])){
                             member = members.get(i);
                         }
                         membersArr.add(member);
