@@ -4,6 +4,7 @@ import ClassAttribute.Category;
 import ClassAttribute.Product;
 import Functions.readDatabase;
 import Functions.storeDatabase;
+import Functions.updateDatabase;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,11 +41,15 @@ public class UpdateProductForm implements ActionListener, ItemListener {
 
     private String[] catList;
 
-    UpdateProductForm(){
+    public UpdateProductForm(String id, String name, String selectedCategory, Double price){
 
 
 //        String productId = GenerateID.getID(10);
 //        productIdField1.setText(productId);
+
+        productIdField1.setText(id);
+        productNameField1.setText(name);
+        selectedItem = "";
 
         btnHome.addActionListener(this);
         btnClear.addActionListener(this);
@@ -144,17 +149,9 @@ public class UpdateProductForm implements ActionListener, ItemListener {
             } else {
                 Product product = new Product(productIdField1.getText(), productName, productCat, productPrice);
                 if (!error) {
-                    System.out.println("Add Prod");
-                    storeDatabase database = new storeDatabase();
-                    database.createProductFile();
-                    database.productCountLine();
-                    database.addNewProduct(product);
-                    readDatabase readDatabase = new readDatabase();
-                    try {
-                        readDatabase.readProductFile();
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    System.out.println("Update Prod");
+                    updateDatabase updateDatabase = new updateDatabase();
+                    updateDatabase.editProduct("Database/products.csv", productIdField1.getText(), productIdField1.getText(), productNameField1.getText(), String.valueOf(selectedItem.getBytes()), productPriceField.getText());
                 }
                 JOptionPane.showMessageDialog(frame, "Successfully add new product");
                 frame.dispose();

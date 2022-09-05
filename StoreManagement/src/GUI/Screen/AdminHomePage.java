@@ -32,9 +32,11 @@ public class AdminHomePage implements ActionListener {
     JFrame frame = new JFrame();
     public AdminHomePage() throws IOException {
 //        ProductsTable productsTable = new ProductsTable();
-        OrdersTable ordersTable = new OrdersTable();
+//        OrdersTable ordersTable = new OrdersTable();
+        ListProductsAdmin listProductsAdmin = new ListProductsAdmin();
+
         Management.setLayout(new GridLayout(1,1));
-        Management.add(ordersTable.Main);
+        Management.add(listProductsAdmin.Main);
 
         btnLogout.addActionListener(this);
         btnAccount.addActionListener(this);
