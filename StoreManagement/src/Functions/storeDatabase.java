@@ -353,7 +353,7 @@ public class storeDatabase {
                 String[] file = rl.split(delimiter);
 
                 if (file.length > 0) {
-                    if(file[0].equals(product.getProductName())){
+                    if(file[0].equals(product.getProductId())){
                         System.out.println("False");
                         proChecked = false;
                         ProductExists productExists = new ProductExists();

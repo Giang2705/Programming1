@@ -1,6 +1,6 @@
 package ClassAttribute;
 
-public class GoldMember {
+public class GoldMember extends Member {
     String title = "Gold";
     Double discount;
 
