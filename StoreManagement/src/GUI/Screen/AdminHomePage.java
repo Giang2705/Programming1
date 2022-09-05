@@ -1,6 +1,7 @@
 package GUI.Screen;
 
 import ClassAttribute.Product;
+import GUI.Components.OrdersTable;
 import GUI.Components.ProductsTable;
 
 import javax.swing.*;
@@ -30,9 +31,10 @@ public class AdminHomePage implements ActionListener {
 
     JFrame frame = new JFrame();
     public AdminHomePage() throws IOException {
-        ProductsTable productsTable = new ProductsTable();
+//        ProductsTable productsTable = new ProductsTable();
+        OrdersTable ordersTable = new OrdersTable();
         Management.setLayout(new GridLayout(1,1));
-        Management.add(productsTable.Main);
+        Management.add(ordersTable.Main);
 
         btnLogout.addActionListener(this);
         btnAccount.addActionListener(this);
