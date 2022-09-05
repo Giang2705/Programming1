@@ -1,49 +1,58 @@
 package Functions;
 
+import ClassAttribute.Product;
+import GUI.Components.ProductExists;
+
 import javax.swing.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.Buffer;
 import java.util.Scanner;
 
 public class updateDatabase {
+
+//    Have your txt file 1 record per line.
+//    Separate each field by separator.
+//    Create another temporary text file in memory.
+//    Modify the records and save the records in the temporary file.
+//    Delete the original file.
+//    Rename the temporary file with original file name.
     private Scanner x;
     public void editProduct(String filepath,
-                            String editTerm,
-                            String newID,
-                            String newName,
-                            String newCat,
-                            String newPrice) {
+                            Product newUpdated) {
         String tempfile = "productTemp.csv";
         File oldFile = new File(filepath);
         File newFile = new File(tempfile);
-        String ID = "";
-        String name = "";
-        String cat = "";
-        String price = "";
+//        String ID = "";
+//        String name = "";
+//        String cat = "";
+//        String price = "";
+        String rl = "";
+        String delimiter = ",";
         try {
-            FileWriter fw = new FileWriter(tempfile, false);
+            FileReader fr = new FileReader("Database/products.csv");
+            BufferedReader b = new BufferedReader(fr);
+//            boolean proChecked = true;
+            FileWriter fw = new FileWriter(tempfile);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-            x = new Scanner(new File(filepath));
-            x.useDelimiter("[,\n]");
-
-            while (x.hasNext()) {
-                ID = x.next();
-                name = x.next();
-                cat = x.next();
-                price = x.next();
-                if (ID.equals(editTerm)) {
-                    pw.println(newID + "," + newName + "," + newCat + "," + newPrice);
-                } else {
-                    pw.print(ID + "," + name + "," + cat + "," + price);
+            while ((rl = b.readLine()) != null) {
+                String[] file = rl.split(delimiter);
+                if (file.length > 0) {
+                    if(file[0].equals(newUpdated.getProductId())){
+                        System.out.println("False");
+//                        proChecked = false;
+                        pw.println(newUpdated.getProductId() + "," +  newUpdated.getProductName()+ "," + newUpdated.getProductCategory().getCategoryName()+ "," +newUpdated.getProductPrice());
+                        System.out.println(oldFile.getAbsoluteFile());
+                    }
+                    else {
+                        pw.println(rl);
+                    }
                 }
             }
-            x.close();;
+//            x.close();;
             pw.flush();
             pw.close();
+            fr.close();
             oldFile.delete();
             File dump = new File(filepath);
             newFile.renameTo(dump);

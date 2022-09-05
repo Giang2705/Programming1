@@ -2,18 +2,23 @@ package GUI.Components;
 
 import ClassAttribute.Product;
 import Functions.readDatabase;
+import GUI.Screen.UpdateProductForm;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
-public class ProductsTable {
+public class ProductsTable implements ActionListener {
     Functions.readDatabase readDatabase = new readDatabase();
     List<Product> products = readDatabase.readProductFile();
 
     public JPanel Main;
     private JTable ProductsTable;
+
+    private JButton updateButton;
 
     private static class Table extends AbstractTableModel{
         private List<Product> products;
@@ -54,6 +59,14 @@ public class ProductsTable {
         Table table = new Table(products);
         ProductsTable.setModel(table);
         ProductsTable.setAutoCreateRowSorter(true);
+        updateButton.addActionListener(this);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == updateButton) {
+            UpdateProductForm updateProductForm = new UpdateProductForm();
+//            updateProductForm.productIdField1.setText();
+        }
     }
 
 }

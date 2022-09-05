@@ -1,3 +1,5 @@
+import ClassAttribute.Category;
+import ClassAttribute.Product;
 import Functions.GetDate;
 import Functions.SortByCategory;
 import Functions.SortByPrice;
@@ -12,8 +14,10 @@ public class Main {
 //        Category new_cat = new Category("1234", "Category");
 //        Product product1 = new Product("s3879069", "Phong", new_cat, 50);
 //        product1.addNewProduct();
-//        Functions.updateDatabase update = new Functions.updateDatabase();
-//        update.editProduct("Database/products.csv", "UEYfNXd7Sk", "UEYfNXd7Sk", "Fujifilm Camera 1", "Another", "234.65");
+//        Category new_cat = new Category("Another");
+//        Functions.deleteDatabase deleteDatabase = new Functions.deleteDatabase();
+//        Product newProduct  = new Product("UEYfNXd7Sk", "Fujifilm Camera", new_cat, 567.89);
+//        deleteDatabase.removeRecord("Database/products.csv", newProduct);
 //        Functions.SortByCategory sortByCategory = new Functions.SortByCategory();
 //        System.out.println(sortByCategory.sortByCategory("Cellphones"));
 

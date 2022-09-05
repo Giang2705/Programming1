@@ -74,17 +74,6 @@
               <text value="Add"/>
             </properties>
           </component>
-          <component id="3591e" class="javax.swing.JButton" binding="btnClear">
-            <constraints>
-              <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-1"/>
-              <font name="Segoe UI Emoji" size="18"/>
-              <foreground color="-16777216"/>
-              <text value="Clear"/>
-            </properties>
-          </component>
           <component id="7446c" class="javax.swing.JButton" binding="btnCancel">
             <constraints>
               <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -135,6 +124,7 @@
             </constraints>
             <properties>
               <background color="-1"/>
+              <editable value="false"/>
               <font name="Segoe UI Emoji" size="18"/>
               <foreground color="-16777216"/>
             </properties>
@@ -151,14 +141,17 @@
               <foreground color="-16777216"/>
             </properties>
           </component>
-          <component id="b3196" class="javax.swing.JComboBox" binding="categoryList1">
+          <component id="edf96" class="javax.swing.JTextField" binding="category1">
             <constraints>
-              <grid row="3" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="7" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
             </constraints>
             <properties>
-              <background color="-5"/>
-              <enabled value="false"/>
-              <model/>
+              <background color="-1"/>
+              <editable value="false"/>
+              <font name="Segoe UI Emoji" size="18"/>
+              <foreground color="-16777216"/>
             </properties>
           </component>
         </children>
