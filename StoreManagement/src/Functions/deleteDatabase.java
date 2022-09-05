@@ -1,46 +1,50 @@
 package Functions;
 
+import ClassAttribute.Product;
+
 import javax.swing.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class deleteDatabase {
     private static Scanner x;
 
-    public void removeRecord(String filepath, String removeTerm) {
-        String tempFile = "temp.csv";
+    public void removeRecord(String filepath, Product deleteProduct) {
+        String tempfile = "productTemp.csv";
         File oldFile = new File(filepath);
-        File newFile = new File(tempFile);
-        String ID = "";
-        String name= "";
-        String cat = "";
-        String price = "";
+        File newFile = new File(tempfile);
+//        String ID = "";
+//        String name = "";
+//        String cat = "";
+//        String price = "";
+        String rl = "";
+        String delimiter = ",";
         try {
-            FileWriter fw = new FileWriter(tempFile, true);
+            FileReader fr = new FileReader("Database/products.csv");
+            BufferedReader b = new BufferedReader(fr);
+//            boolean proChecked = true;
+            FileWriter fw = new FileWriter(tempfile);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-            x = new Scanner(new File(filepath));
-            x.useDelimiter("[,\n]");
-
-            while (x.hasNext()) {
-                ID = x.next();
-                name = x.next();
-                cat = x.next();
-                price = x.next();
-                if (!ID.equals(removeTerm)) {
-                    pw.println(ID + "," + name + "," + cat + "," + price);
+            while ((rl = b.readLine()) != null) {
+                String[] file = rl.split(delimiter);
+                if (file.length > 0) {
+                    if(!file[0].equals(deleteProduct.getProductId())){
+                        System.out.println("False");
+//                        proChecked = false;
+//                        pw.println(newUpdated.getProductId() + "," +  newUpdated.getProductName()+ "," + newUpdated.getProductCategory().getCategoryName()+ "," +newUpdated.getProductPrice());
+//                        System.out.println(oldFile.getAbsoluteFile());
+                        pw.println(rl);
+                    }
                 }
             }
-            x.close();
+//            x.close();;
             pw.flush();
             pw.close();
+            fr.close();
             oldFile.delete();
             File dump = new File(filepath);
             newFile.renameTo(dump);
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
         }
