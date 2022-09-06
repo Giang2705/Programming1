@@ -3,6 +3,7 @@ package Functions;
 import ClassAttribute.Admin;
 import ClassAttribute.Cart;
 import ClassAttribute.Member;
+import ClassAttribute.Product;
 import GUI.Components.LoginFailed;
 import GUI.Screen.*;
 import java.io.IOException;
@@ -44,11 +45,12 @@ public class Login {
 
         try {
             List <Admin> admins = readDatabase.readAdminFile();
+            List<Product> products = readDatabase.readProductFile();
 
             for (int i = 0; i<admins.size(); i++){
 
                 if (admins.get(i).getAdminUsername().equals(username) && admins.get(i).getAdminPassword().equals(password)){
-                    AdminHomePage adminHomePage = new AdminHomePage();
+                    AdminHomePage adminHomePage = new AdminHomePage(products);
                     adminHomePage.getBtnAccount().setText(admins.get(i).getAdminUsername());
                     checked = true;
                     break;

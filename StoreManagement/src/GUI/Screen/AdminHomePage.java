@@ -1,7 +1,9 @@
 package GUI.Screen;
 
 import ClassAttribute.Product;
-import GUI.Components.ProductsTable;
+import Functions.readDatabase;
+import GUI.Components.OrdersTable;
+//import GUI.Components.ProductsTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,15 +26,19 @@ public class AdminHomePage implements ActionListener {
     private JPanel Management;
 
 
+
     public JButton getBtnAccount(){
         return btnAccount;
     }
 
     JFrame frame = new JFrame();
-    public AdminHomePage() throws IOException {
-        ProductsTable productsTable = new ProductsTable();
+    public AdminHomePage(List<Product> products) throws IOException {
+//        ProductsTable productsTable = new ProductsTable();
+//        OrdersTable ordersTable = new OrdersTable();
+        ListProductsAdmin listProductsAdmin = new ListProductsAdmin(products);
+
         Management.setLayout(new GridLayout(1,1));
-        Management.add(productsTable.Main);
+        Management.add(listProductsAdmin.Main);
 
         btnLogout.addActionListener(this);
         btnAccount.addActionListener(this);
@@ -64,11 +70,19 @@ public class AdminHomePage implements ActionListener {
         }
         if (e.getSource() == addNewCategoryButton) {
             frame.dispose();
-            AddNewCategoryForm addNewCategoryForm = new AddNewCategoryForm();
+            try {
+                AddNewCategoryForm addNewCategoryForm = new AddNewCategoryForm();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == addNewProductButton) {
             frame.dispose();
-            AddNewProductForm addNewProductForm = new AddNewProductForm();
+            try {
+                AddNewProductForm addNewProductForm = new AddNewProductForm();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package GUI.Screen;
 
 import ClassAttribute.Category;
+import ClassAttribute.Product;
 import Functions.readDatabase;
 import Functions.storeDatabase;
 
@@ -8,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.List;
 
 public class AddNewCategoryForm implements ActionListener{
 
@@ -21,9 +23,11 @@ public class AddNewCategoryForm implements ActionListener{
     private JButton btnHome;
     private JButton btnClear;
     private JButton btnCancel;
+    Functions.readDatabase readDatabase = new readDatabase();
+    List<Product> products = readDatabase.readProductFile();
 
 
-    AddNewCategoryForm(){
+    AddNewCategoryForm() throws IOException {
 
         btnHome.addActionListener(this);
         btnAdd.addActionListener(this);
@@ -45,11 +49,11 @@ public class AddNewCategoryForm implements ActionListener{
 //        }
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
-            try {
-                AdminHomePage adminHomePage = new AdminHomePage();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+//            try {
+//                AdminHomePage adminHomePage = new AdminHomePage(products);
+//            } catch (IOException ex) {
+//                throw new RuntimeException(ex);
+//            }
         }
 
         if (e.getSource() == btnClear){

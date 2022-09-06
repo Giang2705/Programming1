@@ -8,4 +8,6 @@ public class OrdersPage {
     private JLabel usernameTitle;
     private JLabel username;
     private JTable OrdersTable;
+
+
 }

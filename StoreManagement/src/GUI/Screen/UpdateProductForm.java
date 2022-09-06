@@ -3,14 +3,12 @@ package GUI.Screen;
 import ClassAttribute.Category;
 import ClassAttribute.Product;
 import Functions.readDatabase;
-import Functions.storeDatabase;
+import Functions.updateDatabase;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class UpdateProductForm implements ActionListener{
     public JTextField productIdField1;
     private JLabel productNameLabel;
     public JTextField productNameField1;
-    private JButton btnAdd;
+    private JButton btnUpdate;
     private JButton btnCancel;
 
     private JButton btnHome;
@@ -33,17 +31,26 @@ public class UpdateProductForm implements ActionListener{
     private JLabel productCategoryLabel;
     private JLabel productPriceLabel;
     public JTextField category1;
+    private JLabel adminName;
+    private JLabel admin;
 
+    private String[] catList;
 
-     public UpdateProductForm(){
+    public UpdateProductForm(String id, String name, String category, Double price){
 
 
 //        String productId = GenerateID.getID(10);
 //        productIdField1.setText(productId);
 
+        productIdField1.setText(id);
+        productNameField1.setText(name);
+        category1.setText(category);
+        productPriceField.setText(String.valueOf(price));
+
+
         btnHome.addActionListener(this);
         btnCancel.addActionListener(this);
-        btnAdd.addActionListener(this);
+        btnUpdate.addActionListener(this);
         frame.setTitle("Add");
         // fetching option for Category
         readDatabase readData = new readDatabase();
@@ -65,14 +72,15 @@ public class UpdateProductForm implements ActionListener{
         registerForm.add(productNameLabel);
         registerForm.add(productNameField1);
         registerForm.add(productCategoryLabel);
+        registerForm.add(category1);
         registerForm.add(productPriceLabel);
         registerForm.add(productPriceField);
-        registerForm.add(btnAdd);
+        registerForm.add(btnUpdate);
         registerForm.add(btnCancel);
         frame.add(registerForm);
 //                categoryList1.setSelectedIndex(0);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
         frame.setSize(960,720);
         frame.pack();
@@ -81,27 +89,24 @@ public class UpdateProductForm implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
 //        boolean error = false;
-//        if (e.getSource() == btnHome || e.getSource() == btnCancel){
-//            frame.dispose();
+        if (e.getSource() == btnHome || e.getSource() == btnCancel){
+            frame.dispose();
 //            try {
 //                AdminHomePage adminHomePage = new AdminHomePage();
 //            } catch (IOException ex) {
 //                throw new RuntimeException(ex);
 //            }
-//        }
+        }
 //
-//        if (e.getSource() == btnAdd){
-//            String productName = productNameField1.getText();
-//            Category productCat = new Category(selectedItem);
-////            System.out.println(productCat);
-//            int productPrice = 0;
-//            try {
-//                productPrice = Integer.parseInt((productPriceField.getText()));
-//            } catch (NumberFormatException exception) {
-//                JOptionPane.showMessageDialog(frame, "Invalid Input");
-//                error = true;
-//            }
+        if (e.getSource() == btnUpdate){
+            Category category = new Category(category1.getText());
+            Product product = new Product(productIdField1.getText(), productNameField1.getText(), category, Double.parseDouble(productPriceField.getText()));
+            updateDatabase updateDatabase = new updateDatabase();
+            updateDatabase.editProduct("Database/products.csv", product);
+            frame.dispose();
+        }
 //
 //
 //            if ((productName.length() == 0) || (productCat.getCategoryName().length() == 0)) {
