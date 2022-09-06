@@ -1,11 +1,9 @@
 package Functions;
 
 import ClassAttribute.Product;
-import GUI.Components.ProductExists;
 
 import javax.swing.*;
 import java.io.*;
-import java.nio.Buffer;
 import java.util.Scanner;
 
 public class updateDatabase {

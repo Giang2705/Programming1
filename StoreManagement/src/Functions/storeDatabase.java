@@ -1,9 +1,9 @@
 package Functions;
 
 import ClassAttribute.*;
-import GUI.Components.AccountExists;
-import GUI.Components.CategoryExistsMessage;
-import GUI.Components.ProductExists;
+import GUI.Login_SignUp.AccountExists;
+import GUI.AdminPage.NewCategory.CategoryExistsMessage;
+import GUI.AdminPage.NewProduct.ProductExists;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -7,7 +7,7 @@ public class AccountPage {
     private JPanel Main;
 
     JFrame frame = new JFrame();
-    AccountPage(){
+    public AccountPage(){
 
         frame.add(Main);
         frame.setTitle("Account Page");

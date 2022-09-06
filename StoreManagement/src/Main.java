@@ -1,10 +1,4 @@
-import ClassAttribute.Category;
-import ClassAttribute.Product;
-import Functions.GetDate;
-import Functions.SortByCategory;
-import Functions.SortByPrice;
-import Functions.updateDatabase;
-import GUI.Screen.WelcomeScreen;
+import GUI.GuestPage.WelcomeScreen;
 
 import java.io.IOException;
 
