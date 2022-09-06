@@ -40,8 +40,10 @@ public class AddNewProductForm implements ActionListener, ItemListener {
     private String selectedItem = "";
 
     private String[] catList;
+    Functions.readDatabase readDatabase = new readDatabase();
+    List<Product> products = readDatabase.readProductFile();
 
-    AddNewProductForm(){
+    AddNewProductForm() throws IOException {
 
 
         String productId = GenerateID.getID(10);
@@ -109,11 +111,11 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         boolean error = false;
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
-            try {
-                AdminHomePage adminHomePage = new AdminHomePage();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+//            try {
+//                AdminHomePage adminHomePage = new AdminHomePage(products);
+//            } catch (IOException ex) {
+//                throw new RuntimeException(ex);
+//            }
         }
         if (e.getSource() == btnClear){
             productIdField1.setText("");
@@ -158,7 +160,11 @@ public class AddNewProductForm implements ActionListener, ItemListener {
                 }
                 JOptionPane.showMessageDialog(frame, "Successfully add new product");
                 frame.dispose();
-                AddNewProductForm addNewProductForm = new AddNewProductForm();
+                try {
+                    AddNewProductForm addNewProductForm = new AddNewProductForm();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
 
         }

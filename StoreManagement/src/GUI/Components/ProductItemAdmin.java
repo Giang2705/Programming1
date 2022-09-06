@@ -1,10 +1,17 @@
 package GUI.Components;
 
+import ClassAttribute.Category;
+import ClassAttribute.Product;
+import Functions.deleteDatabase;
+import Functions.readDatabase;
+import GUI.Screen.ListProductsAdmin;
 import GUI.Screen.UpdateProductForm;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
 
 public class ProductItemAdmin implements ActionListener {
     private JPanel Main;
@@ -16,6 +23,7 @@ public class ProductItemAdmin implements ActionListener {
     private JLabel id;
     private JLabel name;
     private JLabel category;
+    JFrame frame = new JFrame();
 
     public JPanel getMain() {
         return Main;
@@ -116,9 +124,11 @@ public class ProductItemAdmin implements ActionListener {
     private JLabel price;
     private JButton btnEdit;
     private JButton btnDelete;
+    private JLabel adminName;
 
     public ProductItemAdmin() {
         btnEdit.addActionListener(this);
+        btnDelete.addActionListener(this);
     }
 
     @Override
@@ -126,10 +136,21 @@ public class ProductItemAdmin implements ActionListener {
         if (e.getSource() == btnEdit){
             String id = this.id.getText();
             String name = this.name.getText();
-            String selectedCategory = this.category.getText();
+            String category = this.category.getText();
             Double price = Double.parseDouble(this.price.getText());
 
-            UpdateProductForm updateProductForm = new UpdateProductForm(id, name, selectedCategory, price);
+            UpdateProductForm updateProductForm = new UpdateProductForm(id, name, category, price);
+        }
+        if (e.getSource() == btnDelete){
+            deleteDatabase deleteDatabase = new deleteDatabase();
+            String id = this.id.getText();
+            String name = this.name.getText();
+            Category category = new Category(this.category.getText());
+            Double price = Double.parseDouble(this.price.getText());
+
+            Product deletedProduct = new Product(id, name, category, price);
+            deleteDatabase.removeRecord("Database/products.csv", deletedProduct);
+
         }
     }
 }

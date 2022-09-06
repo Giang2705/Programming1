@@ -30,7 +30,7 @@ public class deleteDatabase {
                 String[] file = rl.split(delimiter);
                 if (file.length > 0) {
                     if(!file[0].equals(deleteProduct.getProductId())){
-                        System.out.println("False");
+//                        System.out.println("False");
 //                        proChecked = false;
 //                        pw.println(newUpdated.getProductId() + "," +  newUpdated.getProductName()+ "," + newUpdated.getProductCategory().getCategoryName()+ "," +newUpdated.getProductPrice());
 //                        System.out.println(oldFile.getAbsoluteFile());

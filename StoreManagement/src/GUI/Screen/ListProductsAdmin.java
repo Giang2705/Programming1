@@ -14,12 +14,9 @@ public class ListProductsAdmin {
     private JScrollPane scrollpane;
     private JPanel ListOfProducts;
 
-    readDatabase readDatabase = new readDatabase();
-    List<Product> products = readDatabase.readProductFile();
-
     JFrame frame = new JFrame();
 
-    public ListProductsAdmin() throws IOException {
+    public ListProductsAdmin(List<Product> products) throws IOException {
         ListOfProducts.setLayout(new GridLayout(products.size(), 1));
         for (int i = 0; i < products.size(); i++) {
             ProductItemAdmin productItemAdmin = new ProductItemAdmin();

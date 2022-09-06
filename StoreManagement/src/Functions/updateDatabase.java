@@ -39,7 +39,6 @@ public class updateDatabase {
                 String[] file = rl.split(delimiter);
                 if (file.length > 0) {
                     if(file[0].equals(newUpdated.getProductId())){
-                        System.out.println("False");
 //                        proChecked = false;
                         pw.println(newUpdated.getProductId() + "," +  newUpdated.getProductName()+ "," + newUpdated.getProductCategory().getCategoryName()+ "," +newUpdated.getProductPrice());
                         System.out.println(oldFile.getAbsoluteFile());

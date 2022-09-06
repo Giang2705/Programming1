@@ -58,9 +58,6 @@ public class AdminLoginPage implements ActionListener {
                 JOptionPane.showConfirmDialog(null, "Please fill in all fields of the form!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
                 modal.dispose();
             } else {
-                List<Product> products = new ArrayList<Product>();
-                System.out.println(products.size());
-
                 String username = usernameField1.getText();
                 String password = String.valueOf(passwordField1.getPassword());
                 Login login = new Login();
