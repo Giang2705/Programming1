@@ -24,7 +24,7 @@ public class updateDatabase {
         String cat = "";
         String price = "";
         try {
-            FileWriter fw = new FileWriter(tempfile, true);
+            FileWriter fw = new FileWriter(tempfile, false);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
             x = new Scanner(new File(filepath));
@@ -38,7 +38,7 @@ public class updateDatabase {
                 if (ID.equals(editTerm)) {
                     pw.println(newID + "," + newName + "," + newCat + "," + newPrice);
                 } else {
-                    pw.println(ID + "," + name + "," + cat + "," + price);
+                    pw.print(ID + "," + name + "," + cat + "," + price);
                 }
             }
             x.close();;

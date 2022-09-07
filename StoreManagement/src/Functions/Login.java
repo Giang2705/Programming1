@@ -1,13 +1,10 @@
 package Functions;
 
 import ClassAttribute.Admin;
+import ClassAttribute.Cart;
 import ClassAttribute.Member;
 import GUI.Components.LoginFailed;
-import GUI.Screen.AdminHomePage;
-import GUI.Screen.AdminLoginPage;
-import GUI.Screen.MemberHomePage;
-import GUI.Screen.UserLoginPage;
-
+import GUI.Screen.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,8 +20,8 @@ public class Login {
             for (int i = 0; i<members.size(); i++){
 
                 if (members.get(i).getUsername().equals(username) && members.get(i).getPassword().equals(password)){
-                    MemberHomePage memberHomePage = new MemberHomePage();
-                    memberHomePage.getBtnAccount().setText(members.get(i).getUsername());
+
+                    MemberHomePage memberHomePage = new MemberHomePage(members.get(i).getUsername());
                     checked = true;
                     break;
                 }

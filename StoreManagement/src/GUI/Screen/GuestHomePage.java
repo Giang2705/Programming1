@@ -24,7 +24,7 @@ public class GuestHomePage implements ActionListener {
 
     JFrame frame = new JFrame();
     GuestHomePage() throws IOException {
-        ListProducts listProducts = new ListProducts(false);
+        ListProducts listProducts = new ListProducts(false, null, "default", "default");
 
         productList.setLayout(new GridLayout(1,1));
         productList.add(listProducts.productList);

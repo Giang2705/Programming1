@@ -1,37 +1,59 @@
 package ClassAttribute;
 
+import java.util.List;
+
 public class Order {
     String id;
-    Member member;
-    Product product;
+    List<Cart> cart;
+    Double total;
+    String createdDate;
     String status;
-    Integer total;
 
     public String getId() {
         return id;
     }
 
-    public Member getMember() {
-        return member;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public List<Cart> getCart() {
+        return cart;
+    }
+
+    public void setCart(List<Cart> cart) {
+        this.cart = cart;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public Integer getTotal() {
-        return total;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Order(String id, Member member, Product product, String status, Integer total) {
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Order(String id, List<Cart> cart, Double total, String createdDate, String status){
         this.id = id;
-        this.member = member;
-        this.product = product;
-        this.status = status;
+        this.cart = cart;
         this.total = total;
+        this.createdDate = createdDate;
+        this.status = status;
     }
 }
