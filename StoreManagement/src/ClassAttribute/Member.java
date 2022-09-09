@@ -9,6 +9,7 @@ public class Member {
 
     private String membership;
     //default Member setMembership("Member")
+    private Discount discount;
 
     private int totalSpending = 0;
     // +total
@@ -56,6 +57,19 @@ public class Member {
     public void setMembership(String membership){
         this.membership = membership;
     }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    //    public double applyDiscount(double priceBeforeDiscount) {
+//        double totalPrice = 0.0;
+//        return totalPrice;
+//    }
 }
 
 
