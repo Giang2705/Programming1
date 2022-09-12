@@ -8,7 +8,8 @@ public class Member {
     private String phone;
 
     private String membership;
-
+    private double totalSpending = 0;
+    private Discount discount;
     public Discount getDiscount() {
         return discount;
     }
@@ -18,7 +19,7 @@ public class Member {
     }
 
     //default Member setMembership("Member")
-    private Discount discount;
+
 
     public double getTotalSpending() {
         return totalSpending;
@@ -28,7 +29,7 @@ public class Member {
         this.totalSpending = totalSpending;
     }
 
-    private double totalSpending = 0;
+
     // +total
     // set += total
 

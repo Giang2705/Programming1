@@ -44,6 +44,7 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
         btnLogout.addActionListener(this);
         price.addActionListener(this);
         category.addActionListener(this);
+        username.addActionListener(this);
 
         for (int i = 0; i<members.size(); i++){
             if (members.get(i).getStatus().equals("loged in")){
@@ -143,10 +144,16 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
                 throw new RuntimeException(ex);
             }
         }
-//        if (e.getSource() == btnAccount){
-//            frame.dispose();
-//            AccountPage accountPage = new AccountPage();
-//        }
+        if (e.getSource() == username){
+            frame.dispose();
+            String id = member.getId();
+            String userName = member.getUsername();
+            String password = member.getPassword();
+            String phone = member.getPhone();
+            String membership = member.getMembership();
+            double totalSpending = member.getTotalSpending();
+            AccountPage accountPage = new AccountPage(id, userName, password, phone, membership, totalSpending);
+        }
     }
 
     private void createUIComponents() {
