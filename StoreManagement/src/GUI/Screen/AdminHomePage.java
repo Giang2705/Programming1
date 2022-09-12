@@ -102,7 +102,7 @@ public class AdminHomePage implements ActionListener {
         }
         if (e.getSource() == btnAccount){
             frame.dispose();
-            AccountPage accountPage = new AccountPage();
+//            AccountPage accountPage = new AccountPage();
         }
         if (e.getSource() == addNewCategoryButton) {
             frame.dispose();
