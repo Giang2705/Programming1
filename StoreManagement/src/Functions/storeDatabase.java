@@ -119,25 +119,6 @@ public class storeDatabase {
         }
     }
 
-//    paid file
-    public void paidFile(){
-        File cartFile = new File("Database/paid.csv");
-        if (!cartFile.exists()) {
-            try {
-                FileWriter fw = new FileWriter("Database/paid.csv");
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter pw = new PrintWriter(bw);
-                pw.println("id,member's name,product's name,amount,total,created date,status");
-                pw.flush();
-                pw.close();
-                System.out.println("Paid file created!");
-            }
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
     public void createOrdersFile(){
         File ordersFile = new File("Database/orders.csv");
         if (!ordersFile.exists()) {

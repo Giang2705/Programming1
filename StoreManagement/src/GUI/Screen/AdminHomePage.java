@@ -40,6 +40,8 @@ public class AdminHomePage implements ActionListener {
         List<Product> products = readDatabase.readProductFile();
         ListProductsAdmin listProductsAdmin = new ListProductsAdmin(products);
 
+        textField1.setVisible(false);
+        searchButton.setVisible(false);
         Management.removeAll();
         Management.add(listProductsAdmin.getMain());
         frame.validate();
@@ -47,13 +49,31 @@ public class AdminHomePage implements ActionListener {
 
     public void listOfUsers() throws IOException {
         ListUsersAdmin listUsersAdmin = new ListUsersAdmin();
+
+        textField1.setVisible(false);
+        searchButton.setVisible(false);
         Management.removeAll();
         Management.add(listUsersAdmin.getMain());
         frame.validate();
     }
 
+    public void listOfMemberOrders() throws IOException {
+        ListOrdersAdmin listOrdersAdmin = new ListOrdersAdmin();
+        listOrdersAdmin.ListUserOrdersAdmin(textField1.getText());
+
+        textField1.setVisible(true);
+        searchButton.setVisible(true);
+        Management.removeAll();
+        Management.add(listOrdersAdmin.getMain());
+        frame.validate();
+    }
+
     public void listOfOrders() throws IOException {
         ListOrdersAdmin listOrdersAdmin = new ListOrdersAdmin();
+        listOrdersAdmin.ListOrdersAdmin();
+
+        textField1.setVisible(true);
+        searchButton.setVisible(true);
         Management.removeAll();
         Management.add(listOrdersAdmin.getMain());
         frame.validate();
@@ -62,12 +82,19 @@ public class AdminHomePage implements ActionListener {
         readDatabase readDatabase =new readDatabase();
         List<Product> products = readDatabase.readProductFile();
 
+        textField1.setVisible(false);
+        searchButton.setVisible(false);
         btnAccount.setText(adminUsername);
         productList.addActionListener(this);
         productList.setSelected(true);
         userList.addActionListener(this);
         orderList.addActionListener(this);
         refresh.addActionListener(this);
+        btnLogout.addActionListener(this);
+        btnAccount.addActionListener(this);
+        addNewCategoryButton.addActionListener(this);
+        addNewProductButton.addActionListener(this);
+        searchButton.addActionListener(this);
 
         ListProductsAdmin listProductsAdmin = new ListProductsAdmin(products);
         ListUsersAdmin listUsersAdmin = new ListUsersAdmin();
@@ -76,10 +103,6 @@ public class AdminHomePage implements ActionListener {
         Management.setLayout(new GridLayout(1,1));
         Management.add(listProductsAdmin.getMain());
 
-        btnLogout.addActionListener(this);
-        btnAccount.addActionListener(this);
-        addNewCategoryButton.addActionListener(this);
-        addNewProductButton.addActionListener(this);
 
         frame.add(Main);
 
@@ -152,6 +175,18 @@ public class AdminHomePage implements ActionListener {
 
                 listOfOrders();
 
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+        if (e.getSource() == searchButton){
+            try {
+                productList.setSelected(false);
+                userList.setSelected(false);
+                orderList.setSelected(true);
+
+                listOfMemberOrders();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

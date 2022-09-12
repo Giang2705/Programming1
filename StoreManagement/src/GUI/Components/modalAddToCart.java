@@ -53,7 +53,7 @@ public class modalAddToCart implements ChangeListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton){
-            String id = GenerateID.getID(10);
+            String id = "C.00" + GenerateID.getID(3);
             String status = "unpaid";
             Member member = new Member();
             Product product = null;

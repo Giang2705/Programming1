@@ -101,7 +101,7 @@ public class CartScreen implements ActionListener {
                         changeStatusProductInCart.changeStatus(getMemberCart().get(i).getId(), "confirm");
                     }
                 }
-                String id = GenerateID.getID(10);
+                String id = "Ord.00" + GenerateID.getID(3);
                 for (int i = 0; i < productsOrder.size(); i++) {
                     total += productsOrder.get(i).getTotal();
                 }

@@ -25,6 +25,15 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
     private JLabel priceSort;
     private JLabel categorySort;
     private JPanel productList;
+
+    public JButton getUsername() {
+        return username;
+    }
+
+    public void setUsername(JButton username) {
+        this.username = username;
+    }
+
     public JButton username;
     private JButton Cart;
 
@@ -101,6 +110,7 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
                                 listProducts = new ListProducts(true, username.getText(), optionPrice[j], "default");
                                 productList.removeAll();
                                 productList.add(listProducts.productList);
+                                frame.validate();
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -110,6 +120,7 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
                             listProducts = new ListProducts(true, username.getText(), optionPrice[j], categories.get(i));
                             productList.removeAll();
                             productList.add(listProducts.productList);
+                            frame.validate();
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }

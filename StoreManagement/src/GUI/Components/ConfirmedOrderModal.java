@@ -7,10 +7,12 @@ import Functions.readDatabase;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 
-public class ConfirmedOrderModal {
+public class ConfirmedOrderModal implements ActionListener {
     private JPanel Main;
     private JLabel Title;
     private JLabel usernameLabel;
@@ -40,6 +42,11 @@ public class ConfirmedOrderModal {
             }
         }
         return order;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 
     private static class Table extends AbstractTableModel {
@@ -83,6 +90,8 @@ public class ConfirmedOrderModal {
 
 
     public ConfirmedOrderModal(String id, String name, Double amountDiscount, Double Total, String date, String stt) throws IOException {
+        btnPrint.addActionListener(this);
+
         Member member = null;
         List<Member> members = readDatabase.readUserFile();
         for (int i = 0; i<members.size(); i++) {

@@ -66,7 +66,7 @@ public class UserRegisterForm implements ActionListener{
             phoneField.setText("");
         }
         if (e.getSource() == btnRegister){
-            String id = GenerateID.getID(10);
+            String id = "M.00" + GenerateID.getID(3);
             String username = usernameField1.getText();
             String password = passwordField1.getText();
             String fullname = fullnameField.getText();

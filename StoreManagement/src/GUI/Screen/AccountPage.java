@@ -1,6 +1,7 @@
 package GUI.Screen;
 
 import ClassAttribute.Category;
+import ClassAttribute.Member;
 import ClassAttribute.Product;
 import Functions.readDatabase;
 import Functions.updateDatabase;
@@ -10,12 +11,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.List;
 
 public class AccountPage implements ActionListener{
 
     JFrame frame = new JFrame();
     private JPanel Main;
-    private JPanel registerForm = new JPanel();
+    private JPanel accountForm;
     private JLabel accountPageTitle;
     private JLabel userIdLabel;
     public JTextField userIdField1;
@@ -27,19 +29,16 @@ public class AccountPage implements ActionListener{
     private JLabel passwordLabel;
 
     public JTextField password1;
-    private JLabel adminName;
-    private JLabel admin;
     private JLabel phoneLabel;
     private JLabel membershipLabel;
     private JLabel totalSpendingLabel;
     private JTextField phone1;
     private JTextField membership1;
     private JTextField totalSpending1;
+    private JButton orderHistory;
 
 
     public AccountPage(String id, String name, String password, String phone, String membership, double total){
-
-
 
         userIdField1.setText(id);
         userNameField1.setText(name);
@@ -50,6 +49,7 @@ public class AccountPage implements ActionListener{
 
 
         btnHome.addActionListener(this);
+        orderHistory.addActionListener(this);
 
         frame.setTitle("Add");
         // fetching option for Category
@@ -64,22 +64,22 @@ public class AccountPage implements ActionListener{
 //        String catDefault = categoryArray[0];
 
 
-        registerForm.add(btnHome);
-        registerForm.add(accountPageTitle);
-        registerForm.setLayout(new GridLayout(0, 2,10,10));
-        registerForm.add(userIdLabel);
-        registerForm.add(userIdField1);
-        registerForm.add(userNameLabel);
-        registerForm.add(userNameField1);
-        registerForm.add(passwordLabel);
-        registerForm.add(password1);
-        registerForm.add(phoneLabel);
-        registerForm.add(phone1);
-        registerForm.add(membershipLabel);
-        registerForm.add(membership1);
-        registerForm.add(totalSpendingLabel);
-        registerForm.add(totalSpending1);
-        frame.add(registerForm);
+//        registerForm.add(btnHome);
+//        registerForm.add(accountPageTitle);
+//        registerForm.setLayout(new GridLayout(0, 2,10,10));
+//        registerForm.add(userIdLabel);
+//        registerForm.add(userIdField1);
+//        registerForm.add(userNameLabel);
+//        registerForm.add(userNameField1);
+//        registerForm.add(passwordLabel);
+//        registerForm.add(password1);
+//        registerForm.add(phoneLabel);
+//        registerForm.add(phone1);
+//        registerForm.add(membershipLabel);
+//        registerForm.add(membership1);
+//        registerForm.add(totalSpendingLabel);
+//        registerForm.add(totalSpending1);
+        frame.add(Main);
 //                categoryList1.setSelectedIndex(0);
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -94,7 +94,27 @@ public class AccountPage implements ActionListener{
 
 //        boolean error = false;
         if (e.getSource() == btnHome) {
-            frame.dispose();
+            try {
+                readDatabase readDatabase = new readDatabase();
+                List<Member> members = readDatabase.readUserFile();
+                for (int i = 0; i< members.size(); i++){
+                    if(members.get(i).getStatus().equals("loged in")){
+                        MemberHomePage memberHomePage = new MemberHomePage();
+                        memberHomePage.getUsername().setText(members.get(i).getUsername());
+                    }
+                }
+                frame.dispose();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+        if (e.getSource() == orderHistory) {
+            try {
+                ListOrders listOrders = new ListOrders(userIdField1.getText());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 //
     }

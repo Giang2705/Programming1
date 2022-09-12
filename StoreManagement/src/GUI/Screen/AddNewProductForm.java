@@ -47,7 +47,7 @@ public class AddNewProductForm implements ActionListener, ItemListener {
     AddNewProductForm() throws IOException {
 
 
-        String productId = GenerateID.getID(10);
+        String productId = "P.00" + GenerateID.getID(3);
         productIdField1.setText(productId);
 
         btnHome.addActionListener(this);
