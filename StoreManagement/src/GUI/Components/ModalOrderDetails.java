@@ -1,8 +1,13 @@
 package GUI.Components;
 
-import javax.swing.*;
+import Functions.ChangeOrderStatus;
 
-public class ModalOrderDetails {
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+
+public class ModalOrderDetails implements ActionListener {
     private JPanel Main;
 
     public JPanel getMain() {
@@ -29,20 +34,12 @@ public class ModalOrderDetails {
         this.memberName = memberName;
     }
 
-    public JTable getTableProducts() {
-        return tableProducts;
+    public JLabel getTotal() {
+        return total;
     }
 
-    public void setTableProducts(JTable tableProducts) {
-        this.tableProducts = tableProducts;
-    }
-
-    public JLabel getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(JLabel discount) {
-        this.discount = discount;
+    public void setTotal(JLabel discount) {
+        this.total = discount;
     }
 
     public JTextField getStatus() {
@@ -58,10 +55,47 @@ public class ModalOrderDetails {
     private JLabel memberLabel;
     private JLabel memberName;
     private JLabel productsLabel;
-    private JTable tableProducts;
-    private JLabel discount;
-    private JLabel discountLabel;
+    private JLabel total;
+    private JLabel totalLabel;
     private JLabel statusLabel;
     private JTextField status;
     private JButton updateButton;
+
+    public JTable getTableOfConfirmedProducts() {
+        return tableOfConfirmedProducts;
+    }
+
+    public void setTableOfConfirmedProducts(JTable tableOfConfirmedProducts) {
+        this.tableOfConfirmedProducts = tableOfConfirmedProducts;
+    }
+
+    private JTable tableOfConfirmedProducts;
+
+    JFrame frame = new JFrame();
+
+    public ModalOrderDetails(){
+        updateButton.addActionListener(this);
+
+        frame.add(Main);
+        frame.setTitle("Order Details");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setSize(920,720);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == updateButton) {
+            ChangeOrderStatus changeOrderStatus = new ChangeOrderStatus();
+            try {
+                changeOrderStatus.ChangeOrderStatus(id.getText(), status.getText());
+                JFrame modal = new JFrame("Update successful");
+                modal.setVisible(true);
+                JOptionPane.showMessageDialog(frame, "Successfully add new product");
+                modal.dispose();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+    }
 }

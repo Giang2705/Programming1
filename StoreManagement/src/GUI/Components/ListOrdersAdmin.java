@@ -17,11 +17,13 @@ public class ListOrdersAdmin {
     private JPanel Main;
     private JPanel ListOfOrders;
 
+    readDatabase readDatabase = new readDatabase();
+    List<Order> orders = readDatabase.readOrderFile();
+
     JFrame frame = new JFrame();
 
     public ListOrdersAdmin() throws IOException {
-        readDatabase readDatabase = new readDatabase();
-        List<Order> orders = readDatabase.readOrderFile();
+
         ListOfOrders.setLayout(new GridLayout(orders.size(), 1));
         for (int i = 0; i < orders.size(); i++) {
             OrderItem orderItem = new OrderItem();

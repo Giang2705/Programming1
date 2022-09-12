@@ -1,8 +1,14 @@
 package GUI.Components;
 
+import ClassAttribute.Order;
+import Functions.readDatabase;
+
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
 
 public class OrderItem implements ActionListener{
     private JPanel Main;
@@ -124,11 +130,72 @@ public class OrderItem implements ActionListener{
         this.status = status;
     }
 
+    private static class Table extends AbstractTableModel {
+        private Order order;
+        private String[] Headers = {"id", "name", "category", "price", "amount", "total"};
+
+        private Table(Order order){
+            this.order = order;
+        }
+
+        @Override
+        public int getRowCount() {
+            return order.getCart().size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return Headers.length;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            return switch (columnIndex){
+                case 0 -> order.getCart().get(rowIndex).getProduct().getProductId();
+                case 1 -> order.getCart().get(rowIndex).getProduct().getProductName();
+                case 2 -> order.getCart().get(rowIndex).getProduct().getProductCategory().getCategoryName();
+                case 3 -> order.getCart().get(rowIndex).getProduct().getProductPrice();
+                case 4 -> order.getCart().get(rowIndex).getAmount();
+                case 5 -> order.getCart().get(rowIndex).getTotal();
+                default -> "-";
+            };
+        }
+
+        @Override
+        public String getColumnName(int column){
+            return Headers[column];
+        }
+    }
+
+    public OrderItem(){
+        btnDetails.addActionListener(this);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnDetails){
-            ModalOrderDetails modalOrderDetails = new ModalOrderDetails();
-//            modalOrderDetails.setId();
+            Order order = null;
+            readDatabase readDatabase = new readDatabase();
+            try {
+                List<Order> orders = readDatabase.readOrderFile();
+                for (int i = 0; i<orders.size(); i++){
+                    if(orders.get(i).getId().equals(id.getText())){
+                        order = orders.get(i);
+                        break;
+                    }
+                }
+                Table table = new Table(order);
+                ModalOrderDetails modalOrderDetails = new ModalOrderDetails();
+                modalOrderDetails.getId().setText(id.getText());
+                modalOrderDetails.getMemberName().setText(member.getText());
+                modalOrderDetails.getTotal().setText(total.getText());
+                modalOrderDetails.getStatus().setText(order.getStatus());
+                modalOrderDetails.getTableOfConfirmedProducts().setModel(table);
+                modalOrderDetails.getTableOfConfirmedProducts().setAutoCreateRowSorter(true);
+
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
     }
 }

@@ -32,8 +32,6 @@ public class ChangeOrderStatus {
                                         lineArr[2] + "," +
                                         lineArr[3] + "," +
                                         lineArr[4] + "," +
-                                        lineArr[5] + "," +
-                                        lineArr[6] + "," +
                                         status
                         );
                     } else  {
