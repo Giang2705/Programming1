@@ -56,4 +56,23 @@ public class Order {
         this.createdDate = createdDate;
         this.status = status;
     }
+    private double orderSum(){
+        double total = 0;
+        for (int i = 0; i<cart.size(); i++){
+            total += cart.get(i).getTotal();
+        }
+        return total;
+    }
+
+
+    public double priceAfterDiscount() {
+        double total = orderSum();
+        Member customer = cart.get(0).getMember();
+        Discount discount = customer.getDiscount();
+        double totalAfterDiscount = total;
+        if (discount != null){
+            totalAfterDiscount -= discount.calculateDiscountedAmount(total);
+        }
+        return totalAfterDiscount;
+    }
 }

@@ -8,11 +8,39 @@ public class Member {
     private String phone;
 
     private String membership;
-    //default Member setMembership("Member")
 
-    private int totalSpending = 0;
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    //default Member setMembership("Member")
+    private Discount discount;
+
+    public double getTotalSpending() {
+        return totalSpending;
+    }
+
+    public void setTotalSpending(double totalSpending) {
+        this.totalSpending = totalSpending;
+    }
+
+    private double totalSpending = 0;
     // +total
     // set += total
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    private String status;
 
 
     public String getId(){

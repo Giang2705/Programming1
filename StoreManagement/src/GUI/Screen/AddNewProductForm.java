@@ -1,5 +1,6 @@
 package GUI.Screen;
 
+import ClassAttribute.Admin;
 import ClassAttribute.Category;
 import ClassAttribute.Product;
 import Functions.GenerateID;
@@ -111,11 +112,19 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         boolean error = false;
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
-//            try {
-//                AdminHomePage adminHomePage = new AdminHomePage(products);
-//            } catch (IOException ex) {
-//                throw new RuntimeException(ex);
-//            }
+            try {
+                List<Admin> admins = readDatabase.readAdminFile();
+                Admin admin = new Admin();
+                for (int i = 0; i<admins.size(); i++){
+                    if(admins.get(i).getStatus().equals("loged in")){
+                        admin = admins.get(i);
+                        break;
+                    }
+                }
+                AdminHomePage adminHomePage = new AdminHomePage(admin.getAdminUsername());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == btnClear){
             productIdField1.setText("");

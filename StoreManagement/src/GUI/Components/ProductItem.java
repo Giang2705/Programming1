@@ -30,10 +30,15 @@ public class ProductItem implements ActionListener {
     }
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addToCartButton) {
-            modalAddToCart modalAddToCart = new modalAddToCart();
+            modalAddToCart modalAddToCart = null;
+            try {
+                modalAddToCart = new modalAddToCart();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             modalAddToCart.productName.setText(productName.getText());
             modalAddToCart.productPrice.setText(productPrice.getText());
-            modalAddToCart.username.setText(username.getText());
+//            modalAddToCart.username.setText(username.getText());
         }
     }
 }

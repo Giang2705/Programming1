@@ -29,7 +29,7 @@ public class storeDatabase {
                 FileWriter fw = new FileWriter("Database/users.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
-                pw.println("username, password, fullname, phone, id, membership");
+                pw.println("id,username,password,fullname,phone,membership,spending,status");
                 pw.flush();
                 pw.close();
                 System.out.println("User File created!");
@@ -47,7 +47,7 @@ public class storeDatabase {
                 FileWriter fw = new FileWriter("Database/admins.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
-                pw.println("id,username,password");
+                pw.println("id,username,password,status");
                 pw.flush();
                 pw.close();
 
@@ -197,7 +197,7 @@ public class storeDatabase {
             FileWriter fw = new FileWriter("Database/admins.csv", true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
-            pw.printf("%s,%s,%s\n", admin.getAdminId(),admin.getAdminUsername(),admin.getAdminPassword());
+            pw.printf("%s,%s,%s\n", admin.getAdminId(),admin.getAdminUsername(),admin.getAdminPassword(),admin.getStatus());
             pw.flush();
             pw.close();
 //            PrintWriter print = new PrintWriter("categories.csv");
@@ -282,10 +282,10 @@ public class storeDatabase {
 
 
 
-    public void register(String username, String password, String fullname, String phone, String id, String membership) {
+    public void register(String username, String password, String fullname, String phone, String id, String membership, Double totalSpending, String status) {
         BufferedReader b = null;
         String rl = "";
-        String delimiter = ", ";
+        String delimiter = ",";
 
 //        add new data in db
         try {
@@ -317,17 +317,21 @@ public class storeDatabase {
                 }
 
                 raf.writeBytes("\r\n");
-                raf.writeBytes(username);
-                raf.writeBytes(", ");
-                raf.writeBytes(password);
-                raf.writeBytes(", ");
-                raf.writeBytes(fullname);
-                raf.writeBytes(", ");
-                raf.writeBytes(phone);
-                raf.writeBytes(", ");
                 raf.writeBytes(id);
-                raf.writeBytes(", ");
+                raf.writeBytes(",");
+                raf.writeBytes(username);
+                raf.writeBytes(",");
+                raf.writeBytes(password);
+                raf.writeBytes(",");
+                raf.writeBytes(fullname);
+                raf.writeBytes(",");
+                raf.writeBytes(phone);
+                raf.writeBytes(",");
                 raf.writeBytes(membership);
+                raf.writeBytes(",");
+                raf.writeBytes(String.valueOf(totalSpending));
+                raf.writeBytes(",");
+                raf.writeBytes(status);
 
                 System.out.println("User created!");
             }

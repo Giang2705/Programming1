@@ -3,15 +3,11 @@ package GUI.Components;
 import ClassAttribute.Category;
 import ClassAttribute.Product;
 import Functions.deleteDatabase;
-import Functions.readDatabase;
-import GUI.Screen.ListProductsAdmin;
 import GUI.Screen.UpdateProductForm;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.List;
 
 public class ProductItemAdmin implements ActionListener {
     private JPanel Main;

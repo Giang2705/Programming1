@@ -2,6 +2,7 @@ package GUI.Screen;
 
 import ClassAttribute.Member;
 import ClassAttribute.Product;
+import Functions.ChangeLoginStatus;
 import Functions.SortByPrice;
 import Functions.readDatabase;
 import GUI.Components.ListProducts;
@@ -38,16 +39,16 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
 
     JFrame frame = new JFrame();
 
-    public MemberHomePage(String name) throws IOException {
+    public MemberHomePage() throws IOException {
         Cart.addActionListener(this);
         btnLogout.addActionListener(this);
         price.addActionListener(this);
         category.addActionListener(this);
 
-        username.setText(name);
         for (int i = 0; i<members.size(); i++){
-            if (members.get(i).getUsername().equals(name)){
+            if (members.get(i).getStatus().equals("loged in")){
                 member = members.get(i);
+                username.setText(member.getUsername());
             }
         }
         for (int i = 0; i < optionPrice.length; i++){
@@ -71,7 +72,7 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
         }
         category.addItemListener(this::itemStateChanged);
 
-        listProducts = new ListProducts(true, name, "default", "default");
+        listProducts = new ListProducts(true, member.getUsername(), "default", "default");
         productList.setLayout(new GridLayout(1,1));
         productList.add(listProducts.productList);
 
@@ -126,14 +127,17 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
         if (e.getSource() == Cart){
             frame.dispose();
             try {
-                CartScreen cartScreen = new CartScreen(username.getText());
+                CartScreen cartScreen = new CartScreen(member.getUsername());
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         }
         if (e.getSource() == btnLogout){
+            String status = "loged out";
             frame.dispose();
             try {
+                ChangeLoginStatus changeLoginStatus = new ChangeLoginStatus();
+                changeLoginStatus.ChangeLoginStatus(member.getId(), status);
                 GuestHomePage guestHomePage = new GuestHomePage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

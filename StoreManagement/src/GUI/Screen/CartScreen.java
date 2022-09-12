@@ -1,7 +1,6 @@
 package GUI.Screen;
 
-import ClassAttribute.Cart;
-import ClassAttribute.Order;
+import ClassAttribute.*;
 import Functions.*;
 import GUI.Components.ConfirmedOrderModal;
 import GUI.Components.ProductInCart;
@@ -24,6 +23,18 @@ public class CartScreen implements ActionListener {
     private JPanel ListOfAddedProducts;
     JFrame frame = new JFrame();
 
+    public Member member() throws IOException {
+        readDatabase readDatabase = new readDatabase();
+        Member member = null;
+        List<Member> members = readDatabase.readUserFile();
+        for (int i = 0; i< members.size(); i++){
+            if(members.get(i).getStatus().equals("loged in")){
+                member = members.get(i);
+            }
+        }
+        return member;
+    }
+
     public List<Cart> getMemberCart() throws IOException {
         readDatabase readDatabase = new readDatabase();
         List<Cart> carts = readDatabase.readCartFile(); //list cart
@@ -31,7 +42,7 @@ public class CartScreen implements ActionListener {
         List<Cart> memberCart = new ArrayList<>();
         if (carts != null){
             for (int i = 0; i < carts.size(); i++) {
-                if (carts.get(i).getMember().getUsername().equals(username.getText())) {
+                if (carts.get(i).getMember().getUsername().equals(member().getUsername())) {
                     memberCart.add(carts.get(i));
                 }
             }
@@ -39,24 +50,6 @@ public class CartScreen implements ActionListener {
 
         return memberCart;
     }
-
-//    public List<Order> getMemberOrder() throws IOException {
-//        readDatabase readDatabase = new readDatabase();
-//        List<Order> orders = readDatabase.readOrderFile(); //list cart
-//
-//        List<Order> memberOrder = new ArrayList<>();
-//        if (orders != null){
-//            for (int i = 0; i < orders.size(); i++) {
-//                for (int j = 0; j < orders.get(i).getCart().size(); j++){
-//                    if (orders.get(i).getCart().get(j).getMember().getUsername().equals(username.getText())) {
-//                        memberOrder.add(orders.get(i));
-//                    }
-//                }
-//            }
-//        }
-//
-//        return memberOrder;
-//    }
 
     public CartScreen(String name) throws IOException {
         btnHome.addActionListener(this);
@@ -91,7 +84,7 @@ public class CartScreen implements ActionListener {
         if (e.getSource() == btnHome) {
             frame.dispose();
             try {
-                MemberHomePage memberHomePage = new MemberHomePage(username.getText());
+                MemberHomePage memberHomePage = new MemberHomePage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -99,6 +92,7 @@ public class CartScreen implements ActionListener {
         if (e.getSource() == btnConfirm) {
             List<Cart> productsOrder = new ArrayList<>();
             double total = 0;
+            double amountDiscount = 0;
             try {
                 for(int i = 0; i<getMemberCart().size(); i++){
                     if(getMemberCart().get(i).getStatus().equals("paid")){
@@ -112,6 +106,21 @@ public class CartScreen implements ActionListener {
                     total += productsOrder.get(i).getTotal();
                 }
 
+//                check membership
+                if(member().getMembership().equals("SILVER")){
+                    Discount silverDiscount = new SilverDiscount();
+                    amountDiscount = silverDiscount.calculateDiscountedAmount(total);
+                    total -= amountDiscount;
+                } else if(member().getMembership().equals("GOLD")){
+                    Discount goldDiscount = new GoldDiscount();
+                    amountDiscount = goldDiscount.calculateDiscountedAmount(total);
+                    total -= amountDiscount;
+                } else if(member().getMembership().equals("PLATINUM")){
+                    Discount platinumDiscount = new PlatinumDiscount();
+                    amountDiscount = platinumDiscount.calculateDiscountedAmount(total);
+                    total -= amountDiscount;
+                }
+
                 String createdDate = GetDate.GetDate();
                 String status = "Confirmed";
 
@@ -123,10 +132,21 @@ public class CartScreen implements ActionListener {
                 storeDatabase.ordersCountLine();
                 storeDatabase.addOrder(order, productsOrder);
 
+
+//                update to total spending
+                Double totalSpending = null;
+                GetTotalSpending getTotalSpending = new GetTotalSpending();
+
+                totalSpending = getTotalSpending.totalSpending(member().getId(), order);
+                UpdateTotalSpending updateTotalSpending = new UpdateTotalSpending();
+                updateTotalSpending.update(member().getId(), totalSpending);
+                ChangeMembership changeMembership = new ChangeMembership(member());
+
+
                 frame.dispose();
                 CartScreen cartScreen = new CartScreen(username.getText());
 
-                ConfirmedOrderModal confirmedOrderModal = new ConfirmedOrderModal(id, order.getCart().get(0).getMember().getUsername(), order.getTotal(), order.getCreatedDate(), order.getStatus());
+                ConfirmedOrderModal confirmedOrderModal = new ConfirmedOrderModal(id, order.getCart().get(0).getMember().getUsername(), amountDiscount, order.getTotal(), order.getCreatedDate(), order.getStatus());
 
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

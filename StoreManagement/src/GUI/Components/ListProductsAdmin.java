@@ -1,4 +1,4 @@
-package GUI.Screen;
+package GUI.Components;
 
 import ClassAttribute.Product;
 import Functions.readDatabase;
@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.List;
 
 public class ListProductsAdmin {
+    public JPanel getMain() {
+        return Main;
+    }
+
     public JPanel Main;
     private JScrollPane scrollpane;
     private JPanel ListOfProducts;
@@ -17,6 +21,7 @@ public class ListProductsAdmin {
     JFrame frame = new JFrame();
 
     public ListProductsAdmin(List<Product> products) throws IOException {
+        readDatabase readDatabase = new readDatabase();
         ListOfProducts.setLayout(new GridLayout(products.size(), 1));
         for (int i = 0; i < products.size(); i++) {
             ProductItemAdmin productItemAdmin = new ProductItemAdmin();
@@ -26,11 +31,5 @@ public class ListProductsAdmin {
             productItemAdmin.getPrice().setText(String.valueOf(products.get(i).getProductPrice()));
             ListOfProducts.add(productItemAdmin.getMain());
         }
-
-//        frame.add(Main);
-//        frame.setTitle("List Of Products");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setVisible(true);
-//        frame.setSize(960, 720);
     }
 }

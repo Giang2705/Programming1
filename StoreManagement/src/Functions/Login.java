@@ -21,8 +21,10 @@ public class Login {
             for (int i = 0; i<members.size(); i++){
 
                 if (members.get(i).getUsername().equals(username) && members.get(i).getPassword().equals(password)){
-
-                    MemberHomePage memberHomePage = new MemberHomePage(members.get(i).getUsername());
+                    String status = "loged in";
+                    ChangeLoginStatus changeLoginStatus = new ChangeLoginStatus();
+                    changeLoginStatus.ChangeLoginStatus(members.get(i).getId(), status);
+                    MemberHomePage memberHomePage = new MemberHomePage();
                     checked = true;
                     break;
                 }
@@ -50,8 +52,10 @@ public class Login {
             for (int i = 0; i<admins.size(); i++){
 
                 if (admins.get(i).getAdminUsername().equals(username) && admins.get(i).getAdminPassword().equals(password)){
-                    AdminHomePage adminHomePage = new AdminHomePage(products);
-                    adminHomePage.getBtnAccount().setText(admins.get(i).getAdminUsername());
+                    String status = "loged in";
+                    ChangeLoginStatus changeLoginStatus = new ChangeLoginStatus();
+                    changeLoginStatus.ChangeLoginStatus(admins.get(i).getAdminId(), status);
+                    AdminHomePage adminHomePage = new AdminHomePage(admins.get(i).getAdminUsername());
                     checked = true;
                     break;
                 }

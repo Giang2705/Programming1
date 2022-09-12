@@ -22,11 +22,12 @@ public class readDatabase {
     public List<Member> readUserFile() throws IOException {
         BufferedReader b = null;
         String line = "";
-        String delimiter = ", ";
+        String delimiter = ",";
 
         try {
             FileReader fr = new FileReader("Database/users.csv");
             b = new BufferedReader(fr);
+            b.readLine();
 
             while ((line = b.readLine()) != null) {
                 String[] file = line.split(delimiter);
@@ -34,12 +35,14 @@ public class readDatabase {
                 if (file.length > 1) {
                     Member mem = new Member();
                     //   set value for member's attribute
-                    mem.setUsername(file[0]);
-                    mem.setPassword(file[1]);
-                    mem.setFullname(file[2]);
-                    mem.setPhone(file[3]);
-                    mem.setId(file[4]);
+                    mem.setId(file[0]);
+                    mem.setUsername(file[1]);
+                    mem.setPassword(file[2]);
+                    mem.setFullname(file[3]);
+                    mem.setPhone(file[4]);
                     mem.setMembership(file[5]);
+                    mem.setTotalSpending(Double.parseDouble(file[6]));
+                    mem.setStatus(file[7]);
                     members.add(mem);
                 }
             }
@@ -71,7 +74,7 @@ public class readDatabase {
                     //   set value for admin's attribute
                     ad.setAdminUsername(file[0]);
                     ad.setAdminPassword(file[1]);
-                    ad.setAdminId(file[2]);
+                    ad.setStatus(file[2]);
 
                     admins.add(ad);
                 }

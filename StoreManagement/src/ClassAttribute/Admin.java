@@ -9,13 +9,23 @@ public class Admin {
     private String id;
     private String username;
     private String password;
+    private String status;
 
     public Admin() {}
 
-    public Admin (String id, String username, String password) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Admin (String id, String username, String password, String status) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.status = status;
     }
 
     @Override

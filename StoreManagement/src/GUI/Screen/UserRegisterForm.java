@@ -72,6 +72,8 @@ public class UserRegisterForm implements ActionListener{
             String fullname = fullnameField.getText();
             String phone = phoneField.getText();
             String membership = "MEMBERSHIP";
+            double totalSpending = 0;
+            String status = "loged out";
 
 //            validation
             if((username.length() == 0) || (password.length() == 0) || (fullname.length() == 0) || (phone.length() == 0)){
@@ -85,7 +87,7 @@ public class UserRegisterForm implements ActionListener{
                 database.createFolder();
                 database.createFile();
                 database.count();
-                database.register(username, password, fullname, phone, id, membership);
+                database.register(username, password, fullname, phone, id, membership, totalSpending, status);
 
                 usernameField1.setText("");
                 passwordField1.setText("");

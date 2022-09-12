@@ -1,5 +1,6 @@
 package GUI.Components;
 
+import ClassAttribute.Member;
 import ClassAttribute.Order;
 import Functions.readDatabase;
 
@@ -25,6 +26,8 @@ public class ConfirmedOrderModal {
     private JButton btnPrint;
     private JLabel idLabel;
     private JLabel ID;
+    private JLabel amountDiscount;
+    private JLabel amountDiscountValue;
 
     readDatabase readDatabase = new readDatabase();
     List<Order> orders = readDatabase.readOrderFile();
@@ -79,13 +82,23 @@ public class ConfirmedOrderModal {
     JFrame frame = new JFrame();
 
 
-    public ConfirmedOrderModal(String id, String name, Double Total, String date, String stt) throws IOException {
+    public ConfirmedOrderModal(String id, String name, Double amountDiscount, Double Total, String date, String stt) throws IOException {
+        Member member = null;
+        List<Member> members = readDatabase.readUserFile();
+        for (int i = 0; i<members.size(); i++) {
+            if (members.get(i).getUsername().equals(name)){
+                member = members.get(i);
+                break;
+            }
+        }
+
         Table table = new ConfirmedOrderModal.Table(getOrder(id));
         tableOfConfirmedProducts.setModel(table);
         tableOfConfirmedProducts.setAutoCreateRowSorter(true);
 
         ID.setText(id);
         username.setText(name);
+        amountDiscountValue.setText(String.valueOf(amountDiscount));
         total.setText(String.valueOf(Total));
         createdDate.setText(date);
         status.setText(stt);

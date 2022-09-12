@@ -27,10 +27,12 @@ public class modalAddToCart implements ChangeListener, ActionListener {
     public JPanel ModalAddToCart;
     public JLabel username;
 
-    private JLabel usernameTitle;
+    readDatabase readDatabase = new readDatabase();
+    List<Member> members = readDatabase.readUserFile();
+    List<Product> products = readDatabase.readProductFile();
 
     JFrame frame = new JFrame();
-    public modalAddToCart(){
+    public modalAddToCart() throws IOException {
         amountChange.addChangeListener(this);
         submitButton.addActionListener(this);
         cancelButton.addActionListener(this);
@@ -55,26 +57,21 @@ public class modalAddToCart implements ChangeListener, ActionListener {
             String status = "unpaid";
             Member member = new Member();
             Product product = null;
-            readDatabase readDatabase = new readDatabase();
-            try {
-                List<Member> members = readDatabase.readUserFile();
-                for(int i = 0; i < members.size(); i++){
-                    if (members.get(i).getUsername().equals(username.getText())){
-                        member = members.get(i);
-                        break;
-                    }
-                }
 
-                List<Product> products = readDatabase.readProductFile();
-                for(int i = 0; i< products.size(); i++){
-                    if (products.get(i).getProductName().equals(productName.getText())){
-                        product = products.get(i);
-                        break;
-                    }
+            for(int i = 0; i < members.size(); i++){
+                if (members.get(i).getStatus().equals("loged in")){
+                    member = members.get(i);
+                    break;
                 }
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
             }
+
+            for(int i = 0; i< products.size(); i++){
+                if (products.get(i).getProductName().equals(productName.getText())){
+                    product = products.get(i);
+                    break;
+                }
+            }
+
             if (textField1.getText().equals("")) {
                 JFrame modal = new JFrame("Unvalidated");
                 modal.setVisible(true);
