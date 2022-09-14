@@ -3,14 +3,11 @@ package Functions;
 import ClassAttribute.Product;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class SortByPrice {
-//    readDatabase readDatabase = new readDatabase();
     public List<Product> Ascending (List<Product> products) throws IOException {
-//        List<Product> products = readDatabase.readProductFile();
         Collections.sort(products);
         return products;
     }

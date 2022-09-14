@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Product implements Comparable<Product> {
+//    Attribute
     private String id;
     private String name;
     private Category category;
     private double price;
     private int amount;
 
+//    Constructor
     public int getAmount() {
         return amount;
     }
@@ -31,19 +33,6 @@ public class Product implements Comparable<Product> {
         this.category = category;
         this.price = price;
     }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id='" + id +
-        ", name='" + name +
-        ", category=" + category.getCategoryName() +
-                ", price=" + price +
-                '}';
-    }
-
-    public String displayProductInfo() { return this.toString(); }
-
     public static List<Product> getList() {
         return List_product;
     }
@@ -81,6 +70,19 @@ public class Product implements Comparable<Product> {
         this.price = price;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id +
+        ", name='" + name +
+        ", category=" + category.getCategoryName() +
+                ", price=" + price +
+                '}';
+    }
+
+    public String displayProductInfo() { return this.toString(); }
+
+//    Sort product by price
     @Override
     public int compareTo(Product o){
         if (this.price > o.getProductPrice()){

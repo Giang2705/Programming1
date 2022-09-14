@@ -1,6 +1,8 @@
 package GUI.Screen;
 
+import ClassAttribute.Admin;
 import ClassAttribute.Product;
+import Functions.ChangeLoginStatus;
 import Functions.readDatabase;
 import GUI.Components.ListOrdersAdmin;
 import GUI.Components.ListProductsAdmin;
@@ -118,7 +120,15 @@ public class AdminHomePage implements ActionListener {
         if (e.getSource() == btnLogout){
             frame.dispose();
             try {
+                readDatabase readDatabase = new readDatabase();
+                List<Admin> admins = readDatabase.readAdminFile();
+                Admin admin = new Admin();
+                for (int i = 0; i< admins.size(); i++){
+                    admin = admins.get(i);
+                }
                 GuestHomePage guestHomePage = new GuestHomePage();
+                ChangeLoginStatus changeLoginStatus = new ChangeLoginStatus();
+                changeLoginStatus.ChangeLoginStatus(admin.getAdminId(), "loged out");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -195,7 +205,6 @@ public class AdminHomePage implements ActionListener {
         if (e.getSource() == refresh){
             if(productList.isSelected()){
                 try {
-                    System.out.println(true);
                     listOfProducts();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);

@@ -13,16 +13,11 @@ public class deleteDatabase {
         String tempfile = "productTemp.csv";
         File oldFile = new File(filepath);
         File newFile = new File(tempfile);
-//        String ID = "";
-//        String name = "";
-//        String cat = "";
-//        String price = "";
         String rl = "";
         String delimiter = ",";
         try {
             FileReader fr = new FileReader("Database/products.csv");
             BufferedReader b = new BufferedReader(fr);
-//            boolean proChecked = true;
             FileWriter fw = new FileWriter(tempfile);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter pw = new PrintWriter(bw);
@@ -30,15 +25,10 @@ public class deleteDatabase {
                 String[] file = rl.split(delimiter);
                 if (file.length > 0) {
                     if(!file[0].equals(deleteProduct.getProductId())){
-//                        System.out.println("False");
-//                        proChecked = false;
-//                        pw.println(newUpdated.getProductId() + "," +  newUpdated.getProductName()+ "," + newUpdated.getProductCategory().getCategoryName()+ "," +newUpdated.getProductPrice());
-//                        System.out.println(oldFile.getAbsoluteFile());
                         pw.println(rl);
                     }
                 }
             }
-//            x.close();;
             pw.flush();
             pw.close();
             fr.close();

@@ -9,19 +9,8 @@ import java.util.List;
 
 public class GetTotalSpending {
     readDatabase readDatabase = new readDatabase();
-    List<Order> orders = readDatabase.readOrderFile();
 
     public GetTotalSpending() throws IOException {
-    }
-
-    public List<Order> memberOrders(String id) {
-        List<Order> memberOrders = new ArrayList<>();
-        for (int i = 0; i < orders.size(); i++){
-            if(orders.get(i).getCart().get(0).getMember().getId().equals(id)){
-                memberOrders.add(orders.get(i));
-            }
-        }
-        return memberOrders;
     }
 
     public Double totalSpending(String id, Order newOrder) throws IOException {

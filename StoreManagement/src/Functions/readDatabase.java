@@ -14,7 +14,6 @@ public class readDatabase {
     List<Cart> carts = new ArrayList<>();
     List<Order> orders = new ArrayList<>();
 
-//    Product tempProduct  = null;
 
 //    read database (add elements into object array)
 
@@ -72,9 +71,10 @@ public class readDatabase {
                 if (file.length > 1) {
                     Admin ad = new Admin();
                     //   set value for admin's attribute
-                    ad.setAdminUsername(file[0]);
-                    ad.setAdminPassword(file[1]);
-                    ad.setStatus(file[2]);
+                    ad.setAdminId(file[0]);
+                    ad.setAdminUsername(file[1]);
+                    ad.setAdminPassword(file[2]);
+                    ad.setStatus(file[3]);
 
                     admins.add(ad);
                 }
@@ -190,7 +190,6 @@ public List<Cart> readCartFile() throws IOException {
         List<Cart> carts = readCartFile();
         List<Member> members = readUserFile();
         List<Member> membersArr = new ArrayList<>();
-        List<Order> orders = new ArrayList<>();
 
         try {
             FileReader reader = new FileReader("Database/orders.csv");

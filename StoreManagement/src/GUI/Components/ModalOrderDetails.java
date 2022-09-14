@@ -91,7 +91,7 @@ public class ModalOrderDetails implements ActionListener {
                 changeOrderStatus.ChangeOrderStatus(id.getText(), status.getText());
                 JFrame modal = new JFrame("Update successful");
                 modal.setVisible(true);
-                JOptionPane.showMessageDialog(frame, "Successfully add new product");
+                JOptionPane.showMessageDialog(frame, "Successfully change order's status");
                 modal.dispose();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);

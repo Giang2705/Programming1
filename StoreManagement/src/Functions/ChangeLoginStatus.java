@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class ChangeLoginStatus {
     public void ChangeLoginStatus(String id, String status) throws IOException {
+//        take array of members and admins
         ArrayList<String> tempArray = new ArrayList<>();
         readDatabase readDatabase = new readDatabase();
         List<Member> members = readDatabase.readUserFile();
@@ -37,6 +38,7 @@ public class ChangeLoginStatus {
                     lineArr = line.split(",");
                     if(lineArr[0].equals(id)){
                         if(path.equals("Database/users.csv")){
+//                            add new database into temp array
                             tempArray.add(
                                     lineArr[0] + "," +
                                             lineArr[1] + "," +
@@ -48,6 +50,7 @@ public class ChangeLoginStatus {
                                             status
                             );
                         } else {
+//                            add new database into temp array
                             tempArray.add(
                                     lineArr[0] + "," +
                                             lineArr[1] + "," +
@@ -59,7 +62,6 @@ public class ChangeLoginStatus {
                         tempArray.add(line);
                     }
                 }
-
                 fr.close();
             } catch (Exception e){
 
@@ -69,6 +71,7 @@ public class ChangeLoginStatus {
         }
         try {
             try {
+//                print database of temp array into new file
                 PrintWriter pr = new PrintWriter(path);
 
                 for (int i = 0; i<tempArray.size(); i++) {

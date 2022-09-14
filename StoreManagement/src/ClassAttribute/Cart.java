@@ -3,22 +3,22 @@ package ClassAttribute;
 import javax.swing.*;
 
 public class Cart {
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+//  Cart's attributes
     private String id;
     private Member member;
     private Product product;
-
     private double amount;
-
+    private String createdDate;
     private double total;
+    private String status;
 
+//    Constructors
+    public String getId() {
+    return id;
+}
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getStatus() {
         return status;
     }
@@ -27,8 +27,6 @@ public class Cart {
         this.status = status;
     }
 
-    private String status;
-
     public String getCreatedDate() {
         return createdDate;
     }
@@ -36,8 +34,6 @@ public class Cart {
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
-
-    private String createdDate;
 
     public double getAmount() {
         return amount;

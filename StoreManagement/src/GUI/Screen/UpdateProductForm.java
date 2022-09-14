@@ -93,50 +93,20 @@ public class UpdateProductForm implements ActionListener{
 //        boolean error = false;
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
-//            try {
-//                AdminHomePage adminHomePage = new AdminHomePage();
-//            } catch (IOException ex) {
-//                throw new RuntimeException(ex);
-//            }
         }
-//
+
         if (e.getSource() == btnUpdate){
             Category category = new Category(category1.getText());
             Product product = new Product(productIdField1.getText(), productNameField1.getText(), category, Double.parseDouble(productPriceField.getText()));
             updateDatabase updateDatabase = new updateDatabase();
             updateDatabase.editProduct("Database/products.csv", product);
-            readDatabase readDatabase = new readDatabase();
+            JFrame modal = new JFrame("Update successful");
+            modal.setVisible(true);
+            JOptionPane.showMessageDialog(frame, "Product updated successfully!");
+            modal.dispose();
             frame.dispose();
         }
-//
-//
-//            if ((productName.length() == 0) || (productCat.getCategoryName().length() == 0)) {
-//                JFrame modal = new JFrame("Unvalidated");
-//                modal.setVisible(true);
-//                JOptionPane.showConfirmDialog(null, "Please fill in all fields of the form!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
-//                modal.dispose();
-//                System.out.println("False");
-//            } else {
-//                Product product = new Product(productIdField1.getText(), productName, productCat, productPrice);
-//                if (!error) {
-//                    System.out.println("Add Prod");
-//                    storeDatabase database = new storeDatabase();
-//                    database.createProductFile();
-//                    database.productCountLine();
-//                    database.addNewProduct(product);
-//                    readDatabase readDatabase = new readDatabase();
-//                    try {
-//                        readDatabase.readProductFile();
-//                    } catch (IOException ex) {
-//                        throw new RuntimeException(ex);
-//                    }
-//                }
-//                JOptionPane.showMessageDialog(frame, "Successfully add new product");
-//                frame.dispose();
-//                AddNewProductForm addNewProductForm = new AddNewProductForm();
-//            }
-//
-//        }
+
     }
 
 }

@@ -15,13 +15,13 @@ public class storeDatabase {
     int line;
     //    Create new file csv
     File f = new File("Database");
-//    File adminF = new File()
     public void createFolder() {
         if (!f.exists()) {
             f.mkdirs();
         }
     }
 
+//    create user database
     public void createFile() {
         File file = new File("Database/users.csv");
         if (!file.exists()){
@@ -40,6 +40,7 @@ public class storeDatabase {
 
     }
 
+    //    create admin database
     public void createAdminFile() {
         File adminFile = new File("Database/admins.csv");
         if (!adminFile.exists()) {
@@ -59,6 +60,7 @@ public class storeDatabase {
         }
     }
 
+    //    create category database
     public void createCategoryFile() {
         File categoryFile = new File("Database/categories.csv");
         if (!categoryFile.exists()) {
@@ -77,7 +79,7 @@ public class storeDatabase {
             }
         }
     }
-
+    //    create products database
     public void createProductFile() {
         File productFile = new File("Database/products.csv");
         if (!productFile.exists()) {
@@ -88,9 +90,6 @@ public class storeDatabase {
                 pw.println("id,name,category,price");
                 pw.flush();
                 pw.close();
-//                PrintWriter print = new PrintWriter(categoryFile);
-//                print.println("id,name");
-//                print.close();
                 System.out.println("Product file created!");
             }
             catch (IOException e) {
@@ -98,6 +97,7 @@ public class storeDatabase {
             }
         }
     }
+    //    create cart database
     public void createCartsFile(){
         File cartFile = new File("Database/cart.csv");
         if (!cartFile.exists()) {
@@ -108,9 +108,6 @@ public class storeDatabase {
                 pw.println("id,member's name,product's name,amount,total,created date,status");
                 pw.flush();
                 pw.close();
-//                PrintWriter print = new PrintWriter(categoryFile);
-//                print.println("id,name");
-//                print.close();
                 System.out.println("Carts file created!");
             }
             catch (IOException e) {
@@ -118,7 +115,7 @@ public class storeDatabase {
             }
         }
     }
-
+    //    create order database
     public void createOrdersFile(){
         File ordersFile = new File("Database/orders.csv");
         if (!ordersFile.exists()) {
@@ -129,9 +126,6 @@ public class storeDatabase {
                 pw.println("id,member's name,products,total,created date,status");
                 pw.flush();
                 pw.close();
-//                PrintWriter print = new PrintWriter(categoryFile);
-//                print.println("id,name");
-//                print.close();
                 System.out.println("Orders file created!");
             }
             catch (IOException e) {
@@ -156,41 +150,36 @@ public class storeDatabase {
         }
     }
 
-    // count line for Product file
+//    void adminCountLine() {
+//        try {
+//            line = 1;
+//            RandomAccessFile raf = new RandomAccessFile("Database/admins.csv", "rw");
+//            for (int i = 0; raf.readLine() != null; i++){
+//                line++;
+//            }
+//        } catch (FileNotFoundException ex) {
+//            ex.printStackTrace();
+//        } catch (IOException ex){
+//            ex.printStackTrace();
+//        }
+//    }
 
-    void adminCountLine() {
-        try {
-            line = 1;
-            RandomAccessFile raf = new RandomAccessFile("Database/admins.csv", "rw");
-            for (int i = 0; raf.readLine() != null; i++){
-                line++;
-            }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex){
-            ex.printStackTrace();
-        }
-    }
-
-    public void addNewAdmin(Admin admin) {
-        // add new Product in db
-        try {
-            FileWriter fw = new FileWriter("Database/admins.csv", true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-            pw.printf("%s,%s,%s\n", admin.getAdminId(),admin.getAdminUsername(),admin.getAdminPassword(),admin.getStatus());
-            pw.flush();
-            pw.close();
-//            PrintWriter print = new PrintWriter("categories.csv");
-//            print.printf("%s,%s\n", category.getCategoryId(), category.getCategoryName());
-//            print.close();
-            System.out.println("Successfully creating a new admin!");
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
-        } catch (IOException e) {
-            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
+//    public void addNewAdmin(Admin admin) {
+//        // add new Product in db
+//        try {
+//            FileWriter fw = new FileWriter("Database/admins.csv", true);
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            PrintWriter pw = new PrintWriter(bw);
+//            pw.printf("%s,%s,%s\n", admin.getAdminId(),admin.getAdminUsername(),admin.getAdminPassword(),admin.getStatus());
+//            pw.flush();
+//            pw.close();
+//            System.out.println("Successfully creating a new admin!");
+//        } catch (FileNotFoundException e) {
+//            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+//        } catch (IOException e) {
+//            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+//        }
+//    }
 
     public void productCountLine() {
         try {
@@ -223,20 +212,6 @@ public class storeDatabase {
         try {
             line = 1;
             RandomAccessFile raf = new RandomAccessFile("Database/cart.csv", "rw");
-            for (int i = 0; raf.readLine() != null; i++){
-                line++;
-            }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex){
-            ex.printStackTrace();
-        }
-    }
-
-    public void paidCountLine(){
-        try {
-            line = 1;
-            RandomAccessFile raf = new RandomAccessFile("Database/paid.csv", "rw");
             for (int i = 0; raf.readLine() != null; i++){
                 line++;
             }
@@ -353,9 +328,6 @@ public class storeDatabase {
                 pw.printf("%s,%s,%s,%s\n", product.getProductId(), product.getProductName(), product.getProductCategory().getCategoryName(),product.getProductPrice());
                 pw.flush();
                 pw.close();
-//            PrintWriter print = new PrintWriter("categories.csv");
-//            print.printf("%s,%s\n", category.getCategoryId(), category.getCategoryName());
-//            print.close();
                 System.out.println("Successfully creating a new product!");
             }
 

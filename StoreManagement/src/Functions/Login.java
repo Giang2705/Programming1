@@ -47,7 +47,6 @@ public class Login {
 
         try {
             List <Admin> admins = readDatabase.readAdminFile();
-            List<Product> products = readDatabase.readProductFile();
 
             for (int i = 0; i<admins.size(); i++){
 

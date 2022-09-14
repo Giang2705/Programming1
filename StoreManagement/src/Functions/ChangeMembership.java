@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ChangeMembership {
+//    Condition to change membership
     public ChangeMembership(Member member) throws IOException {
         String membership;
         if (member.getTotalSpending() >= 5000.0 && member.getTotalSpending() < 10000.0){
@@ -26,6 +27,7 @@ public class ChangeMembership {
         update(member.getId(), member.getMembership());
     }
 
+//    change in database
     public void update(String id, String membership) throws IOException {
         ArrayList<String> tempArray = new ArrayList<>();
         String path = "Database/users.csv";
