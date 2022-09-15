@@ -81,24 +81,18 @@ public class UserRegisterForm implements ActionListener{
                 modal.setVisible(true);
                 JOptionPane.showConfirmDialog(null, "Please fill in all fields of the form!", "Unvalidated", JOptionPane.DEFAULT_OPTION);
                 modal.dispose();
-                System.out.println("False");
             } else {
                 storeDatabase database = new storeDatabase();
                 database.createFolder();
                 database.createFile();
                 database.count();
-                database.register(username, password, fullname, phone, id, membership, totalSpending, status);
+                database.register(frame, username, password, fullname, phone, id, membership, totalSpending, status);
 
                 usernameField1.setText("");
                 passwordField1.setText("");
                 fullnameField.setText("");
                 phoneField.setText("");
 
-                JFrame modal = new JFrame("Successful");
-                modal.setVisible(true);
-                JOptionPane.showMessageDialog(frame, "Your account is registered!");
-                modal.dispose();
-//                SuccessfulModal successfulModal = new SuccessfulModal();
             }
         }
     }

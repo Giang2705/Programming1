@@ -155,11 +155,10 @@ public class AddNewProductForm implements ActionListener, ItemListener {
             } else {
                 Product product = new Product(productIdField1.getText(), productName, productCat, productPrice);
                 if (!error) {
-                    System.out.println("Add Prod");
                     storeDatabase database = new storeDatabase();
                     database.createProductFile();
                     database.productCountLine();
-                    database.addNewProduct(product);
+                    database.addNewProduct(frame, product);
                     readDatabase readDatabase = new readDatabase();
                     try {
                         readDatabase.readProductFile();
@@ -167,9 +166,8 @@ public class AddNewProductForm implements ActionListener, ItemListener {
                         throw new RuntimeException(ex);
                     }
                 }
-                JOptionPane.showMessageDialog(frame, "Successfully add new product");
-                frame.dispose();
                 try {
+                    frame.dispose();
                     AddNewProductForm addNewProductForm = new AddNewProductForm();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);

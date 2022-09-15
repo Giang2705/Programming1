@@ -1,8 +1,6 @@
 id,username,password,fullname,phone,membership,spending,status
 
-M.00SKE,Giang,123,Ha Giang,0909123456,SILVER,5502.54,loged out
-
-M.00Qjj,test,123,test,123,MEMBERSHIP,2500.99,loged out
-
-M.00lF6,register,123,register,0909123456,MEMBERSHIP,0.0,loged out
-M.00bQV,success,123,success,123,MEMBERSHIP,0.0,loged out
+M.00FTD,Giang,123,Nguyen Thi Ha Giang,0949822705,SILVER,8178.33,loged out
+M.00EqO,user1,123,user 1,0909123456,MEMBERSHIP,3954.95,loged out
+M.00bnX,user2,123456,user 2,0916765432,SILVER,5702.34,loged out
+M.00i4y,user4,123,user 4 ,123,MEMBERSHIP,0.0,loged out

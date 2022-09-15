@@ -5,6 +5,7 @@ import GUI.Components.AccountExists;
 import GUI.Components.CategoryExistsMessage;
 import GUI.Components.ProductExists;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -238,7 +239,7 @@ public class storeDatabase {
 
 
 
-    public void register(String username, String password, String fullname, String phone, String id, String membership, Double totalSpending, String status) {
+    public void register(JFrame frame, String username, String password, String fullname, String phone, String id, String membership, Double totalSpending, String status) {
         BufferedReader b = null;
         String rl = "";
         String delimiter = ",";
@@ -254,9 +255,8 @@ public class storeDatabase {
             while ((rl = b.readLine()) != null) {
                 String[] file = rl.split(delimiter);
 
-                if (file.length > 0) {
-                    if(file[0].equals(username)){
-                        System.out.println("False");
+                if (file.length > 1) {
+                    if(file[1].equals(username)){
                         checked = false;
                         AccountExists accountExists = new AccountExists();
                         break;
@@ -289,6 +289,11 @@ public class storeDatabase {
                 raf.writeBytes(",");
                 raf.writeBytes(status);
 
+                JFrame modal = new JFrame("Successful");
+                modal.setVisible(true);
+                JOptionPane.showMessageDialog(frame, "Your account is registered!");
+                modal.dispose();
+
                 System.out.println("User created!");
             }
 
@@ -300,7 +305,7 @@ public class storeDatabase {
     }
 
     // add new product
-    public void addNewProduct(Product product) {
+    public void addNewProduct(JFrame frame, Product product) {
         // add new Product in db
         String rl = "";
         String delimiter = ",";
@@ -312,8 +317,8 @@ public class storeDatabase {
             while ((rl = b.readLine()) != null) {
                 String[] file = rl.split(delimiter);
 
-                if (file.length > 0) {
-                    if(file[0].equals(product.getProductId())){
+                if (file.length > 1) {
+                    if(file[1].equals(product.getProductName())){
                         System.out.println("False");
                         proChecked = false;
                         ProductExists productExists = new ProductExists();
@@ -328,7 +333,11 @@ public class storeDatabase {
                 pw.printf("%s,%s,%s,%s\n", product.getProductId(), product.getProductName(), product.getProductCategory().getCategoryName(),product.getProductPrice());
                 pw.flush();
                 pw.close();
-                System.out.println("Successfully creating a new product!");
+
+                JFrame modal = new JFrame("Successful");
+                modal.setVisible(true);
+                JOptionPane.showMessageDialog(frame, "Product added successfully!");
+                modal.dispose();
             }
 
         } catch (FileNotFoundException e) {
