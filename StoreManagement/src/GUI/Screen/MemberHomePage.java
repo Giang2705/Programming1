@@ -36,6 +36,9 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
 
     public JButton username;
     private JButton Cart;
+    private JButton btnLogin;
+    private JButton btnRegister;
+    private JButton btnAdminLogin;
 
     readDatabase readDatabase = new readDatabase();
     List<Member> members = readDatabase.readUserFile();
@@ -45,7 +48,8 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
     private String selectedOption = "";
     String [] optionPrice = {"default", "ascending", "descending"};
     private String selectedCategory = "";
-
+    private String userName;
+    private boolean btnActive;
     JFrame frame = new JFrame();
 
     public MemberHomePage() throws IOException {
@@ -59,6 +63,7 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
             if (members.get(i).getStatus().equals("loged in")){
                 member = members.get(i);
                 username.setText(member.getUsername());
+                userName = member.getUsername();
             }
         }
         for (int i = 0; i < optionPrice.length; i++){
@@ -82,9 +87,25 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
         }
         category.addItemListener(this::itemStateChanged);
 
-        listProducts = new ListProducts(true, member.getUsername(), "default", "default");
+        if(userName == null){
+            btnActive = false;
+            Cart.setVisible(false);
+            btnLogout.setVisible(false);
+            username.setVisible(false);
+        } else {
+            btnActive = true;
+            btnLogin.setVisible(false);
+            btnRegister.setVisible(false);
+            btnAdminLogin.setVisible(false);
+        }
+
+        listProducts = new ListProducts(btnActive, userName, "default", "default");
         productList.setLayout(new GridLayout(1,1));
         productList.add(listProducts.productList);
+
+        btnLogin.addActionListener(this);
+        btnAdminLogin.addActionListener(this);
+        btnRegister.addActionListener(this);
 
         frame.setLayout(new GridLayout());
 
@@ -107,7 +128,7 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
                     if (selectedCategory.equals("default")) {
                         if (selectedOption.equals(optionPrice[j])) {
                             try {
-                                listProducts = new ListProducts(true, username.getText(), optionPrice[j], "default");
+                                listProducts = new ListProducts(btnActive, userName, optionPrice[j], "default");
                                 productList.removeAll();
                                 productList.add(listProducts.productList);
                                 frame.validate();
@@ -117,7 +138,7 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
                         }
                     } else if (selectedOption.equals(optionPrice[j]) && selectedCategory.equals(categories.get(i))) {
                         try {
-                            listProducts = new ListProducts(true, username.getText(), optionPrice[j], categories.get(i));
+                            listProducts = new ListProducts(btnActive, userName, optionPrice[j], categories.get(i));
                             productList.removeAll();
                             productList.add(listProducts.productList);
                             frame.validate();
@@ -136,6 +157,18 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnLogin){
+            frame.dispose();
+            UserLoginPage userLoginPage = new UserLoginPage();
+        }
+        if (e.getSource() == btnAdminLogin){
+            frame.dispose();
+            AdminLoginPage adminLoginPage = new AdminLoginPage();
+        }
+        if (e.getSource() == btnRegister){
+            frame.dispose();
+            UserRegisterForm userRegisterForm = new UserRegisterForm();
+        }
         if (e.getSource() == Cart){
             frame.dispose();
             try {
@@ -150,7 +183,7 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
             try {
                 ChangeLoginStatus changeLoginStatus = new ChangeLoginStatus();
                 changeLoginStatus.ChangeLoginStatus(member.getId(), status);
-                GuestHomePage guestHomePage = new GuestHomePage();
+                MemberHomePage memberHomePage = new MemberHomePage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

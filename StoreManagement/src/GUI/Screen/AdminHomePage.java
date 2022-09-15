@@ -126,7 +126,7 @@ public class AdminHomePage implements ActionListener {
                 for (int i = 0; i< admins.size(); i++){
                     admin = admins.get(i);
                 }
-                GuestHomePage guestHomePage = new GuestHomePage();
+                MemberHomePage memberHomePage = new MemberHomePage();
                 ChangeLoginStatus changeLoginStatus = new ChangeLoginStatus();
                 changeLoginStatus.ChangeLoginStatus(admin.getAdminId(), "loged out");
             } catch (IOException ex) {

@@ -42,7 +42,7 @@ public class AdminLoginPage implements ActionListener {
         if (e.getSource() == btnHome){
             frame.dispose();
             try {
-                GuestHomePage guestHomePage = new GuestHomePage();
+              MemberHomePage memberHomePage = new MemberHomePage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

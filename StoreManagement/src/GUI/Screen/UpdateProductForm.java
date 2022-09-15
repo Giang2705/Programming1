@@ -100,9 +100,9 @@ public class UpdateProductForm implements ActionListener{
             Product product = new Product(productIdField1.getText(), productNameField1.getText(), category, Double.parseDouble(productPriceField.getText()));
             updateDatabase updateDatabase = new updateDatabase();
             updateDatabase.editProduct("Database/products.csv", product);
-            JFrame modal = new JFrame("Update successful");
+            JFrame modal = new JFrame("Update successfully!");
             modal.setVisible(true);
-            JOptionPane.showMessageDialog(frame, "Product updated successfully!");
+            JOptionPane.showMessageDialog(frame, "Product is updated successfully!");
             modal.dispose();
             frame.dispose();
         }

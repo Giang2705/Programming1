@@ -37,7 +37,7 @@ public class WelcomeScreen implements ActionListener {
         if(e.getSource()==btnContinue){
             frame.dispose();
             try {
-                GuestHomePage guestHomePage = new GuestHomePage();
+                MemberHomePage memberHomePage = new MemberHomePage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

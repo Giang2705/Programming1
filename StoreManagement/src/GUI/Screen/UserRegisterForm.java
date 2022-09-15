@@ -54,7 +54,7 @@ public class UserRegisterForm implements ActionListener{
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
             try {
-                GuestHomePage guestHomePage = new GuestHomePage();
+                MemberHomePage memberHomePage = new MemberHomePage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -93,6 +93,11 @@ public class UserRegisterForm implements ActionListener{
                 passwordField1.setText("");
                 fullnameField.setText("");
                 phoneField.setText("");
+
+                JFrame modal = new JFrame("Successful");
+                modal.setVisible(true);
+                JOptionPane.showMessageDialog(frame, "Your account is registered!");
+                modal.dispose();
 //                SuccessfulModal successfulModal = new SuccessfulModal();
             }
         }
