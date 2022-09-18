@@ -38,7 +38,6 @@ public class storeDatabase {
                 throw new RuntimeException(e);
             }
         }
-
     }
 
     //    create admin database

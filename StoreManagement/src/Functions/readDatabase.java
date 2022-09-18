@@ -10,8 +10,6 @@ public class readDatabase {
     List<Admin> admins = new ArrayList<Admin>();
     List<Member> members = new ArrayList<Member>();
     List<Category> categories = new ArrayList<Category>();
-
-    List<String> categoryNames = new ArrayList<>();
     List<Product> products = new ArrayList<>();
     List<Cart> carts = new ArrayList<>();
     List<Order> orders = new ArrayList<>();
