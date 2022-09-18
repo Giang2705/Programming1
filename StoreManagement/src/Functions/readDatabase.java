@@ -92,25 +92,6 @@ public class readDatabase {
 
 //    array Categories
     public List<Category> readCategoryFile() throws IOException {
-//        try {
-//            FileReader reader = new FileReader("Database/categories.csv");
-//            BufferedReader reader1 = new BufferedReader(reader);
-//            reader1.readLine();
-//            String line;
-//            line = reader1.readLine();
-//
-////            boolean firstLine = true;
-//            while (line != null) {
-////                String[] array = line.split(",");
-//                categoryNames.add(line);
-//                line = reader1.readLine();;
-//            }
-//            reader.close();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return categoryNames;
 
         try {
             FileReader reader = new FileReader("Database/categories.csv");
@@ -152,10 +133,6 @@ public class readDatabase {
 
         return categories;
     }
-
-//    public List<String> getCategoryNames() {
-//        return categoryNames;
-//    }
 
 //  array products
 
