@@ -22,6 +22,9 @@ public class Member {
         this.discount = discount;
         this.status = status;
     }
+    public Member(){
+
+    }
 
     public Discount getDiscount() {
         return discount;
