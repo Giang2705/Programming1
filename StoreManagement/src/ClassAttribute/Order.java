@@ -10,6 +10,14 @@ public class Order {
     private String createdDate;
     private String status;
 
+    public Order(String id, List<Cart> cart, Double total, String createdDate, String status){
+        this.id = id;
+        this.cart = cart;
+        this.total = total;
+        this.createdDate = createdDate;
+        this.status = status;
+    }
+
 //    Constructor
     public String getId() {
         return id;
@@ -42,13 +50,6 @@ public class Order {
         this.createdDate = createdDate;
     }
 
-    public Order(String id, List<Cart> cart, Double total, String createdDate, String status){
-        this.id = id;
-        this.cart = cart;
-        this.total = total;
-        this.createdDate = createdDate;
-        this.status = status;
-    }
 
 //    calculate total of order
     private double orderSum(){

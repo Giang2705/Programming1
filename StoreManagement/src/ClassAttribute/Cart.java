@@ -13,6 +13,15 @@ public class Cart {
     private String status;
 
 //    Constructors
+    public Cart(String id, Member member, Product product, double amount, double total, String createdDate, String status){
+        this.id = id;
+        this.member = member;
+        this.product = product;
+        this.amount = amount;
+        this.total = total;
+        this.createdDate = createdDate;
+        this.status = status;
+    }
     public String getId() {
     return id;
 }
@@ -67,14 +76,5 @@ public class Cart {
         this.total = total;
     }
 
-    public Cart(String id, Member member, Product product, double amount, double total, String createdDate, String status){
-        this.id = id;
-        this.member = member;
-        this.product = product;
-        this.amount = amount;
-        this.total = total;
-        this.createdDate = createdDate;
-        this.status = status;
-    }
 
 }

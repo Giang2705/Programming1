@@ -1,5 +1,4 @@
 package ClassAttribute;
-
 public class Member {
 //    Attribute
     private String id;
@@ -7,13 +6,23 @@ public class Member {
     private String password;
     private String fullname;
     private String phone;
-
     private String membership;
     private double totalSpending = 0;
     private Discount discount;
     private String status;
+    //    Constructors
+    public Member(String id, String username, String password, String fullname, String phone, String membership, double totalSpending, Discount discount, String status) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.membership = membership;
+        this.totalSpending = totalSpending;
+        this.discount = discount;
+        this.status = status;
+    }
 
-//    Constructors
     public Discount getDiscount() {
         return discount;
     }
