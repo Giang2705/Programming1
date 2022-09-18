@@ -349,6 +349,7 @@ public class storeDatabase {
     // add new category
     public void addNewCategory(Category category, List<Product> products, JFrame frame) {
 
+        boolean checked = true;
         readDatabase readDatabase = new readDatabase();
 
         BufferedReader b = null;
@@ -358,27 +359,41 @@ public class storeDatabase {
 //        add new data in db
         try {
 //            condition
-            List<Category> categories = new ArrayList<Category>();
-            FileReader fr = new FileReader("Database/categories.csv");
-            b = new BufferedReader(fr);
-
-            while ((rl = b.readLine()) != null) {
-                String[] file = rl.split(delimiter);
-            }
-            RandomAccessFile raf = new RandomAccessFile(f + "/categories.csv", "rw");
-
-            for(int i = 0; i<line; i++){
-                raf.readLine();
+            List<Category> categories = readDatabase.readCategoryFile();
+            for (int i = 0; i < categories.size(); i++) {
+                if (categories.get(i).getCategoryName().equals(category.getCategoryName())){
+                    checked = false;
+                    break;
+                }
             }
 
-            raf.writeBytes("\r\n");
-            raf.writeBytes(category.getCategoryName());
-            raf.writeBytes(",");
-            raf.writeBytes("+");
+            if (!checked){
+                CategoryExistsMessage categoryExistsMessage = new CategoryExistsMessage();
+            } else {
+                FileReader fr = new FileReader("Database/categories.csv");
+                b = new BufferedReader(fr);
 
-            System.out.println("Category created!");
+                while ((rl = b.readLine()) != null) {
+                    String[] file = rl.split(delimiter);
+                }
+                RandomAccessFile raf = new RandomAccessFile(f + "/categories.csv", "rw");
 
+                for(int i = 0; i<line; i++){
+                    raf.readLine();
+                }
 
+                raf.writeBytes("\r\n");
+                raf.writeBytes(category.getCategoryName());
+                raf.writeBytes(",");
+                raf.writeBytes("+");
+
+                JFrame modal = new JFrame("Successful");
+                modal.setVisible(true);
+                JOptionPane.showMessageDialog(frame, "Category added successfully!");
+                modal.dispose();
+
+                System.out.println("Category created!");
+            }
         } catch (FileNotFoundException e) {
             Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
         } catch (IOException e) {
