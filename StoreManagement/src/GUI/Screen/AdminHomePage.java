@@ -1,6 +1,7 @@
 package GUI.Screen;
 
 import ClassAttribute.Admin;
+import ClassAttribute.Category;
 import ClassAttribute.Product;
 import Functions.ChangeLoginStatus;
 import Functions.readDatabase;
@@ -82,6 +83,7 @@ public class AdminHomePage implements ActionListener {
     }
     public AdminHomePage(String adminUsername) throws IOException {
         readDatabase readDatabase =new readDatabase();
+        List<Category> categories = readDatabase.readCategoryFile();
         List<Product> products = readDatabase.readProductFile();
 
         textField1.setVisible(false);

@@ -6,6 +6,7 @@ import Functions.*;
 import GUI.Screen.WelcomeScreen;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -33,6 +34,5 @@ public class Main {
 
 //        running welcome screen
         WelcomeScreen welcomeScreen = new WelcomeScreen();
-
     }
 }

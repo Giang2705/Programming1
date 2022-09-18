@@ -2,12 +2,16 @@ package GUI.Components;
 
 import ClassAttribute.Category;
 import ClassAttribute.Product;
+import Functions.DeleteProductInCategory;
 import Functions.deleteDatabase;
+import Functions.readDatabase;
 import GUI.Screen.UpdateProductForm;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.List;
 
 public class ProductItemAdmin implements ActionListener {
     private JPanel Main;
@@ -127,26 +131,54 @@ public class ProductItemAdmin implements ActionListener {
         btnDelete.addActionListener(this);
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnEdit){
+            Category category = new Category(null, null);
+            readDatabase readDatabase = new readDatabase();
+            try {
+                List<Category> categories = readDatabase.readCategoryFile();
+                for (int i = 0; i < categories.size(); i++){
+                    if (categories.get(i).getCategoryName().equals(this.category.getText())){
+                        category = categories.get(i);
+                    }
+                }
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             String id = this.id.getText();
             String name = this.name.getText();
-            String category = this.category.getText();
             Double price = Double.parseDouble(this.price.getText());
 
-            UpdateProductForm updateProductForm = new UpdateProductForm(id, name, category, price);
+            try {
+                UpdateProductForm updateProductForm = new UpdateProductForm(id, name, category, price);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == btnDelete){
+            Category category = new Category(null, null);
+            readDatabase readDatabase = new readDatabase();
+            try {
+                List<Category> categories = readDatabase.readCategoryFile();
+                for (int i = 0; i < categories.size(); i++){
+                    if (categories.get(i).getCategoryName().equals(this.category.getText())){
+                        category = categories.get(i);
+                    }
+                }
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             deleteDatabase deleteDatabase = new deleteDatabase();
             String id = this.id.getText();
             String name = this.name.getText();
-            Category category = new Category(this.category.getText());
             Double price = Double.parseDouble(this.price.getText());
 
             Product deletedProduct = new Product(id, name, category, price);
             deleteDatabase.removeRecord("Database/products.csv", deletedProduct);
 
+            DeleteProductInCategory deleteProductInCategory = new DeleteProductInCategory(deletedProduct);
         }
     }
 }

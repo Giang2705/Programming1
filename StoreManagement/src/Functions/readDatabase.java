@@ -9,10 +9,13 @@ public class readDatabase {
 //    Create Object array
     List<Admin> admins = new ArrayList<Admin>();
     List<Member> members = new ArrayList<Member>();
+    List<Category> categories = new ArrayList<Category>();
+
     List<String> categoryNames = new ArrayList<>();
     List<Product> products = new ArrayList<>();
     List<Cart> carts = new ArrayList<>();
     List<Order> orders = new ArrayList<>();
+
 
 
 //    read database (add elements into object array)
@@ -88,7 +91,27 @@ public class readDatabase {
     }
 
 //    array Categories
-    public List<String> readCategoryFile() throws IOException {
+    public List<Category> readCategoryFile() throws IOException {
+//        try {
+//            FileReader reader = new FileReader("Database/categories.csv");
+//            BufferedReader reader1 = new BufferedReader(reader);
+//            reader1.readLine();
+//            String line;
+//            line = reader1.readLine();
+//
+////            boolean firstLine = true;
+//            while (line != null) {
+////                String[] array = line.split(",");
+//                categoryNames.add(line);
+//                line = reader1.readLine();;
+//            }
+//            reader.close();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return categoryNames;
+
         try {
             FileReader reader = new FileReader("Database/categories.csv");
             BufferedReader reader1 = new BufferedReader(reader);
@@ -98,24 +121,45 @@ public class readDatabase {
 
 //            boolean firstLine = true;
             while (line != null) {
-//                String[] array = line.split(",");
-                categoryNames.add(line);
-                line = reader1.readLine();;
+                List<Product> productsInCategory = new ArrayList<>();
+                String[] file = line.split(",");
+
+                if (!line.equals("") && file.length > 0){
+
+                    if (file[1] != null){
+                        String[] productsArr = file[1].replace("+", "-").split("-");
+
+                        for (int i = 0; i < products.size(); i++){
+                            int j = 1;
+                            while (j < productsArr.length){
+                                if(products.get(i).getProductId().equals(productsArr[j])){
+                                    productsInCategory.add(products.get(i));
+                                }
+                                j += 2;
+                            }
+                        }
+                    }
+                    Category category = new Category(file[0], productsInCategory);
+                    categories.add(category);
+                }
+                line = reader1.readLine();
             }
             reader.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            return categories = null;
         }
-        return categoryNames;
+
+        return categories;
     }
 
-    public List<String> getCategoryNames() {
-        return categoryNames;
-    }
+//    public List<String> getCategoryNames() {
+//        return categoryNames;
+//    }
 
 //  array products
-public List<Product> readProductFile() throws IOException {
+
+    public List<Product> readProductFile() throws IOException {
     try {
         FileReader reader = new FileReader("Database/products.csv");
         BufferedReader reader1 = new BufferedReader(reader);
@@ -125,19 +169,33 @@ public List<Product> readProductFile() throws IOException {
 
 //            boolean firstLine = true;
         while (line != null) {
+            List<Product> productsInCate = new ArrayList<>();
+            Category category = new Category();
             String[] array = line.split(",");
-            Product temp = new Product(array[0],array[1],new Category(array[2]), Double.parseDouble(array[3]));
+
+            category.setCategoryName(array[2]);
+
+            Product temp = new Product(array[0],array[1], category, Double.parseDouble(array[3]));
 //                if (array[0] != "id" && array[1] != "name") {
 //                    System.out.printf("ProId: " + temp.getProductId() + ", ProName: " + temp.getProductName() + ", ProCat: " + temp.getProductCategory().getCategoryName() + ", ProPrice: " + temp.getProductPrice() + "\n");
             products.add(temp);
+            for (int i = 0; i < products.size(); i++){
+
+                if(products.get(i).getProductCategory().getCategoryName().equals(category.getCategoryName())){
+                    productsInCate.add(products.get(i));
+                }
+            }
+            category.setProducts(productsInCate);
+
             line = reader1.readLine();
+
+
         }
         reader.close();
 
     } catch (IOException e) {
         e.printStackTrace();
     }
-
     return products;
 }
 

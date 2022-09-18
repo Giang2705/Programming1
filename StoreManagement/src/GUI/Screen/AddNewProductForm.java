@@ -3,6 +3,7 @@ package GUI.Screen;
 import ClassAttribute.Admin;
 import ClassAttribute.Category;
 import ClassAttribute.Product;
+import Functions.AddNewProductToCategory;
 import Functions.GenerateID;
 import Functions.readDatabase;
 import Functions.storeDatabase;
@@ -14,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddNewProductForm implements ActionListener, ItemListener {
@@ -37,11 +39,12 @@ public class AddNewProductForm implements ActionListener, ItemListener {
     private JLabel productPriceLabel;
     private JComboBox categoryList1;
 
-    private List<String> categories;
+    private List<String> categories = new ArrayList<>();
     private String selectedItem = "";
 
     private String[] catList;
     Functions.readDatabase readDatabase = new readDatabase();
+    List<Category> categoriesList = readDatabase.readCategoryFile();
     List<Product> products = readDatabase.readProductFile();
 
     AddNewProductForm() throws IOException {
@@ -63,13 +66,15 @@ public class AddNewProductForm implements ActionListener, ItemListener {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        categories = readData.getCategoryNames();
+
+        for (int i = 0; i<categoriesList.size(); i++){
+            categories.add(categoriesList.get(i).getCategoryName());
+        }
 
         String[] categoryArray = categories.toArray(new String[0]);
         catList = categoryArray;
 
         categoryList1 = new JComboBox(categoryArray);
-//        String catDefault = categoryArray[0];
 
         categoryList1.addItemListener(this::itemStateChanged);
 
@@ -134,8 +139,16 @@ public class AddNewProductForm implements ActionListener, ItemListener {
 
 
         if (e.getSource() == btnAdd){
+            if(selectedItem.equals("")){
+                selectedItem = catList[0];
+            }
+            Category productCat = new Category(null, null);
             String productName = productNameField1.getText();
-            Category productCat = new Category(selectedItem);
+            for (int i = 0; i < categoriesList.size(); i++){
+                if (categoriesList.get(i).getCategoryName().equals(selectedItem)){
+                    productCat = new Category(selectedItem, categoriesList.get(i).getProducts());
+                }
+            }
 //            System.out.println(productCat);
             double productPrice = 0;
             try {
@@ -155,10 +168,16 @@ public class AddNewProductForm implements ActionListener, ItemListener {
             } else {
                 Product product = new Product(productIdField1.getText(), productName, productCat, productPrice);
                 if (!error) {
+                    AddNewProductToCategory addNewProductToCategory = new AddNewProductToCategory();
                     storeDatabase database = new storeDatabase();
                     database.createProductFile();
                     database.productCountLine();
                     database.addNewProduct(frame, product);
+                    try {
+                        addNewProductToCategory.AddNewProduct(productCat.getCategoryName(), product);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     readDatabase readDatabase = new readDatabase();
                     try {
                         readDatabase.readProductFile();

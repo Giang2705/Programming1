@@ -1,6 +1,7 @@
 package GUI.Components;
 
 import ClassAttribute.Cart;
+import ClassAttribute.Category;
 import ClassAttribute.Member;
 import ClassAttribute.Product;
 import Functions.*;

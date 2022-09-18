@@ -1,5 +1,6 @@
 package GUI.Screen;
 
+import ClassAttribute.Category;
 import ClassAttribute.Member;
 import ClassAttribute.Product;
 import Functions.ChangeLoginStatus;
@@ -15,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MemberHomePage extends Component implements ActionListener, ItemListener {
@@ -44,13 +46,14 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
     List<Member> members = readDatabase.readUserFile();
     Member member;
     ListProducts listProducts;
-    private List<String> categories;
+    private List<String> categories = new ArrayList<>();
     private String selectedOption = "";
     String [] optionPrice = {"default", "ascending", "descending"};
     private String selectedCategory = "";
     private String userName;
     private boolean btnActive;
     JFrame frame = new JFrame();
+    List<Category> categoriesList = readDatabase.readCategoryFile();
 
     public MemberHomePage() throws IOException {
         Cart.addActionListener(this);
@@ -77,14 +80,16 @@ public class MemberHomePage extends Component implements ActionListener, ItemLis
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        categories = readData.getCategoryNames();
-        for (int i = 0; i < categories.size(); i++) {
-           if (i == 0) {
-               category.addItem("default");
-           } else {
-               category.addItem(categories.get(i));
-           }
+
+        for (int i = 0; i < categoriesList.size(); i++){
+            categories.add(categoriesList.get(i).getCategoryName());
         }
+
+        category.addItem("default");
+        for (int i = 0; i < categories.size(); i++) {
+               category.addItem(categories.get(i));
+        }
+
         category.addItemListener(this::itemStateChanged);
 
         if(userName == null){

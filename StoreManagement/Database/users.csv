@@ -1,6 +1,4 @@
 id,username,password,fullname,phone,membership,spending,status
 
-M.00FTD,Giang,123,Nguyen Thi Ha Giang,0949822705,SILVER,8178.33,loged out
-M.00EqO,user1,123,user 1,0909123456,MEMBERSHIP,3954.95,loged out
-M.00bnX,user2,123456,user 2,0916765432,SILVER,5702.34,loged out
-M.00i4y,user4,123,user 4 ,123,MEMBERSHIP,0.0,loged out
+M.00FTD,Giang,123,Nguyen Thi Ha Giang,0949822705,SILVER,5697.4005,loged out
+M.00Vzt,Quy,123,Trinh Viet Quy,09121231234,MEMBERSHIP,0.0,loged out

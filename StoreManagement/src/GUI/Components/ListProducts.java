@@ -1,5 +1,6 @@
 package GUI.Components;
 
+import ClassAttribute.Category;
 import ClassAttribute.Product;
 import Functions.SortByCategory;
 import Functions.SortByPrice;
@@ -9,13 +10,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListProducts {
     public JPanel productList;
     readDatabase readDatabase = new readDatabase();
+    List<Category> categoriesList = readDatabase.readCategoryFile();
     List<Product> products = readDatabase.readProductFile();
-    List<String> categories = readDatabase.readCategoryFile();
+    List<String> categories = new ArrayList<>();
     SortByPrice sortByPrice = new SortByPrice();
 
     SortByCategory sortByCategory = new SortByCategory();
@@ -32,10 +35,14 @@ public class ListProducts {
     }
 
     public ListProducts(boolean btnActive, String username, String sortPrice, String sortCategory) throws IOException {
+        for (int i = 0; i < categoriesList.size(); i++){
+            categories.add(categoriesList.get(i).getCategoryName());
+        }
+
         if (sortCategory.equals("default")){
             sortByPrice(sortPrice, products);
         }
-        for (int i = 1; i < categories.size(); i++){
+        for (int i = 0; i < categories.size(); i++){
             if (sortCategory.equals(categories.get(i))){
                 products = sortByCategory.sortByCategory(categories.get(i));
                 sortByPrice(sortPrice, products);

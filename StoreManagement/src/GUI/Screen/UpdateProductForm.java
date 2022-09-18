@@ -35,8 +35,11 @@ public class UpdateProductForm implements ActionListener{
     private JLabel admin;
 
     private String[] catList;
+    private Category categoryUpdated;
+    readDatabase readDatabase = new readDatabase();
+    List<Category> categories = readDatabase.readCategoryFile();
 
-    public UpdateProductForm(String id, String name, String category, Double price){
+    public UpdateProductForm(String id, String name, Category category, Double price) throws IOException {
 
 
 //        String productId = GenerateID.getID(10);
@@ -44,7 +47,7 @@ public class UpdateProductForm implements ActionListener{
 
         productIdField1.setText(id);
         productNameField1.setText(name);
-        category1.setText(category);
+        category1.setText(category.getCategoryName());
         productPriceField.setText(String.valueOf(price));
 
 
@@ -85,6 +88,12 @@ public class UpdateProductForm implements ActionListener{
         frame.setSize(960,720);
         frame.pack();
 
+        for (int i = 0; i<categories.size(); i++){
+            if (categories.get(i).getCategoryName().equals(category.getCategoryName())){
+                categoryUpdated = categories.get(i);
+            }
+        }
+
     }
 
     @Override
@@ -96,8 +105,7 @@ public class UpdateProductForm implements ActionListener{
         }
 
         if (e.getSource() == btnUpdate){
-            Category category = new Category(category1.getText());
-            Product product = new Product(productIdField1.getText(), productNameField1.getText(), category, Double.parseDouble(productPriceField.getText()));
+            Product product = new Product(productIdField1.getText(), productNameField1.getText(), categoryUpdated, Double.parseDouble(productPriceField.getText()));
             updateDatabase updateDatabase = new updateDatabase();
             updateDatabase.editProduct("Database/products.csv", product);
             JFrame modal = new JFrame("Update successfully!");

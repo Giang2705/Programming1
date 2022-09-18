@@ -1,5 +1,6 @@
 package GUI.Screen;
 
+import ClassAttribute.Admin;
 import ClassAttribute.Category;
 import ClassAttribute.Product;
 import Functions.readDatabase;
@@ -49,11 +50,19 @@ public class AddNewCategoryForm implements ActionListener{
 //        }
         if (e.getSource() == btnHome || e.getSource() == btnCancel){
             frame.dispose();
-//            try {
-//                AdminHomePage adminHomePage = new AdminHomePage(products);
-//            } catch (IOException ex) {
-//                throw new RuntimeException(ex);
-//            }
+            try {
+                List<Admin> admins = readDatabase.readAdminFile();
+                Admin admin = new Admin();
+                for (int i = 0; i < admins.size(); i++) {
+                    if(admins.get(i).getStatus().equals("loged in")){
+                        admin = admins.get(i);
+                        break;
+                    }
+                }
+                AdminHomePage adminHomePage = new AdminHomePage(admin.getAdminUsername());
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
         if (e.getSource() == btnClear){
@@ -69,14 +78,16 @@ public class AddNewCategoryForm implements ActionListener{
                 modal.dispose();
                 System.out.println("False");
             } else {
-                Category category = new Category(name);
+                Category category = new Category(name, null);
                 storeDatabase database = new storeDatabase();
 
 //            database.createFolder();
                 database.createCategoryFile();
                 database.categoryCountLine();
-                database.addNewCategory(category);
+                database.addNewCategory(category, null, frame);
                 readDatabase readDatabase = new readDatabase();
+
+                categoryNameField1.setText("");
                 try {
                     readDatabase.readCategoryFile();
                 } catch (IOException ex) {

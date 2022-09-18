@@ -69,7 +69,7 @@ public class storeDatabase {
                 FileWriter fw = new FileWriter("Database/categories.csv");
                 BufferedWriter bw = new BufferedWriter(fw);
                 PrintWriter pw = new PrintWriter(bw);
-                pw.println("name");
+                pw.println("name,products");
                 pw.flush();
                 pw.close();
 
@@ -348,37 +348,79 @@ public class storeDatabase {
     }
 
     // add new category
-    public void addNewCategory(Category category) {
-        // add new Product in db
+    public void addNewCategory(Category category, List<Product> products, JFrame frame) {
+//        // add new Product in db
+//        String rl = "";
+//        try {
+//            FileReader fr = new FileReader("Database/categories.csv");
+//            BufferedReader b = new BufferedReader(fr);
+//            boolean catChecked = true;
+//
+//            while ((rl = b.readLine()) != null) {
+//                if(rl.equals(category.getCategoryName())){
+//                    System.out.println("False");
+//                    catChecked = false;
+//                    CategoryExistsMessage categoryExistsMessage = new CategoryExistsMessage();
+//                    break;
+//                }
+//            }
+//            if (catChecked) {
+//                FileWriter fw = new FileWriter("Database/categories.csv", true);
+//                BufferedWriter bw = new BufferedWriter(fw);
+//                PrintWriter pw = new PrintWriter(bw);
+//                pw.printf("%s\n", category.getCategoryName());
+//                pw.flush();
+//                pw.close();
+//
+//                JFrame modal = new JFrame("Unvalidated");
+//                modal.setVisible(true);
+//                JOptionPane.showMessageDialog(frame, "A new category added successfully!");
+//                modal.dispose();
+//                System.out.println("Successfully creating a new category!");
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+//        } catch (IOException e) {
+//            Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
+//        }
+
+        readDatabase readDatabase = new readDatabase();
+
+        BufferedReader b = null;
         String rl = "";
+        String delimiter = ",";
+
+//        add new data in db
         try {
+//            condition
+            List<Category> categories = new ArrayList<Category>();
             FileReader fr = new FileReader("Database/categories.csv");
-            BufferedReader b = new BufferedReader(fr);
-            boolean catChecked = true;
+            b = new BufferedReader(fr);
 
             while ((rl = b.readLine()) != null) {
-                if(rl.equals(category.getCategoryName())){
-                    System.out.println("False");
-                    catChecked = false;
-                    CategoryExistsMessage categoryExistsMessage = new CategoryExistsMessage();
-                    break;
-                }
+                String[] file = rl.split(delimiter);
             }
-            if (catChecked) {
-                FileWriter fw = new FileWriter("Database/categories.csv", true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                PrintWriter pw = new PrintWriter(bw);
-                pw.printf("%s\n", category.getCategoryName());
-                pw.flush();
-                pw.close();
-                System.out.println("Successfully creating a new category!");
+            RandomAccessFile raf = new RandomAccessFile(f + "/categories.csv", "rw");
+
+            for(int i = 0; i<line; i++){
+                raf.readLine();
             }
+
+            raf.writeBytes("\r\n");
+            raf.writeBytes(category.getCategoryName());
+            raf.writeBytes(",");
+            raf.writeBytes("+");
+
+            System.out.println("Category created!");
+
 
         } catch (FileNotFoundException e) {
             Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
         } catch (IOException e) {
             Logger.getLogger(storeDatabase.class.getName()).log(Level.SEVERE, null, e);
         }
+
     }
     public void addProductToCart(Cart cart) {
         BufferedReader b = null;
